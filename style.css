@@ -6,22 +6,6 @@
     padding: 0;
     background-color: #f2f2f2;
   }
-  
-  
-
-  .social_Facebook{
-    content: url('https://api.iconify.design/ion/logo-facebook.svg');
-  }
-  .social_Instagram{
-    content: url('https://api.iconify.design/ion/logo-instagram.svg');
-  }
-  .social_Linkedin{
-    content: url('https://api.iconify.design/ion/logo-linkedin.svg');
-  }
-  .social_Twitter{
-    content: url('https://api.iconify.design/ion/logo-twitter.svg');
-  }
-
 
 /* Define a formatação para o cabeçalho */
   header {
@@ -95,11 +79,13 @@
     list-style: none; /* remove o estilo padrão de lista */
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    background-color: #333;
   }
   
   .horizontal-list li {
     display: inline-block; /* exibe os itens em linha */
-    margin-right: 10px; /* adiciona um espaço entre os itens */
+    margin-right: 10px; /* adiciona um espaço entre os itens */ 
  }
  
  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
@@ -127,6 +113,9 @@
  footer {
      width: 100%;
      color: var(--color-neutral-40);
+     position: fixed;
+     bottom:0;
+     left:0;
  }
  
  .footer-link {
@@ -178,9 +167,13 @@
  }
  
  #whatsapp {
-     background-color: #25d366;
+     background-color: #208f48;
  }
  
+ #linkedin {
+     background-color: #3787c9;
+ }
+
  .footer-list {
      display: flex;
      flex-direction: column;
@@ -194,16 +187,16 @@
  }
  
  .footer-list .footer-link:hover {
-     color: #7f37c9;
+     color: #3787c9;
  }
  
- #footer_subscribe {
+ #footer_email {
      display: flex;
      flex-direction: column;
      gap: 1.5rem;
  }
  
- #footer_subscribe p {
+ #footer_email p {
      color: var(--color-neutral-30);
  }
  
@@ -221,7 +214,7 @@
  }
  
  #input_group button {
-     background-color: #7f37c9;
+     background-color: #3793c9;
      border: none;
      color: var(--color-neutral-40);
      padding: 0px 1.25rem;
@@ -234,15 +227,6 @@
  
  #input_group button:hover {
      opacity: 0.8;
- }
- 
- #footer_copyright {
-     display: flex;
-     justify-content: center;
-     background-color: var(--color-neutral-0);
-     font-size: 0.9rem;
-     padding: 1.5rem;
-     font-weight: 100;
  }
  
  @media screen and (max-width: 768px) {

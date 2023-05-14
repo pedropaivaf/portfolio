@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfólio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
   </nav>
 <hr>
 <h2>Contato</h2>
-    <p>Entre em contato comigo através dos canais abaixo:</p>
+<br>
     <ul>
       <li>E-mail: pedro.p.ferreira@hotmail.com</li>
       <li>Telefone: (32) 98401-9757</li>
@@ -39,4 +40,76 @@
       <textarea id="mensagem" name="mensagem"></textarea>
       <input type="submit" value="Enviar" onclick="alert('Sua mensagem foi enviada!')">  
     </form>
+    <footer>
+      <div id="footer_content">
+          <div id="footer_contacts">
+              <h2>Redes sociais</h2>
+
+              <div id="footer_social_media">
+                  <a href="https://www.instagram.com/pedro_paiva_ferreira/" class="footer-link" id="instagram">
+                      <i class="fa-brands fa-instagram"></i>
+                  </a>
+
+                  <a href="https://www.facebook.com/profile.php?id=100005663922497" class="footer-link" id="facebook">
+                      <i class="fa-brands fa-facebook-f"></i>
+                  </a>
+
+                  <a href="https://wa.me//5532984019757?text=Tenho%20interesse%20em%20te%20contratar!" class="footer-link" id="whatsapp">
+                      <i class="fa-brands fa-whatsapp"></i>
+                  </a>
+
+                  <a href="https://www.linkedin.com/in/pedro-paiva-19187b26a/" class="footer-link" id="linkedin">
+                      <i class="fa-brands fa-linkedin-in"></i>
+                  </a>
+              </div>
+          </div>
+          
+          <ul class="footer-list">
+              <li>
+                  <h3>recomendações</h3>
+              </li>
+              <li>
+                  <a href="https://www.techtudo.com.br/" class="footer-link">Tech</a>
+              </li>
+              <li>
+                  <a href="https://www.atptour.com/en/" class="footer-link">Esportes</a>
+              </li>
+              <li>
+                  <a href="https://open.spotify.com/user/2263iodmujhqsku7l4ajefisa?si=e2077b3599e14d3f" class="footer-link">Música</a>
+              </li>
+          </ul>
+
+          <ul class="footer-list">
+              <li>
+                  <h3>Projetos</h3>
+              </li>
+              <li>
+                  <a href="https://github.com/pedropaivaf" class="footer-link">Github
+                      <i class="fa-brands fa-github"></i>
+                  </a>
+              </li>
+          </ul>
+
+          <div id="footer_email">
+              <h3>Entre em contato via Email</h3>
+
+              <p>
+                  Digite seu e-mail para ser avisado sobre
+                  nossas soluções e novidades
+              </p>
+
+              <div id="input_group">
+                  <input type="email" id="email">
+                  <button onclick="myFunction()">
+                      <i class="fa-regular fa-envelope"></i>
+                      <script>
+                          function myFunction() {
+                            alert("Seu email foi enviado!");
+                          }
+                      </script>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </footer>
 </html>
