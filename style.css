@@ -4,7 +4,7 @@
     font-size: 16px;
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
   }
 
 /* Define a formatação para o cabeçalho */
@@ -16,7 +16,12 @@
     background-color: #0077B5;
     color: #ffffff;
   }
-  
+
+  h1{
+    text-align: left;
+    
+  }
+
 /* Define a formatação para o menu de navegação */
   nav {
     display: flex;
@@ -68,7 +73,7 @@
   }
   
   li a {
-    color:  #0077B5;
+    color:  #ffffff;
     text-decoration: none;
   }
   
@@ -80,8 +85,8 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
-  }
+    background-color: #0077B5;
+}
   
   .horizontal-list li {
     display: inline-block; /* exibe os itens em linha */
@@ -113,9 +118,8 @@
  footer {
      width: 100%;
      color: var(--color-neutral-40);
-     position: fixed;
-     bottom:0;
-     left:0;
+     position: absolute;
+     bottom: 0;
  }
  
  .footer-link {
