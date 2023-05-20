@@ -17,11 +17,52 @@
     color: #ffffff;
   }
 
+  .content{
+    padding: 30px;
+  }
+
+  .p1{
+    padding: 30px;
+  }
+
   h1{
-    text-align: left;
+    text-align: center;
     
   }
 
+  .projetos{
+    align-items: calc(50%);
+  }
+
+  .h1portfolio{
+    padding: 30px;
+  }
+  .h2portfolio{
+    padding: 10px;
+    text-align: left;
+    text-decoration: underline;
+  }
+
+  .h3portfolio{
+    padding: 30px;
+    text-align: left;
+  }
+
+  .card {
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: 300px;
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 110px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #0076b53f,
+                  -20px -20px 60px #ffffff;
+   }
+   
 /* Define a formatação para o menu de navegação */
   nav {
     display: flex;
@@ -228,4 +269,13 @@
          grid-template-columns: repeat(1, 1fr);
          padding: 3rem 2rem;
      }
+ }
+
+ .contatos{
+  padding: 90px;
+  text-align: left;
+ }
+
+ .linksli a{
+  color: #0077B5;
  }
