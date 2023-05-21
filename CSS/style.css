@@ -5,20 +5,34 @@
     margin: 0;
     padding: 0;
     background-color: #ffffff;
+    overflow-x: hidden;
   }
 
 /* Define a formatação para o cabeçalho */
   header {
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    display: flex; 
+    justify-content: right;
     align-items: center;
-    padding: 20px;
+    width: 100%;
+    padding: 16px;
     background-color: #0077B5;
     color: #ffffff;
   }
 
+  .portfoliomain{
+    padding: 20px;
+    margin: 0;
+    margin-left: left;
+    height: auto;
+  }
+
   .content{
-    padding: 30px;
+    padding: 20px;
+  }
+
+  .h3calc{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
   .p1{
@@ -28,10 +42,6 @@
   h1{
     text-align: center;
     
-  }
-
-  .projetos{
-    align-items: calc(50%);
   }
 
   .h1portfolio{
@@ -62,12 +72,7 @@
     box-shadow: 20px 20px 60px #0076b53f,
                   -20px -20px 60px #ffffff;
    }
-   
-/* Define a formatação para o menu de navegação */
-  nav {
-    display: flex;
-  }
-  
+
   nav a {
     display: block;
     padding: 10px;
@@ -81,9 +86,9 @@
   
 /* Define a formatação para o conteúdo principal */
   main {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    height:auto;
+    margin: 0px auto;
   }
   
   /* Define a formatação para a lista de projetos */
@@ -91,6 +96,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+
   }
   
   li {
@@ -105,18 +111,107 @@
   li a:hover {
     text-decoration: none;
   }
-  .horizontal-list {
+
+  /*menu responsivo */
+
+  nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+    background: #0077B5;
+    height: 8vh;
+  }
+  
+  .logo {
+    font-size: 24px;
+    text-transform: uppercase;
+    position: absolute;
+    left: 16px; /* ou a distância desejada da borda direita */
+  }
+
+  .nav-list {
     list-style: none; /* remove o estilo padrão de lista */
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #0077B5;
-}
+    display: flex; /* altera para exibir os itens em linha */
+    justify-content: center; /* centraliza os itens horizontalmente */
+    align-content: right;
+  }
+
+  .nav-list li {
+    letter-spacing: 3px;
+    margin: 0 5px;
+  }
   
-  .horizontal-list li {
-    display: inline-block; /* exibe os itens em linha */
-    margin-right: 10px; /* adiciona um espaço entre os itens */ 
- }
+  .mobile-menu {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .mobile-menu div {
+    width: 32px;
+    height: 2px;
+    background: #fff;
+    margin: 8px;
+    transition: 0.3s;
+  }
+  
+  @media (max-width: 999px) {
+    body {
+      overflow-x: hidden;
+    }
+    .nav-list {
+      display: flex;
+      position: absolute;
+      top: 8vh;
+      right: 0;
+      width: 50vw;
+      height: 92vh;
+      background: #0077B5;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in;
+    }
+    .nav-list li {
+      margin: 0;
+      opacity: 0;
+    }
+    .mobile-menu {
+      display: block;
+    }
+  }
+  
+  .nav-list.active {
+    transform: translateX(0);
+  }
+  
+  @keyframes navLinkFade {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .mobile-menu.active .line1 {
+    transform: rotate(-45deg) translate(-8px, 8px);
+  }
+  
+  .mobile-menu.active .line2 {
+    opacity: 0;
+  }
+  
+  .mobile-menu.active .line3 {
+    transform: rotate(45deg) translate(-5px, -7px);
+  }
  
  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
 
@@ -137,13 +232,14 @@
  }
  
  main {
-     height: 80vh;
+     height: 90vh;
  }
  
  footer {
      width: 100%;
      color: var(--color-neutral-40);
      bottom: 0;
+     display: flex;
  }
  
  .footer-link {
