@@ -40,28 +40,17 @@
   }
 
   .ul-forma li{
-    padding: 30px;
+    padding: 50px;
     text-align: left;
 
+  }
+  .ul-forma a{
+    color: #3787c9;
   }
 
   h1{
     text-align: center;
     
-  }
-
-  .h1portfolio{
-    padding: 30px;
-  }
-  .h2portfolio{
-    padding: 10px;
-    text-align: left;
-    text-decoration: underline;
-  }
-
-  .h3portfolio{
-    padding: 30px;
-    text-align: left;
   }
 
   .title-style{
@@ -70,18 +59,96 @@
 
   .card {
     margin: auto;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
+    width: 100%;
+    max-width: 600px; /* Define a largura máxima do card */
     height: 300px;
     border-radius: 30px;
     padding: 10px;
     margin-bottom: 20px;
     margin-top: 110px;
     background: #e0e0e0;
-    box-shadow: 20px 20px 60px #0076b53f,
-                  -20px -20px 60px #ffffff;
-   }
+    box-shadow: 10px 10px 10px #181818;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /*formulario */
+  .form {
+    margin: auto;
+    margin-top: 90px;
+    margin-bottom: 200px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+    height: 400px;
+    background: #3787c9;
+    box-shadow: 10px 10px 10px #181818;
+    padding: 40px;
+    border-radius: 10px;
+  }
+  
+  .form .title {
+    margin: auto;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .form input {
+    outline: 0;
+    border: 1px solid rgb(219, 213, 213);
+    border-radius: 8px;
+    width: 100%;
+    height: 50px;
+  }
+  
+  .form textarea {
+    border-radius: 8px;
+    height: 100px;
+    width: 100%;
+    resize: none;
+    outline: 0;
+    border: 1px solid rgb(219, 213, 213);
+  }
+  
+  .form .mam {
+    padding: 20px;
+    margin: auto;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .mam {
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms;
+    margin-bottom: 20px;
+    margin-left: 195px;
+  }
+  .mam:hover {
+    color: #fff;
+    background-color: #113f6d;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+
+  /* fim form */
 
   nav a {
     display: block;
@@ -249,6 +316,15 @@
   color: var(--color-neutral-40);
  }
 
+ .footer-list a{
+  opacity: 0.5;
+  color: #ffffff;
+ }
+ .footer-list a:hover{
+  color: #0077B5;
+  opacity: 1;
+ }
+
  .footer-link {
      text-decoration: none;
  }
@@ -313,7 +389,6 @@
  }
  
  .footer-list .footer-link {
-     color: var(--color-neutral-30);
      transition: all 0.4s;
  }
  
