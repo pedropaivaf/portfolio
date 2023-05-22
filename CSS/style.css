@@ -4,7 +4,6 @@
     font-size: 16px;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
     overflow-x: hidden;
   }
 
@@ -30,13 +29,20 @@
   .content{
     padding: 20px;
   }
-
-  .h3calc{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  .p1{
+    padding: 80px;
+    text-align: left;
   }
 
-  .p1{
+  .p1sobre{
+    padding: 90px;
+    text-align: left;
+  }
+
+  .ul-forma li{
     padding: 30px;
+    text-align: left;
+
   }
 
   h1{
@@ -55,6 +61,10 @@
 
   .h3portfolio{
     padding: 30px;
+    text-align: left;
+  }
+
+  .title-style{
     text-align: left;
   }
 
@@ -86,9 +96,8 @@
   
 /* Define a formatação para o conteúdo principal */
   main {
-    width: 100%;
-    height:auto;
-    margin: 0px auto;
+    background-size: cover;
+    height: 92vh;
   }
   
   /* Define a formatação para a lista de projetos */
@@ -236,12 +245,10 @@
  }
  
  footer {
-     width: 100%;
-     color: var(--color-neutral-40);
-     bottom: 0;
-     display: flex;
+  width: 100%;
+  color: var(--color-neutral-40);
  }
- 
+
  .footer-link {
      text-decoration: none;
  }
@@ -354,19 +361,18 @@
  }
  
  @media screen and (max-width: 768px) {
-     #footer_content {
-         grid-template-columns: repeat(2, 1fr);
-         gap: 2rem;
-     }
- }
- 
- @media screen and (max-width: 426px) {
-     #footer_content {
-         grid-template-columns: repeat(1, 1fr);
-         padding: 3rem 2rem;
-     }
- }
+  #footer_content {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+  }
+}
 
+@media screen and (max-width: 426px) {
+  #footer_content {
+      grid-template-columns: repeat(1, 1fr);
+      padding: 3rem 2rem;
+  }
+}
  .contatos{
   padding: 90px;
   text-align: left;
