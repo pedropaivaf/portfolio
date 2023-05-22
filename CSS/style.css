@@ -82,12 +82,29 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 10px;
-    width: 600px;
+    width: 50%;
     height: 400px;
     background: #3787c9;
     box-shadow: 10px 10px 10px #181818;
     padding: 40px;
     border-radius: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .form {
+      width: 80%; /* Reduza a largura para telas menores */
+      margin-top: 60px; /* Ajuste a margem superior para telas menores */
+      margin-bottom: 100px; /* Ajuste a margem inferior para telas menores */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .form {
+      width: 90%; /* Reduza ainda mais a largura para telas ainda menores */
+      margin-top: 30px; /* Ajuste a margem superior para telas ainda menores */
+      margin-bottom: 50px; /* Ajuste a margem inferior para telas ainda menores */
+      padding: 20px; /* Reduza o espaçamento interno para telas ainda menores */
+    }
   }
   
   .form .title {
