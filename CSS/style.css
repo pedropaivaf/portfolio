@@ -53,6 +53,15 @@
     
   }
 
+  .ref-h1{
+    text-align: center;
+    padding: 30px;
+  }
+
+  .ref-p{
+    text-align: center;
+  }
+
   .title-style{
     text-align: left;
   }
