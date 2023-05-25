@@ -22,14 +22,146 @@
   .content{
     padding: 20px;
   }
+
+  .atuação{
+    margin: auto;
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .section {
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-weight: bold;
+  }
+  .section-content {
+    margin-top: 5px;
+  }
+
+.sobremain {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #07679b;
+  background-color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .sobremain {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+      .sobremain {
+        padding: 10px;
+      }
+    }
+
+/*HABILIDADES*/
+  .skillsContainer {
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1100px;
+    margin: auto;
+  }
+  
+  .skillsContainer h1 {
+    padding-bottom: 10px;
+    border-bottom: 3px solid #3e64ff;
+  }
+  
+  .skillsItemsContainer {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: 100%;
+    grid-gap: 40px;
+  }
+
+  .outerdiv{
+    width: 100%;
+    height: 10px;
+    border-radius: 6px;
+    background-color: #c4c4c4;
+  }
+  
+  .skillItem p {
+    margin-bottom: 10px;
+  }
+
+  .outerdiv {
+    width: 100%;
+    height: 20px;
+    border-radius: 6px;
+    background-color: #c4c4c4;
+  }
+  
+  .htmldiv {
+    width: 70%;
+    height: 20px;
+    border-radius: 6px;
+    background-color: #3e64ff;
+  }
+  
+  .cssdiv {
+    width: 40%;
+    height: 20px;
+    border-radius: 6px;
+    background-color: #3e64ff;
+  }
+  
+  .gitdiv {
+    width: 80%;
+    height: 20px;
+    border-radius: 6px;
+    background-color: #3e64ff;
+  }
+  
+  .jsdiv {
+    width: 20%;
+    height: 20px;
+    border-radius: 6px;
+    background-color: #3e64ff;
+  }
+
+  /*HABILIDADES*/
   .p1{
     padding: 80px;
     text-align: left;
   }
 
-  .p1sobre{
+  .sobre {
+    margin: auto;
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    border-radius: 30px;
     padding: 90px;
-    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    background-color: #f2f2f2;
   }
 
   .ul-forma li{
