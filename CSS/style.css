@@ -20,8 +20,26 @@
     color: #ffffff;
   }
   
+  .if{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .eu{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    margin-top: 120px;
+    width: 540px;
+    border: #3793c9;
+    border-width: 20px;
+    border-style: solid;
+  }
+
   .content {
     padding: 20px;
+    min-height: 900px;
   }
 
   @media (max-width: 600px) {
@@ -39,7 +57,7 @@
   .primeira-pag h3{
     padding: 100px;
     text-align: center;
-    font-size: 40px;
+    font-size: 20px;
   }
 
   .atuação{
@@ -422,7 +440,6 @@
 /* Define a formatação para o conteúdo principal */
   main {
     background-size: cover;
-    height: 92vh;
   }
 
   .portfoliomain{
@@ -581,7 +598,8 @@
  footer {
   width: 100%;
   color: var(--color-neutral-40);
-  
+  position: relative;
+  bottom: 0;
  }
 
  .footer-list a{
