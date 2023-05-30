@@ -31,10 +31,10 @@
     margin: auto;
     justify-content: center;
     margin-top: 120px;
-    width: 540px;
-    border: #3793c9;
-    border-width: 20px;
     border-style: solid;
+    border-color: #3793c9;
+    border-width: 10px;
+    width: 320px;
   }
 
   .content {
