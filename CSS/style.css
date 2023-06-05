@@ -305,13 +305,30 @@
   }
 
   .referencias{
-  width: 600px;
-  height: 500px;
+  width: 50%;
+  height: 30%;
   border: 2px solid black;
   padding: 20px;
   text-align: center;
   margin: 0 auto;
   text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .referencias {
+      width: 80%; /* Reduza a largura para telas menores */
+      margin-top: 60px; /* Ajuste a margem superior para telas menores */
+      margin-bottom: 100px; /* Ajuste a margem inferior para telas menores */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .referencias {
+      width: 90%; /* Reduza ainda mais a largura para telas ainda menores */
+      margin-top: 30px; /* Ajuste a margem superior para telas ainda menores */
+      margin-bottom: 50px; /* Ajuste a margem inferior para telas ainda menores */
+      padding: 20px; /* Reduza o espaçamento interno para telas ainda menores */
+    }
   }
 
   /* ----- portfolio projetos ----- */
