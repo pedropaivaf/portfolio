@@ -1087,7 +1087,9 @@ import { Icon } from 'astro-icon/components';
     if (!root) return [];
     const clone = root.cloneNode(true) as HTMLElement;
     clone
-      .querySelectorAll('script, style, [aria-hidden="true"], .a11y-track-btn')
+      .querySelectorAll(
+        'script, style, [aria-hidden="true"], .a11y-track-btn, .eyebrow, .syn-cmt'
+      )
       .forEach((n) => n.remove());
     const raw = (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').trim();
     return raw
