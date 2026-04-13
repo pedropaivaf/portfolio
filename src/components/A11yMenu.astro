@@ -185,7 +185,19 @@ import { Icon } from 'astro-icon/components';
     </div>
 
     <div class="a11y-group">
-      <span class="a11y-label">Leitor de tela (áudio)</span>
+      <div class="a11y-label-row">
+        <span class="a11y-label">Leitor de tela (áudio)</span>
+        <button
+          type="button"
+          class="a11y-tracks-toggle"
+          data-tracks-toggle
+          aria-pressed="false"
+          aria-label="Mostrar botões de leitura em cada seção"
+        >
+          <Icon name="lucide:list-music" width="13" height="13" />
+          <span>Trechos</span>
+        </button>
+      </div>
       <div class="a11y-tts" data-a11y-tts>
         <div class="a11y-tts-row">
           <button type="button" class="a11y-tts-btn a11y-tts-play" data-tts-play>
@@ -515,6 +527,92 @@ import { Icon } from 'astro-icon/components';
 
   .a11y-text svg { color: #5b6472; flex-shrink: 0; }
 
+  /* ---------- Label row with inline action ---------- */
+  .a11y-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .a11y-tracks-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid #e3e7ee;
+    background: #ffffff;
+    color: #0b1220;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .a11y-tracks-toggle:hover {
+    border-color: #22c55e;
+    background: color-mix(in oklab, #22c55e 8%, #ffffff);
+  }
+  .a11y-tracks-toggle[aria-pressed="true"] {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #0b1220;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  }
+
+  /* ---------- Per-section "Ouvir" buttons injected into the page ---------- */
+  .a11y-track-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid #22c55e;
+    background: #22c55e;
+    color: #0b1220;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.35);
+    animation: a11y-track-pulse 2.6s ease-in-out infinite;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .a11y-track-btn:hover {
+    transform: translateY(-2px);
+    background: #16a34a;
+    color: #ffffff;
+  }
+  .a11y-track-btn[data-state="playing"] {
+    background: #f59e0b;
+    border-color: #f59e0b;
+    animation: none;
+  }
+  .a11y-track-btn svg { flex-shrink: 0; }
+
+  @keyframes a11y-track-pulse {
+    0%, 100% { box-shadow: 0 8px 20px rgba(34, 197, 94, 0.35), 0 0 0 0 rgba(34, 197, 94, 0.5); }
+    50%      { box-shadow: 0 8px 20px rgba(34, 197, 94, 0.35), 0 0 0 10px rgba(34, 197, 94, 0); }
+  }
+
+  @media (max-width: 560px) {
+    .a11y-track-btn {
+      top: 0.6rem;
+      right: 0.6rem;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.6rem;
+    }
+  }
+
   /* ---------- TTS (screen reader) ---------- */
   .a11y-tts {
     display: flex;
@@ -813,7 +911,8 @@ import { Icon } from 'astro-icon/components';
     | 'hideImages'
     | 'motion'
     | 'cursor'
-    | 'focus';
+    | 'focus'
+    | 'tracks';
 
   type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -855,9 +954,10 @@ import { Icon } from 'astro-icon/components';
     if (input) input.checked = on;
   };
 
-  // Initial apply
+  // Initial apply (tracks is handled separately after TTS setup)
   applyFont(state.font || 'md');
   (Object.keys(state.opts || {}) as Opt[]).forEach((k) => {
+    if (k === 'tracks') return;
     if (state.opts[k]) applyOpt(k, true);
   });
 
@@ -892,6 +992,8 @@ import { Icon } from 'astro-icon/components';
       'motion', 'cursor', 'focus',
     ].forEach((o) => html.classList.remove(`a11y-${o}`));
     document.querySelectorAll<HTMLInputElement>('input[data-opt]').forEach((i) => (i.checked = false));
+    disableTracks();
+    stopReading();
     state.font = 'md';
     state.opts = {};
     applyFont('md');
@@ -981,16 +1083,25 @@ import { Icon } from 'astro-icon/components';
     );
   };
 
-  const extractPageText = (): string[] => {
-    const main = document.querySelector('main');
-    if (!main) return [];
-    const clone = main.cloneNode(true) as HTMLElement;
-    clone.querySelectorAll('script, style, [aria-hidden="true"]').forEach((n) => n.remove());
+  const extractText = (root: HTMLElement | null): string[] => {
+    if (!root) return [];
+    const clone = root.cloneNode(true) as HTMLElement;
+    clone
+      .querySelectorAll('script, style, [aria-hidden="true"], .a11y-track-btn')
+      .forEach((n) => n.remove());
     const raw = (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').trim();
     return raw
       .split(/(?<=[.!?])\s+(?=[A-ZÀ-Ú])/)
       .map((s) => s.trim())
       .filter((s) => s.length > 0);
+  };
+
+  let activeTrackBtn: HTMLButtonElement | null = null;
+  const clearActiveTrackBtn = () => {
+    if (activeTrackBtn) {
+      delete activeTrackBtn.dataset.state;
+      activeTrackBtn = null;
+    }
   };
 
   const stopKeepAlive = () => {
@@ -1016,6 +1127,7 @@ import { Icon } from 'astro-icon/components';
     if (chunkIndex >= chunks.length) {
       setPlayUi('idle');
       stopKeepAlive();
+      clearActiveTrackBtn();
       setStatus('Leitura concluída.');
       return;
     }
@@ -1034,27 +1146,32 @@ import { Icon } from 'astro-icon/components';
       setStatus('Erro na síntese de voz.');
       setPlayUi('idle');
       stopKeepAlive();
+      clearActiveTrackBtn();
     };
     synth.speak(utter);
     setStatus(`Lendo ${chunkIndex + 1} de ${chunks.length} trechos…`);
   };
 
-  const startReading = () => {
+  const startReadingFrom = (root: HTMLElement | null, label?: string) => {
     if (!synth) {
       setStatus('Seu navegador não suporta síntese de voz.');
       return;
     }
     synth.cancel();
-    chunks = extractPageText();
+    clearActiveTrackBtn();
+    chunks = extractText(root);
     if (chunks.length === 0) {
-      setStatus('Não há texto para ler nesta página.');
+      setStatus('Não há texto para ler neste trecho.');
       return;
     }
     chunkIndex = 0;
     setPlayUi('playing');
     startKeepAlive();
+    if (label) setStatus(`Lendo trecho: ${label}…`);
     speakNext();
   };
+
+  const startReading = () => startReadingFrom(document.querySelector('main'));
 
   const pauseReading = () => {
     if (!synth) return;
@@ -1077,8 +1194,99 @@ import { Icon } from 'astro-icon/components';
     chunks = [];
     setPlayUi('idle');
     stopKeepAlive();
+    clearActiveTrackBtn();
     setStatus('Leitura interrompida.');
   };
+
+  // ---------- Per-section (track) buttons ----------
+  const SECTION_LABELS: Record<string, string> = {
+    top: 'Início',
+    sobre: 'Sobre',
+    skills: 'Skills',
+    projetos: 'Projetos',
+    github: 'GitHub',
+    contato: 'Contato',
+  };
+
+  const readSection = (section: HTMLElement, btn: HTMLButtonElement) => {
+    const label = SECTION_LABELS[section.id] || section.id;
+    startReadingFrom(section, label);
+    activeTrackBtn = btn;
+    btn.dataset.state = 'playing';
+  };
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  const makeTrackBtn = (section: HTMLElement): HTMLButtonElement => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'a11y-track-btn';
+    const label = SECTION_LABELS[section.id] || section.id;
+    btn.setAttribute('aria-label', `Ouvir seção ${label}`);
+
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('xmlns', SVG_NS);
+    svg.setAttribute('width', '14');
+    svg.setAttribute('height', '14');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'currentColor');
+    svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS(SVG_NS, 'path');
+    path.setAttribute('d', 'M8 5v14l11-7z');
+    svg.appendChild(path);
+
+    const span = document.createElement('span');
+    span.textContent = `Ouvir ${label}`;
+
+    btn.appendChild(svg);
+    btn.appendChild(span);
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (activeTrackBtn === btn && ttsState === 'playing') {
+        stopReading();
+      } else {
+        readSection(section, btn);
+      }
+    });
+    return btn;
+  };
+
+  const enableTracks = () => {
+    document.querySelectorAll<HTMLElement>('main section[id]').forEach((section) => {
+      if (section.querySelector(':scope > .a11y-track-btn')) return;
+      const cs = getComputedStyle(section);
+      if (cs.position === 'static') section.style.position = 'relative';
+      section.appendChild(makeTrackBtn(section));
+    });
+    html.classList.add('a11y-tracks');
+    tracksBtn?.setAttribute('aria-pressed', 'true');
+  };
+
+  const disableTracks = () => {
+    document.querySelectorAll('.a11y-track-btn').forEach((b) => b.remove());
+    html.classList.remove('a11y-tracks');
+    tracksBtn?.setAttribute('aria-pressed', 'false');
+    clearActiveTrackBtn();
+  };
+
+  const tracksBtn = document.querySelector<HTMLButtonElement>('[data-tracks-toggle]');
+  tracksBtn?.addEventListener('click', () => {
+    const on = tracksBtn.getAttribute('aria-pressed') === 'true';
+    if (on) {
+      disableTracks();
+      state.opts.tracks = false;
+    } else {
+      enableTracks();
+      state.opts.tracks = true;
+    }
+    save(state);
+  });
+
+  if (state.opts.tracks) {
+    requestAnimationFrame(() => enableTracks());
+  }
 
   playBtn?.addEventListener('click', () => {
     if (ttsState === 'idle') startReading();
