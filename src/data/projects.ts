@@ -68,7 +68,7 @@ export const projects: Project[] = [
   {
     slug: 'mbchat',
     name: 'MBChat',
-    tagline: 'Mensageiro para redes locais',
+    tagline: 'Chat Interno para Redes Locais',
     description:
       'Aplicação de mensagens instantâneas em Python para redes LAN com transferência de arquivos, notificações e histórico persistente. Deploy público via GitHub Pages.',
     stack: ['Python', 'SQLite', 'UDP/TCP'],

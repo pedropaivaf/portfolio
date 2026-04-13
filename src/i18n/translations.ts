@@ -31,7 +31,7 @@ const pt: Dict = {
   // Hero
   'hero.eyebrow': '// Bem-Vindo(a) ao meu perfil.',
   'hero.role': '"Full-Stack Developer"',
-  'hero.comment': '// evoluindo → Cloud · IA · Mobile',
+  'hero.comment': '// commit · push · ship · repeat',
   'hero.bio':
     'Construo produtos web <strong>reais Em Produção</strong> — de sistemas de gestão a plataformas de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.',
   'hero.cta.projects': 'Ver projetos',
@@ -99,7 +99,7 @@ const pt: Dict = {
   'project.fitai.tagline': 'Treinos personalizados gerados por IA',
   'project.fitai.description':
     'App mobile que gera fichas de treino personalizadas com IA. Interface nativa Flutter, geração contextual via modelo de linguagem e sincronização de histórico. PWA disponível na web.',
-  'project.mbchat.tagline': 'Mensageiro para redes locais',
+  'project.mbchat.tagline': 'Chat Interno para Redes Locais',
   'project.mbchat.description':
     'Aplicação de mensagens instantâneas em Python para redes LAN com transferência de arquivos, notificações e histórico persistente. Deploy público via GitHub Pages.',
 
@@ -148,7 +148,7 @@ const en: Dict = {
 
   'hero.eyebrow': '// Welcome to my profile.',
   'hero.role': '"Full-Stack Developer"',
-  'hero.comment': '// evolving → Cloud · AI · Mobile',
+  'hero.comment': '// commit · push · ship · repeat',
   'hero.bio':
     'I build <strong>real, production-grade</strong> web products — from management systems to booking platforms. Focused on fast UIs, clean code and results that actually work.',
   'hero.cta.projects': 'See projects',
@@ -211,7 +211,7 @@ const en: Dict = {
   'project.fitai.tagline': 'AI-generated personalized workouts',
   'project.fitai.description':
     'Mobile app that generates personalized workout plans with AI. Native Flutter UI, contextual generation via LLM and history sync. Also available as a PWA.',
-  'project.mbchat.tagline': 'Messaging for local networks',
+  'project.mbchat.tagline': 'Internal chat for local networks',
   'project.mbchat.description':
     'Python instant-messaging app for LAN networks with file transfer, notifications and persistent history. Public deployment via GitHub Pages.',
 
@@ -256,7 +256,7 @@ const es: Dict = {
 
   'hero.eyebrow': '// Bienvenido(a) a mi perfil.',
   'hero.role': '"Full-Stack Developer"',
-  'hero.comment': '// evolucionando → Cloud · IA · Mobile',
+  'hero.comment': '// commit · push · ship · repeat',
   'hero.bio':
     'Construyo productos web <strong>reales en producción</strong> — desde sistemas de gestión hasta plataformas de reservas. Enfocado en interfaces rápidas, código limpio y resultados que funcionan.',
   'hero.cta.projects': 'Ver proyectos',
@@ -319,7 +319,7 @@ const es: Dict = {
   'project.fitai.tagline': 'Entrenamientos personalizados generados por IA',
   'project.fitai.description':
     'App móvil que genera planes de entrenamiento personalizados con IA. Interfaz nativa en Flutter, generación contextual vía LLM y sincronización de historial. También disponible como PWA.',
-  'project.mbchat.tagline': 'Mensajería para redes locales',
+  'project.mbchat.tagline': 'Chat interno para redes locales',
   'project.mbchat.description':
     'Aplicación de mensajería instantánea en Python para redes LAN con transferencia de archivos, notificaciones e historial persistente. Deploy público vía GitHub Pages.',
 
