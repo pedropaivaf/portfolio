@@ -1,0 +1,120 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const socials = [
+  { href: 'https://github.com/pedropaivaf', label: 'GitHub', icon: 'lucide:github' },
+  { href: 'https://www.linkedin.com/in/pedro-paiva-19187b26a/', label: 'LinkedIn', icon: 'lucide:linkedin' },
+  { href: 'https://www.instagram.com/pedro_paiva_ferreira/', label: 'Instagram', icon: 'lucide:instagram' },
+  { href: 'https://wa.me/5532991995572?text=Tenho%20interesse%20em%20te%20contratar!', label: 'WhatsApp', icon: 'lucide:message-circle' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container-page footer-inner">
+    <div class="footer-brand">
+      <span class="font-mono text-xs eyebrow">// fim de arquivo</span>
+      <p class="footer-name">Pedro Paiva Ferreira</p>
+      <p class="footer-sub">Desenvolvedor Web Full-Stack — Juiz de Fora, MG</p>
+    </div>
+
+    <div class="footer-socials">
+      {socials.map((s) => (
+        <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class="social-link">
+          <Icon name={s.icon} width="18" height="18" />
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="container-page footer-bottom">
+    <span>© {year} Pedro Paiva Ferreira</span>
+    <span class="footer-built">
+      <span class="opacity-60">construído com</span>
+      <code>Astro</code> <span class="opacity-60">+</span> <code>Tailwind</code>
+    </span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 6rem;
+    padding: 3.5rem 0 2rem;
+    border-top: 1px solid var(--border);
+    background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--text) 3%, var(--bg)));
+    position: relative;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  .footer-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-top: 0.4rem;
+  }
+
+  .footer-sub {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0.6rem;
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    color: var(--text-muted);
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+
+  .social-link:hover {
+    transform: translateY(-2px);
+    color: var(--text);
+    border-color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 10%, var(--bg-elev));
+  }
+
+  .footer-bottom {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .footer-built code {
+    color: var(--text);
+    background: color-mix(in oklab, var(--text) 6%, transparent);
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.3rem;
+  }
+</style>

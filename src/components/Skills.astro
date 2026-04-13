@@ -1,0 +1,152 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { Icon } from 'astro-icon/components';
+
+type Skill = { name: string; icon: string; color?: string };
+
+const groups: { title: string; items: Skill[] }[] = [
+  {
+    title: 'Linguagens',
+    items: [
+      { name: 'JavaScript', icon: 'simple-icons:javascript', color: '#f7df1e' },
+      { name: 'TypeScript', icon: 'simple-icons:typescript', color: '#3178c6' },
+      { name: 'Python', icon: 'simple-icons:python', color: '#3776ab' },
+      { name: 'SQL', icon: 'lucide:database', color: '#6366f1' },
+      { name: 'HTML5', icon: 'simple-icons:html5', color: '#e34f26' },
+      { name: 'CSS3', icon: 'simple-icons:css3', color: '#1572b6' },
+    ],
+  },
+  {
+    title: 'Frontend',
+    items: [
+      { name: 'React', icon: 'simple-icons:react', color: '#61dafb' },
+      { name: 'Vue.js', icon: 'simple-icons:vuedotjs', color: '#4fc08d' },
+      { name: 'Astro', icon: 'simple-icons:astro', color: '#ff5d01' },
+      { name: 'Tailwind CSS', icon: 'simple-icons:tailwindcss', color: '#06b6d4' },
+      { name: 'Vite', icon: 'simple-icons:vite', color: '#646cff' },
+    ],
+  },
+  {
+    title: 'Backend & Desktop',
+    items: [
+      { name: 'Node.js', icon: 'simple-icons:nodedotjs', color: '#339933' },
+      { name: 'Express', icon: 'simple-icons:express', color: '#000000' },
+      { name: 'Django', icon: 'simple-icons:django', color: '#092e20' },
+      { name: 'Electron', icon: 'simple-icons:electron', color: '#47848f' },
+    ],
+  },
+  {
+    title: 'Dados & Ferramentas',
+    items: [
+      { name: 'PostgreSQL', icon: 'simple-icons:postgresql', color: '#4169e1' },
+      { name: 'Supabase', icon: 'simple-icons:supabase', color: '#3ecf8e' },
+      { name: 'SQLite', icon: 'simple-icons:sqlite', color: '#003b57' },
+      { name: 'Git & GitHub', icon: 'simple-icons:git', color: '#f05032' },
+      { name: 'IA / LLMs', icon: 'lucide:sparkles', color: '#a855f7' },
+    ],
+  },
+];
+---
+
+<section id="skills" class="section section-alt">
+  <div class="container-page">
+    <SectionTitle
+      eyebrow="// 02 — skills"
+      title="Tecnologias que uso no dia a dia"
+      lead="Stack full-stack moderna, com foco em produtividade e código de qualidade."
+    />
+
+    <div class="skills-grid">
+      {groups.map((group, i) => (
+        <div class="skills-group reveal" style={`--reveal-delay: ${i * 110}ms`}>
+          <h3 class="skills-group-title">
+            <span class="skills-group-num">//</span>
+            {group.title}
+          </h3>
+          <div class="skills-items">
+            {group.items.map((s) => (
+              <div class="skill-chip" style={`--icon-color: ${s.color ?? '#0b1220'}`}>
+                <Icon name={s.icon} width="18" height="18" />
+                <span>{s.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: clamp(3.5rem, 9vw, 6rem) 0;
+  }
+
+  .section-alt {
+    background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--text) 2%, transparent), transparent);
+    position: relative;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 720px) {
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .skills-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .skills-group-title {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .skills-group-num {
+    color: var(--accent);
+  }
+
+  .skills-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.85rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.55rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .skill-chip :global(svg) {
+    color: var(--icon-color);
+  }
+
+  .skill-chip:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: var(--icon-color);
+    box-shadow: 0 4px 14px color-mix(in oklab, var(--icon-color) 20%, transparent);
+  }
+</style>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360">
+  <defs>
+    <linearGradient id="g-spk" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#052e16"/>
+      <stop offset="1" stop-color="#14532d"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="360" fill="url(#g-spk)"/>
+  <g opacity="0.25">
+    <rect x="60" y="220" width="80" height="60" rx="4" fill="none" stroke="#22c55e" stroke-width="2"/>
+    <rect x="150" y="220" width="80" height="60" rx="4" fill="#22c55e"/>
+    <rect x="240" y="220" width="80" height="60" rx="4" fill="none" stroke="#22c55e" stroke-width="2"/>
+    <rect x="330" y="220" width="80" height="60" rx="4" fill="#22c55e"/>
+    <rect x="420" y="220" width="80" height="60" rx="4" fill="none" stroke="#22c55e" stroke-width="2"/>
+  </g>
+  <text x="40" y="90" font-family="Inter, sans-serif" font-weight="800" font-size="52" fill="#ffffff">SmartParkJF</text>
+  <text x="40" y="120" font-family="JetBrains Mono, monospace" font-size="14" fill="#4ade80">parking.system</text>
+</svg>

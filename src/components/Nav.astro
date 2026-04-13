@@ -1,0 +1,370 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const links = [
+  { href: '#sobre', label: 'Sobre', num: '01' },
+  { href: '#skills', label: 'Skills', num: '02' },
+  { href: '#projetos', label: 'Projetos', num: '03' },
+  { href: '#contato', label: 'Contato', num: '04' },
+];
+---
+
+<header class="nav-wrap" data-nav>
+  <div class="container-page nav-inner">
+    <a href="#top" class="brand" aria-label="Início">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <rect width="24" height="24" rx="6" fill="#0f172a" />
+          <path d="M7 6h5a4 4 0 0 1 0 8h-3v4H7V6zm2 2v4h3a2 2 0 0 0 0-4H9z" fill="#22c55e" />
+        </svg>
+      </span>
+      <span class="brand-name">Pedro<span class="brand-accent">.</span>dev</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Principal">
+      {links.map((l) => (
+        <a href={l.href} class="nav-link">
+          <span class="nav-link-num">//</span>
+          {l.label}
+        </a>
+      ))}
+    </nav>
+
+    <a
+      href="https://github.com/pedropaivaf"
+      target="_blank"
+      rel="noopener"
+      class="btn btn-ghost btn-sm nav-cta"
+      aria-label="GitHub"
+    >
+      <Icon name="lucide:github" width="16" height="16" />
+      <span>GitHub</span>
+    </a>
+
+    <button
+      type="button"
+      class="nav-burger"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-burger
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+  <div class="mobile-menu-inner">
+    <span class="mobile-menu-eyebrow">// navegação</span>
+    <nav class="mobile-menu-nav" aria-label="Mobile">
+      {links.map((l, i) => (
+        <a href={l.href} class="mobile-menu-link" style={`--mm-delay: ${i * 60}ms`}>
+          <span class="mm-num">{l.num}</span>
+          <span class="mm-label">{l.label}</span>
+          <Icon name="lucide:arrow-up-right" width="16" height="16" class="mm-arrow" />
+        </a>
+      ))}
+    </nav>
+    <a
+      href="https://github.com/pedropaivaf"
+      target="_blank"
+      rel="noopener"
+      class="btn btn-primary mobile-menu-cta"
+    >
+      <Icon name="lucide:github" width="16" height="16" />
+      GitHub — @pedropaivaf
+    </a>
+  </div>
+</div>
+
+<script>
+  const burger = document.querySelector('[data-burger]') as HTMLButtonElement | null;
+  const menu = document.querySelector('[data-mobile-menu]') as HTMLElement | null;
+  if (burger && menu) {
+    const close = () => {
+      burger.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('is-open');
+      burger.classList.remove('is-open');
+      document.body.style.overflow = '';
+    };
+    const toggle = () => {
+      const isOpen = burger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        close();
+      } else {
+        burger.setAttribute('aria-expanded', 'true');
+        menu.setAttribute('aria-hidden', 'false');
+        menu.classList.add('is-open');
+        burger.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+    burger.addEventListener('click', toggle);
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  }
+</script>
+
+<style>
+  .nav-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 1rem 0;
+    transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav-wrap.is-scrolled {
+    padding: 0.55rem 0;
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    background: color-mix(in oklab, var(--bg) 78%, transparent);
+    border-bottom-color: var(--border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 0.55rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .brand-accent {
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: none;
+    gap: 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  @media (min-width: 768px) {
+    .nav-links {
+      display: inline-flex;
+    }
+  }
+
+  .nav-link {
+    position: relative;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .nav-link-num {
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -4px;
+    height: 1.5px;
+    background: var(--accent);
+    transition: right 0.25s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+  }
+
+  .nav-link:hover::after {
+    right: 0;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .nav-cta {
+      display: inline-flex;
+    }
+  }
+
+  /* --- hamburger --- */
+  .nav-burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 42px;
+    height: 42px;
+    padding: 10px 10px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 0.55rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-burger:hover {
+    border-color: var(--text);
+  }
+
+  .nav-burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  .nav-burger.is-open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .nav-burger.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-burger.is-open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  @media (min-width: 768px) {
+    .nav-burger {
+      display: none;
+    }
+  }
+
+  /* --- mobile menu overlay --- */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 49;
+    background: color-mix(in oklab, var(--bg) 96%, transparent);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+
+  .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 6rem clamp(1.5rem, 5vw, 2.5rem) 2.5rem;
+    flex: 1;
+  }
+
+  .mobile-menu-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+
+  .mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  .mobile-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 0.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.4s ease, transform 0.4s ease, color 0.2s ease;
+  }
+
+  .mobile-menu.is-open .mobile-menu-link {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: calc(var(--mm-delay, 0ms) + 100ms);
+  }
+
+  .mobile-menu-link:hover,
+  .mobile-menu-link:active {
+    color: var(--accent-strong);
+  }
+
+  .mm-num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    min-width: 2rem;
+  }
+
+  .mm-label {
+    flex: 1;
+  }
+
+  .mm-arrow {
+    color: var(--text-muted);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .mobile-menu-link:hover .mm-arrow {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  .mobile-menu-cta {
+    margin-top: auto;
+    justify-content: center;
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { Icon } from 'astro-icon/components';
+
+const highlights = [
+  { icon: 'lucide:rocket', title: 'Produtos em produção', text: 'SmartParkJF e ReservaQuadra rodando com usuários reais.' },
+  { icon: 'lucide:briefcase', title: 'MB Contabilidade', text: 'Suporte de TI e Desenvolvedor de Soluções desde 2025.' },
+  { icon: 'lucide:graduation-cap', title: 'Formação', text: 'Sistemas de Informação — UniAcademia (7º período).' },
+  { icon: 'lucide:languages', title: 'Inglês B2', text: 'Leitura de documentação e comunicação técnica fluentes.' },
+];
+---
+
+<section id="sobre" class="section">
+  <div class="container-page">
+    <SectionTitle
+      eyebrow="// 01 — sobre"
+      title="Quem é o dev por trás do terminal"
+      lead="Moro em Juiz de Fora e transformo ideias em código que funciona. Gosto de projetos com propósito e soluções que entregam valor real para quem usa."
+    />
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Sou <strong>obcecado em descobrir e aprimorar</strong> minhas habilidades e forma de pensar.
+          Acredito fielmente que se existe um bom motivo para fazer algo, existe uma solução — ou uma
+          forma de criá-la.
+        </p>
+        <p>
+          Hoje atuo na <strong>MB Contabilidade</strong> como Suporte de TI e Desenvolvedor de Soluções,
+          onde criei o <strong>MBChat</strong> (chat LAN em Python) e o <strong>CentralMB</strong>
+          (webapp React + Supabase + Electron) para uso interno do escritório. Em paralelo cuido de
+          produtos próprios em produção como SmartParkJF, ReservaQuadra e a API NFSe.
+        </p>
+        <p>
+          Curso <strong>Sistemas de Informação na UniAcademia</strong> (previsão 2027) e me formei em
+          Desenvolvimento Web Full-Stack pela Codi Academy. Adaptabilidade, comunicação assertiva e
+          proatividade em resolver problemas são o que levo pra dentro de cada projeto.
+        </p>
+        <p class="about-mono">
+          <span class="syn-kw">return</span> <span class="syn-str">"disponível para novos desafios"</span><span class="muted">;</span>
+        </p>
+      </div>
+
+      <div class="about-highlights">
+        {highlights.map((h, i) => (
+          <div class="highlight reveal" style={`--reveal-delay: ${i * 90}ms`}>
+            <span class="highlight-icon">
+              <Icon name={h.icon} width="18" height="18" />
+            </span>
+            <div>
+              <h3 class="highlight-title">{h.title}</h3>
+              <p class="highlight-text">{h.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: clamp(3.5rem, 9vw, 6rem) 0;
+    position: relative;
+  }
+
+  .about-grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+
+  .about-text strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .about-mono {
+    font-family: var(--font-mono);
+    padding: 0.9rem 1.1rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0.55rem;
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+
+  .muted { color: var(--text-muted); }
+
+  .about-highlights {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 560px) {
+    .about-highlights {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .highlight {
+    display: flex;
+    gap: 0.9rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 0.85rem;
+    background: var(--bg-elev);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .highlight:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+  }
+
+  .highlight-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 0.55rem;
+    background: color-mix(in oklab, var(--accent) 12%, var(--bg));
+    color: var(--accent-strong);
+    flex-shrink: 0;
+  }
+
+  .highlight-title {
+    font-weight: 700;
+    font-size: 0.96rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .highlight-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+</style>

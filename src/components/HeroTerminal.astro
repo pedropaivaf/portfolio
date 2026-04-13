@@ -1,0 +1,144 @@
+---
+---
+
+<div class="code-window terminal" data-terminal>
+  <div class="code-window-header">
+    <span class="code-dot red"></span>
+    <span class="code-dot yellow"></span>
+    <span class="code-dot green"></span>
+    <span class="window-title">~/pedro — zsh</span>
+  </div>
+  <div class="code-body">
+    <div class="line">
+      <span class="prompt">pedro@dev</span>
+      <span class="sep">:</span>
+      <span class="path">~/portfolio</span>
+      <span class="arrow">❯</span>
+      <span class="typed" data-text="whoami --full"></span><span class="cursor"></span>
+    </div>
+    <div class="output" data-output>
+      <div class="output-line"><span class="k">name</span>:    <span class="s">"Pedro Paiva Ferreira"</span></div>
+      <div class="output-line"><span class="k">role</span>:    <span class="s">"Full-Stack Developer"</span></div>
+      <div class="output-line"><span class="k">stack</span>:   [<span class="s">"React"</span>, <span class="s">"Node.js"</span>, <span class="s">"TypeScript"</span>, <span class="s">"PostgreSQL"</span>]</div>
+      <div class="output-line"><span class="k">focus</span>:   <span class="s">"produtos reais em produção"</span></div>
+      <div class="output-line"><span class="k">status</span>:  <span class="ok">● disponível para novos projetos</span></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .terminal {
+    width: 100%;
+    max-width: 560px;
+    font-size: 0.78rem;
+  }
+
+  @media (min-width: 640px) {
+    .terminal {
+      font-size: 0.85rem;
+    }
+  }
+
+  .terminal .code-body {
+    padding: 1rem 1.1rem;
+  }
+
+  @media (min-width: 640px) {
+    .terminal .code-body {
+      padding: 1.25rem 1.4rem;
+    }
+  }
+
+  .window-title {
+    margin-left: 0.6rem;
+    font-size: 0.72rem;
+    color: color-mix(in oklab, white 55%, transparent);
+    letter-spacing: 0.05em;
+  }
+
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .prompt { color: #22c55e; }
+  .sep { color: #64748b; }
+  .path { color: #6366f1; }
+  .arrow { color: #f59e0b; margin-right: 0.2rem; }
+  .typed { color: #f8fafc; }
+
+  .output {
+    margin-top: 0.95rem;
+    padding-top: 0.95rem;
+    border-top: 1px dashed color-mix(in oklab, white 12%, transparent);
+    color: #cbd5e1;
+    display: none;
+    font-size: 0.85rem;
+    line-height: 1.75;
+  }
+
+  .output.is-visible {
+    display: block;
+  }
+
+  .output-line {
+    opacity: 0;
+    transform: translateY(4px);
+    animation: line-in 0.35s ease forwards;
+  }
+
+  .output-line:nth-child(1) { animation-delay: 0.05s; }
+  .output-line:nth-child(2) { animation-delay: 0.15s; }
+  .output-line:nth-child(3) { animation-delay: 0.25s; }
+  .output-line:nth-child(4) { animation-delay: 0.35s; }
+  .output-line:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes line-in {
+    to { opacity: 1; transform: none; }
+  }
+
+  .k { color: #c026d3; }
+  .s { color: #f59e0b; }
+  .ok { color: #22c55e; }
+</style>
+
+<script>
+  const terminals = document.querySelectorAll<HTMLElement>('[data-terminal]');
+  terminals.forEach((terminal) => {
+    const typedEl = terminal.querySelector<HTMLElement>('.typed');
+    const outputEl = terminal.querySelector<HTMLElement>('[data-output]');
+    if (!typedEl || !outputEl) return;
+
+    const text = typedEl.dataset.text ?? '';
+    let i = 0;
+
+    const startTyping = () => {
+      const tick = () => {
+        if (i <= text.length) {
+          typedEl.textContent = text.slice(0, i);
+          i++;
+          setTimeout(tick, 70 + Math.random() * 40);
+        } else {
+          setTimeout(() => outputEl.classList.add('is-visible'), 350);
+        }
+      };
+      tick();
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            startTyping();
+            io.unobserve(terminal);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    io.observe(terminal);
+  });
+</script>

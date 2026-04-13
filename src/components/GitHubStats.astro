@@ -1,0 +1,327 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const stats = [
+  { value: '53', suffix: '+', label: 'repositórios', hint: '// public on github', count: 53 },
+  { value: '5', suffix: '+', label: 'em produção', hint: '// projects shipped', count: 5 },
+  { value: '3', suffix: '', label: 'clientes reais', hint: '// active users', count: 3 },
+  { value: '∞', suffix: '', label: 'commits/mês', hint: '// always coding', count: null },
+] as const;
+
+// ASCII-style contribution heatmap — 7 rows x 16 weeks, hand-tuned intensity
+const heatmap = [
+  [1, 2, 3, 2, 1, 0, 0, 1, 2, 3, 4, 3, 2, 1, 2, 3],
+  [0, 1, 2, 3, 2, 1, 0, 1, 2, 4, 4, 3, 2, 3, 3, 4],
+  [1, 2, 4, 3, 2, 2, 1, 2, 3, 3, 4, 4, 3, 2, 3, 4],
+  [2, 3, 4, 4, 3, 2, 1, 2, 3, 4, 4, 4, 3, 3, 4, 4],
+  [1, 2, 3, 3, 2, 1, 0, 1, 2, 3, 4, 3, 2, 2, 3, 4],
+  [0, 1, 2, 2, 1, 0, 0, 1, 2, 3, 3, 2, 1, 2, 3, 3],
+  [1, 1, 2, 2, 1, 0, 0, 0, 1, 2, 3, 2, 1, 1, 2, 3],
+];
+---
+
+<section id="github" class="section">
+  <div class="container-page">
+    <div class="gh-card reveal">
+      <div class="gh-grid-bg" aria-hidden="true"></div>
+
+      <header class="gh-head">
+        <span class="eyebrow gh-eyebrow">// 04 — open source</span>
+        <h2 class="h-section gh-title">
+          Sempre <span class="gh-accent">commitando</span>.
+        </h2>
+        <p class="gh-lead">
+          Desde repositórios experimentais a produtos em produção — código aberto no GitHub
+          como prova viva do que construo.
+        </p>
+      </header>
+
+      <div class="gh-stats">
+        {stats.map((s, i) => (
+          <div class="gh-stat reveal" style={`--reveal-delay: ${i * 90}ms`}>
+            {s.count !== null ? (
+              <span class="gh-stat-value count-up" data-count={s.count} data-suffix={s.suffix}>
+                0{s.suffix}
+              </span>
+            ) : (
+              <span class="gh-stat-value">{s.value}</span>
+            )}
+            <span class="gh-stat-label">{s.label}</span>
+            <span class="gh-stat-hint">{s.hint}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="gh-heatmap-wrap">
+        <div class="gh-heatmap-head">
+          <span class="gh-heatmap-title">
+            <Icon name="lucide:activity" width="14" height="14" />
+            contribuições recentes
+          </span>
+          <span class="gh-heatmap-legend">
+            <span>menos</span>
+            <span class="lg-box lv-0"></span>
+            <span class="lg-box lv-1"></span>
+            <span class="lg-box lv-2"></span>
+            <span class="lg-box lv-3"></span>
+            <span class="lg-box lv-4"></span>
+            <span>mais</span>
+          </span>
+        </div>
+
+        <div class="gh-heatmap">
+          {heatmap.flatMap((row, y) => row.map((level, x) => (
+            <span
+              class={`heat-cell lv-${level}`}
+              style={`--delay: ${(x * 7 + y) * 18}ms`}
+            />
+          )))}
+        </div>
+      </div>
+
+      <div class="gh-cta-row">
+        <a
+          href="https://github.com/pedropaivaf"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary gh-cta"
+        >
+          <Icon name="lucide:github" width="16" height="16" />
+          @pedropaivaf
+          <Icon name="lucide:arrow-up-right" width="14" height="14" />
+        </a>
+        <span class="gh-note">
+          <span class="gh-dot"></span>
+          ativo hoje
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section { padding: clamp(3.5rem, 9vw, 6rem) 0; }
+
+  .gh-card {
+    position: relative;
+    background: var(--bg-code);
+    color: var(--text-inverse);
+    border-radius: 1.25rem;
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border: 1px solid color-mix(in oklab, white 8%, transparent);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .gh-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 80% 60% at 70% 40%, black 40%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .gh-card::after {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    width: 340px;
+    height: 340px;
+    background: radial-gradient(circle, #22c55e, transparent 70%);
+    opacity: 0.22;
+    filter: blur(30px);
+    pointer-events: none;
+  }
+
+  .gh-head {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .gh-eyebrow { color: #94a3b8; }
+
+  .gh-title {
+    color: #ffffff;
+    margin-top: 0.5rem;
+  }
+
+  .gh-accent {
+    background: linear-gradient(90deg, #22c55e, #38bdf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .gh-lead {
+    color: #cbd5e1;
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .gh-stats {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .gh-stats { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .gh-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.25rem 1.25rem 1.1rem;
+    border-radius: 0.8rem;
+    border: 1px solid color-mix(in oklab, white 10%, transparent);
+    background: color-mix(in oklab, white 4%, transparent);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .gh-stat:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+
+  .gh-stat-value {
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .gh-stat-label {
+    font-size: 0.82rem;
+    color: #cbd5e1;
+    margin-top: 0.5rem;
+  }
+
+  .gh-stat-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #64748b;
+    margin-top: 0.3rem;
+  }
+
+  .gh-heatmap-wrap {
+    position: relative;
+    z-index: 1;
+    padding: 1.4rem 1.5rem;
+    border-radius: 0.9rem;
+    border: 1px solid color-mix(in oklab, white 10%, transparent);
+    background: color-mix(in oklab, white 3%, transparent);
+  }
+
+  .gh-heatmap-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .gh-heatmap-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #cbd5e1;
+  }
+
+  .gh-heatmap-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: #64748b;
+  }
+
+  .lg-box {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  .gh-heatmap {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 3px;
+  }
+
+  @media (min-width: 640px) {
+    .gh-heatmap { gap: 4px; }
+  }
+
+  .heat-cell {
+    aspect-ratio: 1;
+    border-radius: 2px;
+    opacity: 0;
+    transform: scale(0.6);
+    animation: pop 0.55s ease forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @keyframes pop {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .lv-0 { background: color-mix(in oklab, white 6%, transparent); }
+  .lv-1 { background: color-mix(in oklab, #22c55e 22%, #0f172a); }
+  .lv-2 { background: color-mix(in oklab, #22c55e 45%, #0f172a); }
+  .lv-3 { background: color-mix(in oklab, #22c55e 70%, #0f172a); }
+  .lv-4 { background: #22c55e; box-shadow: 0 0 8px color-mix(in oklab, #22c55e 60%, transparent); }
+
+  .gh-cta-row {
+    position: relative;
+    z-index: 1;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .gh-cta {
+    background: #ffffff;
+    color: #0b1220;
+  }
+
+  .gh-cta:hover {
+    background: var(--accent);
+    color: #0b1220;
+  }
+
+  .gh-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  .gh-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+</style>

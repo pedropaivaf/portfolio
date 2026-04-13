@@ -1,0 +1,39 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: 'left' | 'center';
+}
+
+const { eyebrow, title, lead, align = 'left' } = Astro.props;
+---
+
+<div class={`section-title ${align === 'center' ? 'align-center' : ''}`}>
+  <span class="eyebrow reveal">{eyebrow}</span>
+  <h2 class="h-section rise" style="--reveal-delay: 120ms">{title}</h2>
+  {lead && <p class="lead reveal" style="--reveal-delay: 280ms">{lead}</p>}
+</div>
+
+<style>
+  .section-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 2.75rem;
+    max-width: 46rem;
+  }
+
+  .section-title.align-center {
+    align-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .lead {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 38rem;
+  }
+</style>
