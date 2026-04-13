@@ -2,51 +2,51 @@
 import SectionTitle from './SectionTitle.astro';
 import { Icon } from 'astro-icon/components';
 
-type Skill = { name: string; icon: string; color?: string };
+type Skill = { name: string; icon: string; color?: string; href: string };
 
 const groups: { title: string; key: string; items: Skill[] }[] = [
   {
     title: 'Linguagens',
     key: 'skills.group.languages',
     items: [
-      { name: 'JavaScript', icon: 'simple-icons:javascript', color: '#f7df1e' },
-      { name: 'TypeScript', icon: 'simple-icons:typescript', color: '#3178c6' },
-      { name: 'Python', icon: 'simple-icons:python', color: '#3776ab' },
-      { name: 'SQL', icon: 'lucide:database', color: '#6366f1' },
-      { name: 'HTML5', icon: 'simple-icons:html5', color: '#e34f26' },
-      { name: 'CSS3', icon: 'simple-icons:css3', color: '#1572b6' },
+      { name: 'JavaScript', icon: 'simple-icons:javascript', color: '#f7df1e', href: 'https://developer.mozilla.org/docs/Web/JavaScript' },
+      { name: 'TypeScript', icon: 'simple-icons:typescript', color: '#3178c6', href: 'https://www.typescriptlang.org' },
+      { name: 'Python', icon: 'simple-icons:python', color: '#3776ab', href: 'https://www.python.org' },
+      { name: 'SQL', icon: 'lucide:database', color: '#6366f1', href: 'https://www.postgresql.org/docs/current/sql.html' },
+      { name: 'HTML5', icon: 'simple-icons:html5', color: '#e34f26', href: 'https://developer.mozilla.org/docs/Web/HTML' },
+      { name: 'CSS3', icon: 'simple-icons:css3', color: '#1572b6', href: 'https://developer.mozilla.org/docs/Web/CSS' },
     ],
   },
   {
     title: 'Frontend',
     key: 'skills.group.frontend',
     items: [
-      { name: 'React', icon: 'simple-icons:react', color: '#61dafb' },
-      { name: 'Vue.js', icon: 'simple-icons:vuedotjs', color: '#4fc08d' },
-      { name: 'Astro', icon: 'simple-icons:astro', color: '#ff5d01' },
-      { name: 'Tailwind CSS', icon: 'simple-icons:tailwindcss', color: '#06b6d4' },
-      { name: 'Vite', icon: 'simple-icons:vite', color: '#646cff' },
+      { name: 'React', icon: 'simple-icons:react', color: '#61dafb', href: 'https://react.dev' },
+      { name: 'Vue.js', icon: 'simple-icons:vuedotjs', color: '#4fc08d', href: 'https://vuejs.org' },
+      { name: 'Astro', icon: 'simple-icons:astro', color: '#ff5d01', href: 'https://astro.build' },
+      { name: 'Tailwind CSS', icon: 'simple-icons:tailwindcss', color: '#06b6d4', href: 'https://tailwindcss.com' },
+      { name: 'Vite', icon: 'simple-icons:vite', color: '#646cff', href: 'https://vite.dev' },
     ],
   },
   {
     title: 'Backend & Desktop',
     key: 'skills.group.backend',
     items: [
-      { name: 'Node.js', icon: 'simple-icons:nodedotjs', color: '#339933' },
-      { name: 'Express', icon: 'simple-icons:express', color: '#000000' },
-      { name: 'Django', icon: 'simple-icons:django', color: '#092e20' },
-      { name: 'Electron', icon: 'simple-icons:electron', color: '#47848f' },
+      { name: 'Node.js', icon: 'simple-icons:nodedotjs', color: '#339933', href: 'https://nodejs.org' },
+      { name: 'Express', icon: 'simple-icons:express', color: '#000000', href: 'https://expressjs.com' },
+      { name: 'Django', icon: 'simple-icons:django', color: '#092e20', href: 'https://www.djangoproject.com' },
+      { name: 'Electron', icon: 'simple-icons:electron', color: '#47848f', href: 'https://www.electronjs.org' },
     ],
   },
   {
     title: 'Dados & Ferramentas',
     key: 'skills.group.data',
     items: [
-      { name: 'PostgreSQL', icon: 'simple-icons:postgresql', color: '#4169e1' },
-      { name: 'Supabase', icon: 'simple-icons:supabase', color: '#3ecf8e' },
-      { name: 'SQLite', icon: 'simple-icons:sqlite', color: '#003b57' },
-      { name: 'Git & GitHub', icon: 'simple-icons:git', color: '#f05032' },
-      { name: 'IA / LLMs', icon: 'lucide:sparkles', color: '#a855f7' },
+      { name: 'PostgreSQL', icon: 'simple-icons:postgresql', color: '#4169e1', href: 'https://www.postgresql.org' },
+      { name: 'Supabase', icon: 'simple-icons:supabase', color: '#3ecf8e', href: 'https://supabase.com' },
+      { name: 'SQLite', icon: 'simple-icons:sqlite', color: '#003b57', href: 'https://www.sqlite.org' },
+      { name: 'Git & GitHub', icon: 'simple-icons:git', color: '#f05032', href: 'https://github.com' },
+      { name: 'IA / LLMs', icon: 'lucide:sparkles', color: '#a855f7', href: 'https://www.anthropic.com' },
     ],
   },
 ];
@@ -72,10 +72,17 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
           </h3>
           <div class="skills-items">
             {group.items.map((s) => (
-              <div class="skill-chip" style={`--icon-color: ${s.color ?? '#0b1220'}`}>
+              <a
+                class="skill-chip"
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${s.name} — site oficial`}
+                style={`--icon-color: ${s.color ?? '#0b1220'}`}
+              >
                 <Icon name={s.icon} width="18" height="18" />
                 <span>{s.name}</span>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -143,6 +150,8 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
     box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
