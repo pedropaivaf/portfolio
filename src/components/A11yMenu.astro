@@ -187,7 +187,7 @@ import { Icon } from 'astro-icon/components';
     position: fixed;
     left: 1rem;
     bottom: 1rem;
-    z-index: 90;
+    z-index: 9995;
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
@@ -241,7 +241,7 @@ import { Icon } from 'astro-icon/components';
     backdrop-filter: blur(4px);
     opacity: 0;
     pointer-events: none;
-    z-index: 99;
+    z-index: 9996;
     transition: opacity 0.3s ease;
   }
   .a11y-scrim.is-open {
@@ -256,8 +256,8 @@ import { Icon } from 'astro-icon/components';
     right: 1rem;
     bottom: 1rem;
     max-width: 420px;
-    max-height: 82vh;
-    z-index: 100;
+    max-height: min(82vh, 640px);
+    z-index: 9997;
     background: #ffffff;
     color: #0b1220;
     border: 1px solid #e3e7ee;
@@ -575,20 +575,23 @@ import { Icon } from 'astro-icon/components';
     border: 2px solid #fff !important;
   }
 
-  /* Grayscale */
-  html.a11y-grayscale body { filter: grayscale(1); }
+  /* Grayscale / Invert / Saturate — apply to siblings of the a11y UI so the
+     menu stays visible and the FAB keeps its fixed positioning (filters on
+     body would create a new stacking context and break position:fixed). */
+  html.a11y-grayscale body > *:not(.a11y-fab):not(.a11y-panel):not(.a11y-scrim):not(.a11y-reading-guide) {
+    filter: grayscale(1);
+  }
 
-  /* Invert */
-  html.a11y-invert body { filter: invert(1) hue-rotate(180deg); }
+  html.a11y-invert body > *:not(.a11y-fab):not(.a11y-panel):not(.a11y-scrim):not(.a11y-reading-guide) {
+    filter: invert(1) hue-rotate(180deg);
+  }
   html.a11y-invert img,
   html.a11y-invert video,
-  html.a11y-invert svg { filter: invert(1) hue-rotate(180deg); }
+  html.a11y-invert picture { filter: invert(1) hue-rotate(180deg); }
 
-  /* Low saturation */
-  html.a11y-saturate body { filter: saturate(0.55); }
-
-  /* Combine grayscale+invert etc via CSS filters stacking isn't trivial; each is standalone.
-     Users can still toggle them independently. */
+  html.a11y-saturate body > *:not(.a11y-fab):not(.a11y-panel):not(.a11y-scrim):not(.a11y-reading-guide) {
+    filter: saturate(0.55);
+  }
 
   /* Dyslexia-friendly font */
   html.a11y-dyslexia body,
