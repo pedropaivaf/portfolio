@@ -2,10 +2,10 @@
 import { Icon } from 'astro-icon/components';
 
 const stats = [
-  { value: '53', suffix: '+', label: 'repositórios', hint: '// public on github', count: 53 },
-  { value: '5', suffix: '+', label: 'em produção', hint: '// projects shipped', count: 5 },
-  { value: '3', suffix: '', label: 'clientes reais', hint: '// active users', count: 3 },
-  { value: '∞', suffix: '', label: 'commits/mês', hint: '// always coding', count: null },
+  { value: '53', suffix: '+', label: 'repositórios', labelKey: 'gh.stat.repos.label', hint: '// public on github', count: 53 },
+  { value: '5', suffix: '+', label: 'em produção', labelKey: 'gh.stat.prod.label', hint: '// projects shipped', count: 5 },
+  { value: '3', suffix: '', label: 'clientes reais', labelKey: 'gh.stat.clients.label', hint: '// active users', count: 3 },
+  { value: '∞', suffix: '', label: 'commits/mês', labelKey: 'gh.stat.commits.label', hint: '// always coding', count: null },
 ] as const;
 
 // ASCII-style contribution heatmap — 7 rows x 16 weeks, hand-tuned intensity
@@ -26,11 +26,11 @@ const heatmap = [
       <div class="gh-grid-bg" aria-hidden="true"></div>
 
       <header class="gh-head">
-        <span class="eyebrow gh-eyebrow">// 04 — open source</span>
+        <span class="eyebrow gh-eyebrow" data-i18n="gh.eyebrow">// 04 — open source</span>
         <h2 class="h-section gh-title">
-          Sempre <span class="gh-accent">commitando</span>.
+          <span data-i18n="gh.title.pre">Sempre</span> <span class="gh-accent" data-i18n="gh.title.accent">commitando</span>.
         </h2>
-        <p class="gh-lead">
+        <p class="gh-lead" data-i18n="gh.lead">
           Desde repositórios experimentais a produtos em produção — código aberto no GitHub
           como prova viva do que construo.
         </p>
@@ -46,7 +46,7 @@ const heatmap = [
             ) : (
               <span class="gh-stat-value">{s.value}</span>
             )}
-            <span class="gh-stat-label">{s.label}</span>
+            <span class="gh-stat-label" data-i18n={s.labelKey}>{s.label}</span>
             <span class="gh-stat-hint">{s.hint}</span>
           </div>
         ))}
@@ -56,16 +56,16 @@ const heatmap = [
         <div class="gh-heatmap-head">
           <span class="gh-heatmap-title">
             <Icon name="lucide:activity" width="14" height="14" />
-            contribuições recentes
+            <span data-i18n="gh.heatmap.title">contribuições recentes</span>
           </span>
           <span class="gh-heatmap-legend">
-            <span>menos</span>
+            <span data-i18n="gh.heatmap.less">menos</span>
             <span class="lg-box lv-0"></span>
             <span class="lg-box lv-1"></span>
             <span class="lg-box lv-2"></span>
             <span class="lg-box lv-3"></span>
             <span class="lg-box lv-4"></span>
-            <span>mais</span>
+            <span data-i18n="gh.heatmap.more">mais</span>
           </span>
         </div>
 
@@ -92,7 +92,7 @@ const heatmap = [
         </a>
         <span class="gh-note">
           <span class="gh-dot"></span>
-          ativo hoje
+          <span data-i18n="gh.active">ativo hoje</span>
         </span>
       </div>
     </div>

@@ -12,7 +12,7 @@ import avatar from '../assets/perfil.jpg';
 
   <div class="container-page hero-inner">
     <div class="hero-content">
-      <span class="eyebrow reveal">// Bem-Vindo(a) ao meu perfil.</span>
+      <span class="eyebrow reveal" data-i18n="hero.eyebrow">// Bem-Vindo(a) ao meu perfil.</span>
 
       <h1 class="h-display rise" style="--reveal-delay: 80ms">
         Pedro<br />
@@ -24,13 +24,13 @@ import avatar from '../assets/perfil.jpg';
         <span class="syn-kw">let</span>
         <span class="syn-fn">role</span>
         <span class="muted">=</span>
-        <span class="syn-str">"Full-Stack Developer"</span>
+        <span class="syn-str" data-i18n="hero.role">"Full-Stack Developer"</span>
         <span class="muted">;</span>
         <br />
-        <span class="syn-cmt">// evoluindo → Cloud · IA · Mobile</span>
+        <span class="syn-cmt" data-i18n="hero.comment">// evoluindo → Cloud · IA · Mobile</span>
       </p>
 
-      <p class="hero-bio reveal" style="--reveal-delay: 380ms">
+      <p class="hero-bio reveal" style="--reveal-delay: 380ms" data-i18n-html="hero.bio">
         Construo produtos web <strong>reais em produção</strong> — de sistemas de gestão a plataformas
         de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.
       </p>
@@ -38,26 +38,26 @@ import avatar from '../assets/perfil.jpg';
       <div class="hero-ctas reveal" style="--reveal-delay: 500ms">
         <a href="#projetos" class="btn btn-primary">
           <Icon name="lucide:arrow-down-right" width="16" height="16" />
-          Ver projetos
+          <span data-i18n="hero.cta.projects">Ver projetos</span>
         </a>
         <a href="https://github.com/pedropaivaf" target="_blank" rel="noopener" class="btn btn-ghost">
           <Icon name="lucide:github" width="16" height="16" />
-          GitHub
+          <span data-i18n="hero.cta.github">GitHub</span>
         </a>
       </div>
 
       <div class="hero-meta reveal" style="--reveal-delay: 620ms">
         <div class="meta-item">
           <Icon name="lucide:map-pin" width="14" height="14" />
-          <span>Juiz de Fora, MG</span>
+          <span data-i18n="hero.meta.location">Juiz de Fora, MG</span>
         </div>
         <div class="meta-item">
           <span class="dot-live"></span>
-          <span>Disponível para projetos</span>
+          <span data-i18n="hero.meta.available">Disponível para projetos</span>
         </div>
         <div class="meta-item">
           <Icon name="lucide:graduation-cap" width="14" height="14" />
-          <span>Sistemas de Informação — UniAcademia (7º período)</span>
+          <span data-i18n="hero.meta.edu">Sistemas de Informação — UniAcademia (7º período)</span>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@ import avatar from '../assets/perfil.jpg';
   </div>
 
   <div class="hero-scroll-hint" aria-hidden="true">
-    <span class="font-mono">scroll</span>
+    <span class="font-mono" data-i18n="hero.scroll">scroll</span>
     <span class="scroll-line"></span>
   </div>
 </section>

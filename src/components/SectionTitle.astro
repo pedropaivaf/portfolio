@@ -4,15 +4,18 @@ interface Props {
   title: string;
   lead?: string;
   align?: 'left' | 'center';
+  eyebrowKey?: string;
+  titleKey?: string;
+  leadKey?: string;
 }
 
-const { eyebrow, title, lead, align = 'left' } = Astro.props;
+const { eyebrow, title, lead, align = 'left', eyebrowKey, titleKey, leadKey } = Astro.props;
 ---
 
 <div class={`section-title ${align === 'center' ? 'align-center' : ''}`}>
-  <span class="eyebrow reveal">{eyebrow}</span>
-  <h2 class="h-section rise" style="--reveal-delay: 120ms">{title}</h2>
-  {lead && <p class="lead reveal" style="--reveal-delay: 280ms">{lead}</p>}
+  <span class="eyebrow reveal" data-i18n={eyebrowKey}>{eyebrow}</span>
+  <h2 class="h-section rise" style="--reveal-delay: 120ms" data-i18n={titleKey}>{title}</h2>
+  {lead && <p class="lead reveal" style="--reveal-delay: 280ms" data-i18n={leadKey}>{lead}</p>}
 </div>
 
 <style>

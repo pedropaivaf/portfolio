@@ -16,16 +16,16 @@ const num = String(index + 1).padStart(2, '0');
   <div class="project-media">
     <Image src={project.image} alt={project.name} class="project-img" widths={[600]} sizes="(max-width: 768px) 100vw, 560px" />
     <span class="project-num">{num}</span>
-    {project.status === 'live' && <span class="badge-live project-badge">em produção</span>}
+    {project.status === 'live' && <span class="badge-live project-badge" data-i18n="project.badge.live">em produção</span>}
   </div>
 
   <div class="project-body">
     <header class="project-head">
       <h3 class="h-card">{project.name}</h3>
-      <p class="project-tagline">{project.tagline}</p>
+      <p class="project-tagline" data-i18n={`project.${project.slug}.tagline`}>{project.tagline}</p>
     </header>
 
-    <p class="project-desc">{project.description}</p>
+    <p class="project-desc" data-i18n={`project.${project.slug}.description`}>{project.description}</p>
 
     <div class="project-stack">
       {project.stack.map((s) => <span class="chip">{s}</span>)}
@@ -35,13 +35,13 @@ const num = String(index + 1).padStart(2, '0');
       {project.live && (
         <a href={project.live} target="_blank" rel="noopener" class="btn btn-primary btn-sm">
           <Icon name="lucide:external-link" width="14" height="14" />
-          Ver site
+          <span data-i18n="project.cta.site">Ver site</span>
         </a>
       )}
       {project.repo && (
         <a href={project.repo} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
           <Icon name="lucide:github" width="14" height="14" />
-          Código
+          <span data-i18n="project.cta.code">Código</span>
         </a>
       )}
     </div>

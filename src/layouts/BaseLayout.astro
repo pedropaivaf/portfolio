@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import A11yMenu from '../components/A11yMenu.astro';
+import { translations } from '../i18n/translations';
 
 interface Props {
   title?: string;
@@ -13,6 +14,8 @@ const {
   title = 'Pedro Paiva Ferreira — Desenvolvedor Web Full-Stack',
   description = 'Portfólio de Pedro Paiva Ferreira — desenvolvedor web full-stack construindo produtos reais em React, Node.js e TypeScript.',
 } = Astro.props;
+
+const i18nJson = JSON.stringify(translations);
 ---
 
 <!doctype html>
@@ -35,6 +38,7 @@ const {
     <meta property="og:description" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
+    <script is:inline set:html={`window.__I18N__ = ${i18nJson};`}></script>
   </head>
   <body>
     <div class="scroll-progress"></div>
@@ -58,6 +62,81 @@ const {
     </aside>
 
     <script>
+      // --- i18n: runtime language switching ---
+      type Lang = 'pt' | 'en' | 'es';
+      type Dict = Record<string, string>;
+      const I18N = (window as any).__I18N__ as Record<Lang, Dict>;
+      const VALID: Lang[] = ['pt', 'en', 'es'];
+      const STORAGE_KEY = 'lang';
+
+      const getLang = (): Lang => {
+        const saved = localStorage.getItem(STORAGE_KEY) as Lang | null;
+        if (saved && VALID.includes(saved)) return saved;
+        const nav = (navigator.language || 'pt').slice(0, 2).toLowerCase();
+        if (nav === 'en') return 'en';
+        if (nav === 'es') return 'es';
+        return 'pt';
+      };
+
+      // Safe HTML renderer: only allows <strong> and <em>. No innerHTML.
+      const applySafeHtml = (el: Element, html: string) => {
+        while (el.firstChild) el.removeChild(el.firstChild);
+        const re = /<(strong|em)>([\s\S]*?)<\/\1>/g;
+        let lastIdx = 0;
+        for (const match of html.matchAll(re)) {
+          const idx = match.index ?? 0;
+          if (idx > lastIdx) {
+            el.appendChild(document.createTextNode(html.slice(lastIdx, idx)));
+          }
+          const tag = document.createElement(match[1]);
+          tag.textContent = match[2];
+          el.appendChild(tag);
+          lastIdx = idx + match[0].length;
+        }
+        if (lastIdx < html.length) {
+          el.appendChild(document.createTextNode(html.slice(lastIdx)));
+        }
+      };
+
+      const applyLang = (lang: Lang) => {
+        const dict = I18N[lang] || I18N.pt;
+        document.documentElement.lang =
+          lang === 'pt' ? 'pt-BR' : lang === 'en' ? 'en-US' : 'es-ES';
+
+        document.querySelectorAll<HTMLElement>('[data-i18n]').forEach((el) => {
+          const key = el.dataset.i18n;
+          if (key && dict[key] !== undefined) el.textContent = dict[key];
+        });
+
+        document.querySelectorAll<HTMLElement>('[data-i18n-html]').forEach((el) => {
+          const key = el.dataset.i18nHtml;
+          if (key && dict[key] !== undefined) applySafeHtml(el, dict[key]);
+        });
+
+        const t = dict['doc.title'];
+        if (t) document.title = t;
+        const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+        if (meta && dict['doc.description']) meta.content = dict['doc.description'];
+
+        document.querySelectorAll<HTMLButtonElement>('[data-lang-switch] [data-lang]').forEach((btn) => {
+          btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+        });
+
+        localStorage.setItem(STORAGE_KEY, lang);
+        document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
+      };
+
+      applyLang(getLang());
+
+      document
+        .querySelectorAll<HTMLButtonElement>('[data-lang-switch] [data-lang]')
+        .forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const lang = btn.dataset.lang as Lang;
+            if (lang && VALID.includes(lang)) applyLang(lang);
+          });
+        });
+
       // --- Reveal on scroll (works for .reveal, .rise, .mask-rise) ---
       const revealObserver = new IntersectionObserver(
         (entries) => {

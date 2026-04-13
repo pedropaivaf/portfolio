@@ -1,11 +1,12 @@
 ---
 import { Icon } from 'astro-icon/components';
+import LangSwitcher from './LangSwitcher.astro';
 
 const links = [
-  { href: '#sobre', label: 'Sobre', num: '01' },
-  { href: '#skills', label: 'Skills', num: '02' },
-  { href: '#projetos', label: 'Projetos', num: '03' },
-  { href: '#contato', label: 'Contato', num: '04' },
+  { href: '#sobre', label: 'Sobre', num: '01', key: 'nav.sobre' },
+  { href: '#skills', label: 'Skills', num: '02', key: 'nav.skills' },
+  { href: '#projetos', label: 'Projetos', num: '03', key: 'nav.projetos' },
+  { href: '#contato', label: 'Contato', num: '04', key: 'nav.contato' },
 ];
 ---
 
@@ -25,21 +26,24 @@ const links = [
       {links.map((l) => (
         <a href={l.href} class="nav-link">
           <span class="nav-link-num">//</span>
-          {l.label}
+          <span data-i18n={l.key}>{l.label}</span>
         </a>
       ))}
     </nav>
 
-    <a
-      href="https://github.com/pedropaivaf"
-      target="_blank"
-      rel="noopener"
-      class="btn btn-ghost btn-sm nav-cta"
-      aria-label="GitHub"
-    >
-      <Icon name="lucide:github" width="16" height="16" />
-      <span>GitHub</span>
-    </a>
+    <div class="nav-right">
+      <LangSwitcher />
+      <a
+        href="https://github.com/pedropaivaf"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-ghost btn-sm nav-cta"
+        aria-label="GitHub"
+      >
+        <Icon name="lucide:github" width="16" height="16" />
+        <span>GitHub</span>
+      </a>
+    </div>
 
     <button
       type="button"
@@ -58,12 +62,12 @@ const links = [
 
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
   <div class="mobile-menu-inner">
-    <span class="mobile-menu-eyebrow">// navegação</span>
+    <span class="mobile-menu-eyebrow" data-i18n="nav.menu">// navegação</span>
     <nav class="mobile-menu-nav" aria-label="Mobile">
       {links.map((l, i) => (
         <a href={l.href} class="mobile-menu-link" style={`--mm-delay: ${i * 60}ms`}>
           <span class="mm-num">{l.num}</span>
-          <span class="mm-label">{l.label}</span>
+          <span class="mm-label" data-i18n={l.key}>{l.label}</span>
           <Icon name="lucide:arrow-up-right" width="16" height="16" class="mm-arrow" />
         </a>
       ))}
@@ -207,6 +211,12 @@ const links = [
 
   .nav-link:hover::after {
     right: 0;
+  }
+
+  .nav-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
   }
 
   .nav-cta {
