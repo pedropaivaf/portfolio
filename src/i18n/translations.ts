@@ -33,7 +33,7 @@ const pt: Dict = {
   'hero.role': '"Full-Stack Developer"',
   'hero.comment': '// evoluindo → Cloud · IA · Mobile',
   'hero.bio':
-    'Construo produtos web <strong>reais em produção</strong> — de sistemas de gestão a plataformas de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.',
+    'Construo produtos web <strong>reais Em Produção</strong> — de sistemas de gestão a plataformas de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.',
   'hero.cta.projects': 'Ver projetos',
   'hero.cta.github': 'GitHub',
   'hero.meta.location': 'Juiz de Fora, MG',
@@ -44,7 +44,7 @@ const pt: Dict = {
   // Hero terminal
   'term.name': '"Pedro Paiva Ferreira"',
   'term.role': '"Full-Stack Developer"',
-  'term.focus': '"produtos reais em produção"',
+  'term.focus': '"produtos reais Em Produção"',
   'term.status': '● disponível para novos projetos',
 
   // About
@@ -55,11 +55,11 @@ const pt: Dict = {
   'about.p1':
     'Sou <strong>obcecado em descobrir e aprimorar</strong> minhas habilidades e forma de pensar. Acredito fielmente que se existe um bom motivo para fazer algo, existe uma solução — ou uma forma de criá-la.',
   'about.p2':
-    'Hoje atuo na <strong>MB Contabilidade</strong> como Suporte de TI e Desenvolvedor de Soluções, onde criei o <strong>MBChat</strong> (chat LAN em Python) e o <strong>CentralMB</strong> (webapp React + Supabase + Electron) para uso interno do escritório. Em paralelo cuido de produtos próprios em produção como SmartParkJF, ReservaQuadra e a API NFSe.',
+    'Hoje atuo na <strong>MB Contabilidade</strong> como Suporte de TI e Desenvolvedor de Soluções, onde criei o <strong>MBChat</strong> (chat LAN em Python) e o <strong>CentralMB</strong> (webapp React + Supabase + Electron) para uso interno do escritório. Em paralelo cuido de produtos próprios Em Produção como SmartParkJF, ReservaQuadra e a API NFSe.',
   'about.p3':
     'Curso <strong>Sistemas de Informação na UniAcademia</strong> (previsão 2027) e me formei em Desenvolvimento Web Full-Stack pela Codi Academy. Adaptabilidade, comunicação assertiva e proatividade em resolver problemas são o que levo pra dentro de cada projeto.',
   'about.return': '"disponível para novos desafios"',
-  'about.h1.title': 'Produtos em produção',
+  'about.h1.title': 'Produtos Em Produção',
   'about.h1.text': 'SmartParkJF e ReservaQuadra rodando com usuários reais.',
   'about.h2.title': 'MB Contabilidade',
   'about.h2.text': 'Suporte de TI e Desenvolvedor de Soluções desde 2025.',
@@ -82,8 +82,8 @@ const pt: Dict = {
   'projects.eyebrow': '// 03 — projetos',
   'projects.title': 'Trabalhos selecionados',
   'projects.lead':
-    'Produtos reais que construí — de sistemas em produção para negócios locais a aplicações pessoais de código aberto.',
-  'project.badge.live': 'em produção',
+    'Produtos reais que construí — de sistemas Em Produção para negócios locais a aplicações pessoais de código aberto.',
+  'project.badge.live': 'Em Produção',
   'project.cta.site': 'Ver site',
   'project.cta.code': 'Código',
   // Per-project
@@ -108,9 +108,9 @@ const pt: Dict = {
   'gh.title.pre': 'Sempre',
   'gh.title.accent': 'commitando',
   'gh.lead':
-    'Desde repositórios experimentais a produtos em produção — código aberto no GitHub como prova viva do que construo.',
+    'Desde repositórios experimentais a produtos Em Produção — código aberto no GitHub como prova viva do que construo.',
   'gh.stat.repos.label': 'repositórios',
-  'gh.stat.prod.label': 'em produção',
+  'gh.stat.prod.label': 'Em Produção',
   'gh.stat.clients.label': 'clientes reais',
   'gh.stat.commits.label': 'commits/mês',
   'gh.heatmap.title': 'contribuições recentes',
