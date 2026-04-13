@@ -89,19 +89,19 @@ const pt: Dict = {
   // Per-project
   'project.api-nfse.tagline': 'Baixador automático de Notas Fiscais de Serviço',
   'project.api-nfse.description':
-    'Aplicação desktop que autentica via Certificado Digital A1 (mTLS) ou usuário/senha no Portal Nacional Gov.br e baixa XMLs de NFS-e em lote. Gerencia múltiplas empresas, sincronização automática por cron e histórico completo. Em uso por escritório de contabilidade.',
+    'Aplicação desktop que autentica via Certificado Digital A1 (mTLS) ou usuário/senha no Portal Nacional Gov.br e baixa XMLs de NFS-e em lote usando web scraping dos portais municipais. Gerencia múltiplas empresas, sincronização automática por cron e histórico completo. Em uso por escritório de contabilidade.',
   'project.smartparkjf.tagline': 'Estacionamento inteligente em operação real',
   'project.smartparkjf.description':
-    'Plataforma SaaS de gestão de estacionamento em operação em Juiz de Fora. Monorepo com app desktop (Electron), site comercial e portal de download. Controla entrada, saída, fechamento e financeiro em tempo real, multi-empresa.',
+    'Plataforma SaaS de gestão de estacionamento em operação em Juiz de Fora. Monorepo com app desktop (Electron), site comercial e portal de download. Controla entrada, saída, fechamento e financeiro em tempo real, multi-empresa. Build e releases automatizados via GitHub Actions.',
   'project.reservaquadra.tagline': 'Reserva de quadras esportivas multi-centro',
   'project.reservaquadra.description':
-    'Plataforma de agendamento de quadras com arquitetura multi-centro. Fluxo completo de reserva, pagamento via PIX, comunidade, campeonatos e gestão para proprietários. Roda em clubes reais como AABB Juiz de Fora e PQ Tennis Club.',
+    'Plataforma de agendamento de quadras com arquitetura multi-centro. Fluxo completo de reserva, pagamento integrado via Webhook do Mercado Pago (PIX), comunidade, campeonatos e gestão para proprietários. Roda em clubes reais como AABB Juiz de Fora e PQ Tennis Club.',
   'project.fitai.tagline': 'Treinos personalizados gerados por IA',
   'project.fitai.description':
     'App mobile que gera fichas de treino personalizadas com IA. Interface nativa Flutter, geração contextual via modelo de linguagem e sincronização de histórico. PWA disponível na web.',
   'project.mbchat.tagline': 'Mensageiro para redes locais',
   'project.mbchat.description':
-    'Aplicação de mensagens instantâneas para redes LAN com transferência de arquivos, notificações e histórico persistente. Deploy público via GitHub Pages.',
+    'Aplicação de mensagens instantâneas em Python para redes LAN com transferência de arquivos, notificações e histórico persistente. Deploy público via GitHub Pages.',
 
   // GitHub
   'gh.eyebrow': '// 04 — open source',
@@ -201,19 +201,19 @@ const en: Dict = {
   'project.cta.code': 'Code',
   'project.api-nfse.tagline': 'Automatic Brazilian service invoice downloader',
   'project.api-nfse.description':
-    "Desktop app that authenticates via A1 digital certificate (mTLS) or user/password on Brazil's Gov.br National Portal and batch-downloads NFS-e XMLs. Manages multiple companies, cron-based auto-sync and full history. In use by an accounting firm.",
+    "Desktop app that authenticates via A1 digital certificate (mTLS) or user/password on Brazil's Gov.br National Portal and batch-downloads NFS-e XMLs by web scraping the municipal portals. Manages multiple companies, cron-based auto-sync and full history. In use by an accounting firm.",
   'project.smartparkjf.tagline': 'Smart parking, live in production',
   'project.smartparkjf.description':
-    'SaaS parking-management platform in live operation in Juiz de Fora. Monorepo with desktop app (Electron), marketing site and download portal. Real-time entry, exit, closing and finance control, multi-tenant.',
+    'SaaS parking-management platform in live operation in Juiz de Fora. Monorepo with desktop app (Electron), marketing site and download portal. Real-time entry, exit, closing and finance control, multi-tenant. Builds and releases are automated via GitHub Actions.',
   'project.reservaquadra.tagline': 'Multi-club sports court booking',
   'project.reservaquadra.description':
-    'Court booking platform with multi-club architecture. Full booking flow, PIX payment, community, tournaments and owner management. Runs at real clubs like AABB Juiz de Fora and PQ Tennis Club.',
+    'Court booking platform with multi-club architecture. Full booking flow, integrated payment via a Mercado Pago webhook (PIX), community, tournaments and owner management. Runs at real clubs like AABB Juiz de Fora and PQ Tennis Club.',
   'project.fitai.tagline': 'AI-generated personalized workouts',
   'project.fitai.description':
     'Mobile app that generates personalized workout plans with AI. Native Flutter UI, contextual generation via LLM and history sync. Also available as a PWA.',
   'project.mbchat.tagline': 'Messaging for local networks',
   'project.mbchat.description':
-    'Instant messaging app for LAN networks with file transfer, notifications and persistent history. Public deployment via GitHub Pages.',
+    'Python instant-messaging app for LAN networks with file transfer, notifications and persistent history. Public deployment via GitHub Pages.',
 
   'gh.eyebrow': '// 04 — open source',
   'gh.title.pre': 'Always',
@@ -309,19 +309,19 @@ const es: Dict = {
   'project.cta.code': 'Código',
   'project.api-nfse.tagline': 'Descargador automático de facturas de servicio',
   'project.api-nfse.description':
-    'App de escritorio que autentica vía Certificado Digital A1 (mTLS) o usuario/contraseña en el Portal Nacional Gov.br y descarga XMLs de NFS-e en lote. Gestiona múltiples empresas, sincronización por cron e historial completo. En uso por un despacho contable.',
+    'App de escritorio que autentica vía Certificado Digital A1 (mTLS) o usuario/contraseña en el Portal Nacional Gov.br y descarga XMLs de NFS-e en lote mediante web scraping de los portales municipales. Gestiona múltiples empresas, sincronización por cron e historial completo. En uso por un despacho contable.',
   'project.smartparkjf.tagline': 'Estacionamiento inteligente en operación real',
   'project.smartparkjf.description':
-    'Plataforma SaaS de gestión de estacionamientos operando en Juiz de Fora. Monorepo con app de escritorio (Electron), sitio comercial y portal de descarga. Control en tiempo real de entrada, salida, cierre y finanzas, multiempresa.',
+    'Plataforma SaaS de gestión de estacionamientos operando en Juiz de Fora. Monorepo con app de escritorio (Electron), sitio comercial y portal de descarga. Control en tiempo real de entrada, salida, cierre y finanzas, multiempresa. Builds y releases automatizados vía GitHub Actions.',
   'project.reservaquadra.tagline': 'Reserva de canchas deportivas multi-club',
   'project.reservaquadra.description':
-    'Plataforma de reservas con arquitectura multi-club. Flujo completo de reserva, pago por PIX, comunidad, torneos y gestión para propietarios. Funciona en clubes reales como AABB Juiz de Fora y PQ Tennis Club.',
+    'Plataforma de reservas con arquitectura multi-club. Flujo completo de reserva, pago integrado vía Webhook de Mercado Pago (PIX), comunidad, torneos y gestión para propietarios. Funciona en clubes reales como AABB Juiz de Fora y PQ Tennis Club.',
   'project.fitai.tagline': 'Entrenamientos personalizados generados por IA',
   'project.fitai.description':
     'App móvil que genera planes de entrenamiento personalizados con IA. Interfaz nativa en Flutter, generación contextual vía LLM y sincronización de historial. También disponible como PWA.',
   'project.mbchat.tagline': 'Mensajería para redes locales',
   'project.mbchat.description':
-    'Aplicación de mensajería instantánea para redes LAN con transferencia de archivos, notificaciones e historial persistente. Deploy público vía GitHub Pages.',
+    'Aplicación de mensajería instantánea en Python para redes LAN con transferencia de archivos, notificaciones e historial persistente. Deploy público vía GitHub Pages.',
 
   'gh.eyebrow': '// 04 — open source',
   'gh.title.pre': 'Siempre',
