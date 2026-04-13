@@ -241,31 +241,40 @@ import avatar from '../assets/perfil.jpg';
     position: relative;
     width: clamp(180px, 48vw, 280px);
     height: clamp(180px, 48vw, 280px);
-    padding: 2px;
+    padding: 3px;
     border-radius: 1.4rem;
     isolation: isolate;
     background:
       conic-gradient(
         from var(--angle),
-        transparent 0deg,
-        color-mix(in oklab, var(--accent) 90%, transparent) 55deg,
-        transparent 130deg,
-        transparent 230deg,
-        color-mix(in oklab, var(--accent) 90%, transparent) 305deg,
-        transparent 360deg
+        color-mix(in oklab, var(--text) 10%, transparent) 0deg,
+        color-mix(in oklab, var(--text) 10%, transparent) 230deg,
+        var(--accent) 300deg,
+        var(--accent-strong) 340deg,
+        var(--accent) 360deg
       );
-    animation: hv-spin 5s linear infinite;
-    filter: drop-shadow(0 18px 38px color-mix(in oklab, var(--accent) 22%, transparent));
+    animation: hv-spin 4.5s linear infinite;
+    filter: drop-shadow(0 22px 44px color-mix(in oklab, var(--accent) 28%, transparent));
   }
 
   .hero-avatar-wrap::before {
     content: '';
     position: absolute;
-    inset: -8px;
-    border-radius: 1.75rem;
-    border: 1px dashed color-mix(in oklab, var(--accent) 20%, transparent);
+    inset: -10px;
+    border-radius: 1.8rem;
+    border: 1px dashed color-mix(in oklab, var(--accent) 22%, transparent);
     pointer-events: none;
     z-index: 0;
+  }
+
+  .hero-avatar-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: calc(1.4rem - 3px);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--bg-elev) 85%, transparent);
+    pointer-events: none;
+    z-index: 3;
   }
 
   @keyframes hv-spin {
@@ -278,7 +287,7 @@ import avatar from '../assets/perfil.jpg';
     display: block;
     width: 100%;
     height: 100%;
-    border-radius: calc(1.4rem - 2px);
+    border-radius: calc(1.4rem - 3px);
     object-fit: cover;
     object-position: center 20%;
     background: var(--bg-elev);
@@ -293,7 +302,7 @@ import avatar from '../assets/perfil.jpg';
     .hero-avatar-wrap {
       width: clamp(170px, 58vw, 220px);
       height: clamp(170px, 58vw, 220px);
-      filter: drop-shadow(0 10px 22px color-mix(in oklab, var(--accent) 18%, transparent));
+      filter: drop-shadow(0 12px 26px color-mix(in oklab, var(--accent) 22%, transparent));
     }
   }
 
