@@ -45,10 +45,7 @@ import { Icon } from 'astro-icon/components';
   aria-label="Opções de acessibilidade"
 >
   <header class="a11y-head">
-    <div>
-      <span class="a11y-eyebrow">// a11y</span>
-      <h2>Acessibilidade</h2>
-    </div>
+    <h2>Acessibilidade</h2>
     <button type="button" class="a11y-close" data-a11y-close aria-label="Fechar menu">
       <Icon name="lucide:x" width="18" height="18" />
     </button>
@@ -187,6 +184,27 @@ import { Icon } from 'astro-icon/components';
       </div>
     </div>
 
+    <div class="a11y-group">
+      <span class="a11y-label">Leitor de tela (áudio)</span>
+      <div class="a11y-tts" data-a11y-tts>
+        <div class="a11y-tts-row">
+          <button type="button" class="a11y-tts-btn a11y-tts-play" data-tts-play>
+            <Icon name="lucide:play" width="16" height="16" />
+            <span>Ouvir página</span>
+          </button>
+          <button type="button" class="a11y-tts-icon" data-tts-stop aria-label="Parar leitura">
+            <Icon name="lucide:square" width="14" height="14" />
+          </button>
+        </div>
+        <div class="a11y-tts-speed">
+          <span class="a11y-tts-speed-label">Velocidade</span>
+          <input type="range" min="0.7" max="1.6" step="0.1" value="1" data-tts-rate />
+          <span class="a11y-tts-speed-value" data-tts-rate-value>1.0x</span>
+        </div>
+        <p class="a11y-tts-status" data-tts-status>Pronto para ler o conteúdo.</p>
+      </div>
+    </div>
+
     <button type="button" class="a11y-reset" data-a11y-reset>
       <Icon name="lucide:rotate-ccw" width="14" height="14" />
       Resetar tudo
@@ -318,16 +336,6 @@ import { Icon } from 'astro-icon/components';
       color-mix(in oklab, #22c55e 10%, #ffffff) 0%,
       #ffffff 100%
     );
-  }
-
-  .a11y-eyebrow {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #5b6472;
-    margin-bottom: 0.2rem;
   }
 
   .a11y-head h2 {
@@ -506,6 +514,97 @@ import { Icon } from 'astro-icon/components';
   }
 
   .a11y-text svg { color: #5b6472; flex-shrink: 0; }
+
+  /* ---------- TTS (screen reader) ---------- */
+  .a11y-tts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 0.75rem;
+    border-radius: 0.6rem;
+    border: 1px solid #e3e7ee;
+    background: #f7f8fa;
+  }
+
+  .a11y-tts-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .a11y-tts-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.55rem;
+    border: 1px solid #22c55e;
+    background: #22c55e;
+    color: #0b1220;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .a11y-tts-btn:hover {
+    background: #16a34a;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+  .a11y-tts-btn[data-state="playing"] { background: #f59e0b; border-color: #f59e0b; }
+  .a11y-tts-btn[data-state="paused"]  { background: #6366f1; border-color: #6366f1; color: #fff; }
+
+  .a11y-tts-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0.55rem;
+    border: 1px solid #e3e7ee;
+    background: #ffffff;
+    color: #0b1220;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .a11y-tts-icon:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #b91c1c;
+  }
+
+  .a11y-tts-speed {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    color: #5b6472;
+  }
+  .a11y-tts-speed-label {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .a11y-tts-speed input[type="range"] {
+    width: 100%;
+    accent-color: #22c55e;
+  }
+  .a11y-tts-speed-value {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: #0b1220;
+    min-width: 2.5rem;
+    text-align: right;
+  }
+
+  .a11y-tts-status {
+    margin: 0;
+    font-size: 0.72rem;
+    color: #5b6472;
+    font-style: italic;
+  }
 
   .a11y-reset {
     display: inline-flex;
@@ -833,5 +932,179 @@ import { Icon } from 'astro-icon/components';
   document.addEventListener('mousemove', (e) => {
     if (!html.classList.contains('a11y-guide') || !guide) return;
     guide.style.top = `${e.clientY}px`;
+  });
+
+  // ---------- Text-to-speech (screen reader) ----------
+  const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+  const playBtn = document.querySelector<HTMLButtonElement>('[data-tts-play]');
+  const stopBtn = document.querySelector<HTMLButtonElement>('[data-tts-stop]');
+  const rateInput = document.querySelector<HTMLInputElement>('[data-tts-rate]');
+  const rateValue = document.querySelector<HTMLElement>('[data-tts-rate-value]');
+  const statusEl = document.querySelector<HTMLElement>('[data-tts-status]');
+  const playLabel = playBtn?.querySelector('span');
+
+  let chunks: string[] = [];
+  let chunkIndex = 0;
+  let ttsState: 'idle' | 'playing' | 'paused' = 'idle';
+  let keepAliveInterval: number | null = null;
+
+  const setStatus = (text: string) => {
+    if (statusEl) statusEl.textContent = text;
+  };
+
+  const setPlayUi = (state: 'idle' | 'playing' | 'paused') => {
+    ttsState = state;
+    if (!playBtn || !playLabel) return;
+    if (state === 'playing') {
+      playBtn.dataset.state = 'playing';
+      playLabel.textContent = 'Pausar';
+      playBtn.setAttribute('aria-label', 'Pausar leitura');
+    } else if (state === 'paused') {
+      playBtn.dataset.state = 'paused';
+      playLabel.textContent = 'Continuar';
+      playBtn.setAttribute('aria-label', 'Continuar leitura');
+    } else {
+      delete playBtn.dataset.state;
+      playLabel.textContent = 'Ouvir página';
+      playBtn.setAttribute('aria-label', 'Ouvir a página');
+    }
+  };
+
+  const pickVoice = (): SpeechSynthesisVoice | null => {
+    if (!synth) return null;
+    const voices = synth.getVoices();
+    return (
+      voices.find((v) => v.lang === 'pt-BR') ||
+      voices.find((v) => v.lang?.startsWith('pt')) ||
+      voices[0] ||
+      null
+    );
+  };
+
+  const extractPageText = (): string[] => {
+    const main = document.querySelector('main');
+    if (!main) return [];
+    const clone = main.cloneNode(true) as HTMLElement;
+    clone.querySelectorAll('script, style, [aria-hidden="true"]').forEach((n) => n.remove());
+    const raw = (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').trim();
+    return raw
+      .split(/(?<=[.!?])\s+(?=[A-ZÀ-Ú])/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+  };
+
+  const stopKeepAlive = () => {
+    if (keepAliveInterval !== null) {
+      window.clearInterval(keepAliveInterval);
+      keepAliveInterval = null;
+    }
+  };
+
+  const startKeepAlive = () => {
+    stopKeepAlive();
+    // Chrome kills long speech after ~15s. Poking pause/resume keeps it going.
+    keepAliveInterval = window.setInterval(() => {
+      if (synth && ttsState === 'playing' && synth.speaking && !synth.paused) {
+        synth.pause();
+        synth.resume();
+      }
+    }, 10000);
+  };
+
+  const speakNext = () => {
+    if (!synth) return;
+    if (chunkIndex >= chunks.length) {
+      setPlayUi('idle');
+      stopKeepAlive();
+      setStatus('Leitura concluída.');
+      return;
+    }
+    const utter = new SpeechSynthesisUtterance(chunks[chunkIndex]);
+    const voice = pickVoice();
+    if (voice) utter.voice = voice;
+    utter.lang = voice?.lang || 'pt-BR';
+    utter.rate = parseFloat(rateInput?.value || '1');
+    utter.pitch = 1;
+    utter.volume = 1;
+    utter.onend = () => {
+      chunkIndex += 1;
+      if (ttsState === 'playing') speakNext();
+    };
+    utter.onerror = () => {
+      setStatus('Erro na síntese de voz.');
+      setPlayUi('idle');
+      stopKeepAlive();
+    };
+    synth.speak(utter);
+    setStatus(`Lendo ${chunkIndex + 1} de ${chunks.length} trechos…`);
+  };
+
+  const startReading = () => {
+    if (!synth) {
+      setStatus('Seu navegador não suporta síntese de voz.');
+      return;
+    }
+    synth.cancel();
+    chunks = extractPageText();
+    if (chunks.length === 0) {
+      setStatus('Não há texto para ler nesta página.');
+      return;
+    }
+    chunkIndex = 0;
+    setPlayUi('playing');
+    startKeepAlive();
+    speakNext();
+  };
+
+  const pauseReading = () => {
+    if (!synth) return;
+    synth.pause();
+    setPlayUi('paused');
+    setStatus('Leitura pausada.');
+  };
+
+  const resumeReading = () => {
+    if (!synth) return;
+    synth.resume();
+    setPlayUi('playing');
+    setStatus(`Lendo ${chunkIndex + 1} de ${chunks.length} trechos…`);
+  };
+
+  const stopReading = () => {
+    if (!synth) return;
+    synth.cancel();
+    chunkIndex = 0;
+    chunks = [];
+    setPlayUi('idle');
+    stopKeepAlive();
+    setStatus('Leitura interrompida.');
+  };
+
+  playBtn?.addEventListener('click', () => {
+    if (ttsState === 'idle') startReading();
+    else if (ttsState === 'playing') pauseReading();
+    else if (ttsState === 'paused') resumeReading();
+  });
+
+  stopBtn?.addEventListener('click', stopReading);
+
+  rateInput?.addEventListener('input', () => {
+    const v = parseFloat(rateInput.value).toFixed(1);
+    if (rateValue) rateValue.textContent = `${v}x`;
+    // Rate changes apply to the next utterance in the queue
+  });
+
+  // Pre-load voices (some browsers populate asynchronously)
+  if (synth) {
+    synth.onvoiceschanged = () => { /* voices ready */ };
+  } else if (playBtn) {
+    playBtn.disabled = true;
+    setStatus('Seu navegador não suporta síntese de voz.');
+  }
+
+  // Stop reading when user navigates away
+  window.addEventListener('beforeunload', () => {
+    synth?.cancel();
+    stopKeepAlive();
   });
 </script>
