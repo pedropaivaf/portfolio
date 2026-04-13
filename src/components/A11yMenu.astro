@@ -1075,13 +1075,34 @@ import { Icon } from 'astro-icon/components';
   const pickVoice = (): SpeechSynthesisVoice | null => {
     if (!synth) return null;
     const voices = synth.getVoices();
+    const pt = voices.filter((v) => v.lang === 'pt-BR' || v.lang?.startsWith('pt'));
     return (
-      voices.find((v) => v.lang === 'pt-BR') ||
-      voices.find((v) => v.lang?.startsWith('pt')) ||
+      pt.find((v) => /google/i.test(v.name)) ||
+      pt.find((v) => /natural|neural|online|wavenet/i.test(v.name)) ||
+      pt.find((v) => /francisca|antonio|thalita|maria|helo[íi]sa|daniel/i.test(v.name)) ||
+      pt.find((v) => /microsoft/i.test(v.name)) ||
+      pt[0] ||
       voices[0] ||
       null
     );
   };
+
+  const normalizeForSpeech = (raw: string): string =>
+    raw
+      .replace(/\s+/g, ' ')
+      .replace(/[—–]/g, ', ')        // em/en dash → pause
+      .replace(/→/g, ', para ')      // arrow
+      .replace(/·/g, ', ')           // middle dot (Cloud · IA · Mobile)
+      .replace(/\//g, ' ou ')        // "frontend/backend" → "frontend ou backend"
+      .replace(/&/g, ' e ')
+      .replace(/\+/g, ' mais ')
+      .replace(/[{}[\]<>«»"'`]/g, ' ')
+      .replace(/\.{2,}/g, '.')       // collapse "..." → "."
+      .replace(/\s+([.,;:!?])/g, '$1')
+      .replace(/([.,;:!?])(?=[^\s])/g, '$1 ')
+      .replace(/,\s*,+/g, ',')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
 
   const extractText = (root: HTMLElement | null): string[] => {
     if (!root) return [];
@@ -1091,9 +1112,15 @@ import { Icon } from 'astro-icon/components';
         'script, style, [aria-hidden="true"], .a11y-track-btn, .eyebrow, .syn-cmt'
       )
       .forEach((n) => n.remove());
-    const raw = (clone.innerText || clone.textContent || '').replace(/\s+/g, ' ').trim();
-    return raw
-      .split(/(?<=[.!?])\s+(?=[A-ZÀ-Ú])/)
+    const raw = clone.innerText || clone.textContent || '';
+    const normalized = normalizeForSpeech(raw);
+    return normalized
+      .split(/(?<=[.!?;])\s+/)
+      .flatMap((s) => {
+        // Break very long clauses on em-dash-derived commas too
+        if (s.length <= 180) return [s];
+        return s.split(/(?<=,)\s+(?=\w)/);
+      })
       .map((s) => s.trim())
       .filter((s) => s.length > 0);
   };
@@ -1142,7 +1169,11 @@ import { Icon } from 'astro-icon/components';
     utter.volume = 1;
     utter.onend = () => {
       chunkIndex += 1;
-      if (ttsState === 'playing') speakNext();
+      if (ttsState !== 'playing') return;
+      const gap = /[.!?]$/.test(chunks[chunkIndex - 1] || '') ? 240 : 140;
+      window.setTimeout(() => {
+        if (ttsState === 'playing') speakNext();
+      }, gap);
     };
     utter.onerror = () => {
       setStatus('Erro na síntese de voz.');
