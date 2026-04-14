@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import A11yMenu from '../components/A11yMenu.astro';
+import Lightbox from '../components/Lightbox.astro';
 import { translations } from '../i18n/translations';
 
 interface Props {
@@ -49,6 +50,7 @@ const i18nJson = JSON.stringify(translations);
     <Footer />
 
     <A11yMenu />
+    <Lightbox />
 
     <aside
       class="section-indicator"

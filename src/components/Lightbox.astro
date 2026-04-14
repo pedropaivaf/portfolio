@@ -1,0 +1,260 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div
+  class="lightbox"
+  data-lightbox
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-label="Galeria de imagens"
+  data-i18n-aria="project.gallery.lightbox"
+>
+  <button
+    class="lb-close"
+    type="button"
+    data-lb-close
+    aria-label="Fechar"
+    data-i18n-aria="project.gallery.close"
+  >
+    <Icon name="lucide:x" width="20" height="20" />
+  </button>
+
+  <button
+    class="lb-arrow lb-prev"
+    type="button"
+    data-lb-prev
+    aria-label="Anterior"
+    data-i18n-aria="project.gallery.prev"
+  >
+    <Icon name="lucide:chevron-left" width="24" height="24" />
+  </button>
+
+  <button
+    class="lb-arrow lb-next"
+    type="button"
+    data-lb-next
+    aria-label="Próxima"
+    data-i18n-aria="project.gallery.next"
+  >
+    <Icon name="lucide:chevron-right" width="24" height="24" />
+  </button>
+
+  <figure class="lb-figure">
+    <img class="lb-img" alt="" />
+    <figcaption class="lb-counter"></figcaption>
+  </figure>
+</div>
+
+<style>
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(2, 6, 23, 0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: lb-fade 0.25s ease;
+  }
+
+  .lightbox[hidden] {
+    display: none;
+  }
+
+  @keyframes lb-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .lb-figure {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .lb-img {
+    display: block;
+    max-width: min(92vw, 1100px);
+    max-height: 86vh;
+    object-fit: contain;
+    border-radius: 0.6rem;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    background: #0b1020;
+  }
+
+  .lb-counter {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.75);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
+    background: rgba(15, 23, 42, 0.55);
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+
+  .lb-counter:empty {
+    display: none;
+  }
+
+  .lb-close,
+  .lb-arrow {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .lb-close:hover,
+  .lb-arrow:hover {
+    background: rgba(15, 23, 42, 0.88);
+  }
+
+  .lb-close:focus-visible,
+  .lb-arrow:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .lb-close {
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .lb-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+  }
+
+  .lb-prev { left: 1.5rem; }
+  .lb-next { right: 1.5rem; }
+
+  .lb-arrow[hidden] { display: none; }
+
+  @media (max-width: 640px) {
+    .lightbox { padding: 1rem; }
+    .lb-img { max-height: 76vh; }
+    .lb-arrow {
+      width: 42px;
+      height: 42px;
+      top: auto;
+      bottom: 1.25rem;
+      transform: none;
+    }
+    .lb-prev { left: 25%; transform: translateX(-50%); }
+    .lb-next { right: 25%; transform: translateX(50%); }
+    .lb-counter { bottom: 4.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox { animation: none; }
+    .lb-close,
+    .lb-arrow { transition: none; }
+  }
+</style>
+
+<script>
+  type LightboxDetail = { srcs: string[]; alts: string[]; start: number };
+
+  const lb = document.querySelector<HTMLElement>('[data-lightbox]');
+  if (lb) {
+    const img = lb.querySelector<HTMLImageElement>('.lb-img')!;
+    const counter = lb.querySelector<HTMLElement>('.lb-counter')!;
+    const btnPrev = lb.querySelector<HTMLButtonElement>('[data-lb-prev]')!;
+    const btnNext = lb.querySelector<HTMLButtonElement>('[data-lb-next]')!;
+    const btnClose = lb.querySelector<HTMLButtonElement>('[data-lb-close]')!;
+
+    let srcs: string[] = [];
+    let alts: string[] = [];
+    let idx = 0;
+
+    const render = () => {
+      img.src = srcs[idx] || '';
+      img.alt = alts[idx] || '';
+      counter.textContent = srcs.length > 1 ? `${idx + 1} / ${srcs.length}` : '';
+      btnPrev.hidden = srcs.length < 2;
+      btnNext.hidden = srcs.length < 2;
+    };
+
+    const go = (n: number) => {
+      if (srcs.length < 2) return;
+      idx = (n + srcs.length) % srcs.length;
+      render();
+    };
+
+    const open = (detail: LightboxDetail) => {
+      srcs = detail.srcs || [];
+      alts = detail.alts || [];
+      idx = Math.max(0, Math.min(detail.start || 0, srcs.length - 1));
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      render();
+      btnClose.focus();
+    };
+
+    const close = () => {
+      lb.hidden = true;
+      document.body.style.overflow = '';
+    };
+
+    window.addEventListener('lightbox:open', (e: Event) => {
+      open((e as CustomEvent<LightboxDetail>).detail);
+    });
+
+    btnPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      go(idx - 1);
+    });
+    btnNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      go(idx + 1);
+    });
+    btnClose.addEventListener('click', close);
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb || e.target === lb.querySelector('.lb-figure')) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') go(idx - 1);
+      if (e.key === 'ArrowRight') go(idx + 1);
+    });
+
+    // swipe
+    let sx = 0;
+    lb.addEventListener(
+      'touchstart',
+      (e) => {
+        sx = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
+    lb.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+    });
+  }
+</script>

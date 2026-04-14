@@ -10,13 +10,51 @@ interface Props {
 
 const { project, index } = Astro.props;
 const num = String(index + 1).padStart(2, '0');
+const gallery = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+const hasGallery = gallery.length > 1;
 ---
 
 <article class="card project-card reveal" style={`--reveal-delay: ${index * 90}ms`}>
-  <div class="project-media">
-    <Image src={project.image} alt={project.name} class="project-img" widths={[600]} sizes="(max-width: 768px) 100vw, 560px" />
+  <div
+    class:list={['project-media', project.imageFit === 'contain' && 'is-contain', hasGallery && 'has-gallery']}
+    data-gallery={hasGallery ? 'true' : null}
+  >
+    {gallery.map((img, i) => (
+      <Image
+        src={img}
+        alt={`${project.name} — ${i + 1}/${gallery.length}`}
+        class:list={['project-img', i === 0 && 'is-active']}
+        data-slide={i}
+        widths={[600]}
+        sizes="(max-width: 768px) 100vw, 560px"
+      />
+    ))}
+
     <span class="project-num">{num}</span>
     {project.status === 'live' && <span class="badge-live project-badge" data-i18n="project.badge.live">Em Produção</span>}
+
+    {hasGallery && (
+      <>
+        <button class="gal-btn gal-prev" type="button" data-gal-prev
+                aria-label="Imagem anterior" data-i18n-aria="project.gallery.prev">
+          <Icon name="lucide:chevron-left" width="18" height="18" />
+        </button>
+        <button class="gal-btn gal-next" type="button" data-gal-next
+                aria-label="Próxima imagem" data-i18n-aria="project.gallery.next">
+          <Icon name="lucide:chevron-right" width="18" height="18" />
+        </button>
+        <div class="gal-dots" aria-hidden="true">
+          {gallery.map((_, i) => (
+            <span class:list={['gal-dot', i === 0 && 'is-active']} data-dot={i}></span>
+          ))}
+        </div>
+      </>
+    )}
+
+    <button class="gal-open" type="button" data-gal-open
+            aria-label="Abrir em tela cheia" data-i18n-aria="project.gallery.open">
+      <Icon name="lucide:maximize-2" width="14" height="14" />
+    </button>
   </div>
 
   <div class="project-body">
@@ -61,6 +99,7 @@ const num = String(index + 1).padStart(2, '0');
     overflow: hidden;
     border-bottom: 1px solid var(--border);
     background: var(--bg-code);
+    cursor: zoom-in;
   }
 
   .project-img {
@@ -70,8 +109,46 @@ const num = String(index + 1).padStart(2, '0');
     transition: transform 0.5s ease;
   }
 
+  .project-media.is-contain .project-img {
+    object-fit: contain;
+    padding: 0.75rem;
+    background: var(--bg-code);
+  }
+
+  .project-media.has-gallery .project-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.5s ease;
+  }
+
+  .project-media.has-gallery.is-contain .project-img {
+    padding: 0.75rem;
+  }
+
+  .project-media.has-gallery .project-img.is-active {
+    opacity: 1;
+  }
+
   .project-card:hover .project-img {
     transform: scale(1.04);
+  }
+
+  .project-media.is-contain:hover .project-img {
+    transform: scale(1.02);
+  }
+
+  .project-media.has-gallery:hover .project-img {
+    transform: none;
+  }
+
+  .project-card:hover .project-media.has-gallery .project-img.is-active {
+    transform: scale(1.03);
+  }
+
+  .project-media.has-gallery.is-contain .project-card:hover .project-img.is-active,
+  .project-card:hover .project-media.has-gallery.is-contain .project-img.is-active {
+    transform: scale(1.02);
   }
 
   .project-num {
@@ -85,12 +162,117 @@ const num = String(index + 1).padStart(2, '0');
     background: rgba(15, 23, 42, 0.7);
     border-radius: 0.3rem;
     backdrop-filter: blur(4px);
+    z-index: 4;
   }
 
   .project-badge {
     position: absolute;
     top: 0.85rem;
     right: 0.95rem;
+    z-index: 4;
+  }
+
+  .gal-btn,
+  .gal-open {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    z-index: 3;
+  }
+
+  .gal-btn {
+    width: 34px;
+    height: 34px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .gal-prev { left: 0.6rem; }
+  .gal-next { right: 0.6rem; }
+
+  .gal-btn:hover,
+  .gal-open:hover {
+    background: rgba(15, 23, 42, 0.85);
+  }
+
+  .gal-btn:focus-visible,
+  .gal-open:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    opacity: 1;
+  }
+
+  .gal-open {
+    width: 28px;
+    height: 28px;
+    top: 0.85rem;
+    right: 0.95rem;
+  }
+
+  /* If a live badge exists, push the expand button to the bottom-right */
+  .project-media:has(.project-badge) .gal-open {
+    top: auto;
+    bottom: 0.85rem;
+  }
+
+  .project-card:hover .gal-btn,
+  .project-card:hover .gal-open {
+    opacity: 1;
+  }
+
+  @media (hover: none) {
+    .gal-btn,
+    .gal-open {
+      opacity: 0.85;
+    }
+  }
+
+  .gal-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 0.7rem;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 3;
+    padding: 0.35rem 0.55rem;
+    background: rgba(15, 23, 42, 0.45);
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+
+  .gal-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.4);
+    transition: width 0.25s ease, background 0.25s ease;
+    cursor: pointer;
+  }
+
+  .gal-dot.is-active {
+    width: 18px;
+    border-radius: 3px;
+    background: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-media.has-gallery .project-img,
+    .gal-btn,
+    .gal-open,
+    .gal-dot {
+      transition: none;
+    }
   }
 
   .project-body {
@@ -141,3 +323,66 @@ const num = String(index + 1).padStart(2, '0');
     justify-content: flex-start;
   }
 </style>
+
+<script>
+  type LightboxDetail = { srcs: string[]; alts: string[]; start: number };
+
+  const openLightbox = (detail: LightboxDetail) => {
+    window.dispatchEvent(new CustomEvent('lightbox:open', { detail }));
+  };
+
+  document.querySelectorAll<HTMLElement>('.project-media').forEach((media) => {
+    const imgs = Array.from(media.querySelectorAll<HTMLImageElement>('.project-img'));
+    const dots = Array.from(media.querySelectorAll<HTMLElement>('.gal-dot'));
+    let idx = 0;
+
+    const go = (n: number) => {
+      if (imgs.length < 2) return;
+      idx = (n + imgs.length) % imgs.length;
+      imgs.forEach((el, i) => el.classList.toggle('is-active', i === idx));
+      dots.forEach((el, i) => el.classList.toggle('is-active', i === idx));
+    };
+
+    media.querySelector<HTMLButtonElement>('[data-gal-prev]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      go(idx - 1);
+    });
+    media.querySelector<HTMLButtonElement>('[data-gal-next]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      go(idx + 1);
+    });
+    dots.forEach((d, i) =>
+      d.addEventListener('click', (e) => {
+        e.stopPropagation();
+        go(i);
+      }),
+    );
+
+    // swipe mobile
+    let sx = 0;
+    media.addEventListener(
+      'touchstart',
+      (e) => {
+        sx = e.touches[0].clientX;
+      },
+      { passive: true },
+    );
+    media.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+    });
+
+    const openFromHere = () =>
+      openLightbox({
+        srcs: imgs.map((i) => i.currentSrc || i.src),
+        alts: imgs.map((i) => i.alt),
+        start: idx,
+      });
+
+    media.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('.gal-btn, .gal-dot')) return;
+      openFromHere();
+    });
+  });
+</script>
