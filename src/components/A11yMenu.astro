@@ -922,6 +922,47 @@ import { Icon } from 'astro-icon/components';
     outline-offset: 3px !important;
     box-shadow: 0 0 0 6px rgba(250, 204, 21, 0.3) !important;
   }
+
+  /* ---------- Reading highlight (TTS) ---------- */
+  /* Soft underline that follows every line of the block being read.
+     text-decoration is painted under the text itself, never clipped by
+     parents with overflow: hidden, and naturally wraps with the lines. */
+  .a11y-reading {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--accent) 65%, transparent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    text-decoration-skip-ink: auto;
+    transition: text-decoration-color 0.3s ease;
+    animation: a11y-reading-pulse 2.4s ease-in-out infinite;
+    scroll-margin-top: 6rem;
+    scroll-margin-bottom: 6rem;
+  }
+
+  /* Make sure descendants inherit the soft underline color even if
+     they declare their own text-decoration. */
+  .a11y-reading * {
+    text-decoration-color: inherit;
+  }
+
+  @keyframes a11y-reading-pulse {
+    0%, 100% {
+      text-decoration-color: color-mix(in oklab, var(--accent) 55%, transparent);
+    }
+    50% {
+      text-decoration-color: color-mix(in oklab, var(--accent) 100%, transparent);
+    }
+  }
+
+  html.a11y-motion .a11y-reading {
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .a11y-reading {
+      animation: none;
+    }
+  }
 </style>
 
 <script>
@@ -1094,10 +1135,34 @@ import { Icon } from 'astro-icon/components';
   const statusEl = document.querySelector<HTMLElement>('[data-tts-status]');
   const playLabel = playBtn?.querySelector('span');
 
-  let chunks: string[] = [];
+  type Chunk = { text: string; el: HTMLElement };
+  let chunks: Chunk[] = [];
   let chunkIndex = 0;
   let ttsState: 'idle' | 'playing' | 'paused' = 'idle';
   let keepAliveInterval: number | null = null;
+  let highlightedEl: HTMLElement | null = null;
+
+  const prefersReducedMotion = (): boolean =>
+    html.classList.contains('a11y-motion') ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const clearHighlight = () => {
+    if (highlightedEl) {
+      highlightedEl.classList.remove('a11y-reading');
+      highlightedEl = null;
+    }
+  };
+
+  const highlightEl = (el: HTMLElement) => {
+    if (highlightedEl === el) return;
+    clearHighlight();
+    el.classList.add('a11y-reading');
+    highlightedEl = el;
+    el.scrollIntoView({
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      block: 'center',
+    });
+  };
 
   // Track current status message in an i18n-aware way so langchange can re-render it.
   let currentStatusKey: { key: string; vars?: Record<string, string | number> } = {
@@ -1166,25 +1231,33 @@ import { Icon } from 'astro-icon/components';
       .trim();
   };
 
-  const extractText = (root: HTMLElement | null): string[] => {
+  const BLOCK_SELECTOR =
+    'h1, h2, h3, h4, h5, h6, p, li, blockquote, figcaption, dt, dd, .output-line';
+  const SKIP_SELECTOR =
+    'script, style, .a11y-track-btn, .eyebrow, .syn-cmt, [aria-hidden="true"]';
+
+  const extractText = (root: HTMLElement | null): Chunk[] => {
     if (!root) return [];
-    const clone = root.cloneNode(true) as HTMLElement;
-    clone
-      .querySelectorAll(
-        'script, style, [aria-hidden="true"], .a11y-track-btn, .eyebrow, .syn-cmt'
-      )
-      .forEach((n) => n.remove());
-    const raw = clone.innerText || clone.textContent || '';
-    const normalized = normalizeForSpeech(raw);
-    return normalized
-      .split(/(?<=[.!?;])\s+/)
-      .flatMap((s) => {
-        // Break very long clauses on em-dash-derived commas too
-        if (s.length <= 180) return [s];
-        return s.split(/(?<=,)\s+(?=\w)/);
-      })
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
+    const result: Chunk[] = [];
+    const blocks = Array.from(
+      root.querySelectorAll<HTMLElement>(BLOCK_SELECTOR)
+    ).filter((el) => !el.closest(SKIP_SELECTOR));
+
+    const sources: HTMLElement[] = blocks.length > 0 ? blocks : [root];
+
+    for (const el of sources) {
+      const clone = el.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll(SKIP_SELECTOR).forEach((n) => n.remove());
+      const raw = clone.innerText || clone.textContent || '';
+      const normalized = normalizeForSpeech(raw);
+      const pieces = normalized
+        .split(/(?<=[.!?;])\s+/)
+        .flatMap((s) => (s.length <= 180 ? [s] : s.split(/(?<=,)\s+(?=\w)/)))
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+      pieces.forEach((text) => result.push({ text, el }));
+    }
+    return result;
   };
 
   let activeTrackBtn: HTMLButtonElement | null = null;
@@ -1219,10 +1292,12 @@ import { Icon } from 'astro-icon/components';
       setPlayUi('idle');
       stopKeepAlive();
       clearActiveTrackBtn();
+      clearHighlight();
       setStatus('a11y.tts.status.done');
       return;
     }
-    const utter = new SpeechSynthesisUtterance(chunks[chunkIndex]);
+    const current = chunks[chunkIndex];
+    const utter = new SpeechSynthesisUtterance(current.text);
     const lang = getLang();
     const voice = pickVoice(lang);
     if (voice) utter.voice = voice;
@@ -1230,10 +1305,17 @@ import { Icon } from 'astro-icon/components';
     utter.rate = parseFloat(rateInput?.value || '1');
     utter.pitch = 1;
     utter.volume = 1;
+    utter.onstart = () => {
+      // Highlight only when speech actually starts. Doing it before
+      // synth.speak() (with smooth scroll) was racing with Chrome's
+      // cancel/speak pipeline and silencing the audio.
+      highlightEl(current.el);
+    };
     utter.onend = () => {
       chunkIndex += 1;
       if (ttsState !== 'playing') return;
-      const gap = /[.!?]$/.test(chunks[chunkIndex - 1] || '') ? 240 : 140;
+      const prev = chunks[chunkIndex - 1];
+      const gap = /[.!?]$/.test(prev?.text || '') ? 240 : 140;
       window.setTimeout(() => {
         if (ttsState === 'playing') speakNext();
       }, gap);
@@ -1243,6 +1325,7 @@ import { Icon } from 'astro-icon/components';
       setPlayUi('idle');
       stopKeepAlive();
       clearActiveTrackBtn();
+      clearHighlight();
     };
     synth.speak(utter);
     setStatus('a11y.tts.status.reading', {
@@ -1297,6 +1380,7 @@ import { Icon } from 'astro-icon/components';
     setPlayUi('idle');
     stopKeepAlive();
     clearActiveTrackBtn();
+    clearHighlight();
     setStatus('a11y.tts.status.stopped');
   };
 
