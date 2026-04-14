@@ -113,6 +113,16 @@ const i18nJson = JSON.stringify(translations);
           if (key && dict[key] !== undefined) applySafeHtml(el, dict[key]);
         });
 
+        document.querySelectorAll<HTMLElement>('[data-i18n-aria]').forEach((el) => {
+          const key = el.dataset.i18nAria;
+          if (key && dict[key] !== undefined) el.setAttribute('aria-label', dict[key]);
+        });
+
+        document.querySelectorAll<HTMLElement>('[data-i18n-title]').forEach((el) => {
+          const key = el.dataset.i18nTitle;
+          if (key && dict[key] !== undefined) el.setAttribute('title', dict[key]);
+        });
+
         const t = dict['doc.title'];
         if (t) document.title = t;
         const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');

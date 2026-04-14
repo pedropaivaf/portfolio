@@ -6,6 +6,7 @@ import { Icon } from 'astro-icon/components';
   type="button"
   class="a11y-fab"
   data-a11y-toggle
+  data-i18n-aria="a11y.open"
   aria-label="Abrir menu de acessibilidade"
   aria-expanded="false"
   aria-controls="a11y-panel"
@@ -45,32 +46,43 @@ import { Icon } from 'astro-icon/components';
   aria-label="Opções de acessibilidade"
 >
   <header class="a11y-head">
-    <h2>Acessibilidade</h2>
-    <button type="button" class="a11y-close" data-a11y-close aria-label="Fechar menu">
+    <h2 data-i18n="a11y.title">Acessibilidade</h2>
+    <button
+      type="button"
+      class="a11y-close"
+      data-a11y-close
+      data-i18n-aria="a11y.close"
+      aria-label="Fechar menu"
+    >
       <Icon name="lucide:x" width="18" height="18" />
     </button>
   </header>
 
   <div class="a11y-body">
     <div class="a11y-group">
-      <span class="a11y-label">Tamanho do texto</span>
-      <div class="a11y-font-btns" role="group" aria-label="Tamanho do texto">
-        <button type="button" data-font="sm" aria-label="Pequeno">A-</button>
-        <button type="button" data-font="md" class="is-active" aria-label="Normal">A</button>
-        <button type="button" data-font="lg" aria-label="Grande">A+</button>
-        <button type="button" data-font="xl" aria-label="Extra grande">A++</button>
+      <span class="a11y-label" data-i18n="a11y.fontSize">Tamanho do texto</span>
+      <div
+        class="a11y-font-btns"
+        role="group"
+        data-i18n-aria="a11y.fontSize"
+        aria-label="Tamanho do texto"
+      >
+        <button type="button" data-font="sm" data-i18n-aria="a11y.font.sm" aria-label="Pequeno">A-</button>
+        <button type="button" data-font="md" class="is-active" data-i18n-aria="a11y.font.md" aria-label="Normal">A</button>
+        <button type="button" data-font="lg" data-i18n-aria="a11y.font.lg" aria-label="Grande">A+</button>
+        <button type="button" data-font="xl" data-i18n-aria="a11y.font.xl" aria-label="Extra grande">A++</button>
       </div>
     </div>
 
     <div class="a11y-group">
-      <span class="a11y-label">Visualização</span>
+      <span class="a11y-label" data-i18n="a11y.section.visual">Visualização</span>
       <div class="a11y-toggles">
         <label class="a11y-toggle">
           <input type="checkbox" data-opt="dark" />
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:moon" width="16" height="16" />
-            Modo escuro
+            <span data-i18n="a11y.opt.dark">Modo escuro</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -78,7 +90,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:contrast" width="16" height="16" />
-            Alto contraste
+            <span data-i18n="a11y.opt.contrast">Alto contraste</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -86,7 +98,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:droplet" width="16" height="16" />
-            Escala de cinza
+            <span data-i18n="a11y.opt.grayscale">Escala de cinza</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -94,7 +106,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:sun-moon" width="16" height="16" />
-            Inverter cores
+            <span data-i18n="a11y.opt.invert">Inverter cores</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -102,21 +114,21 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:palette" width="16" height="16" />
-            Saturação reduzida
+            <span data-i18n="a11y.opt.saturate">Saturação reduzida</span>
           </span>
         </label>
       </div>
     </div>
 
     <div class="a11y-group">
-      <span class="a11y-label">Leitura</span>
+      <span class="a11y-label" data-i18n="a11y.section.reading">Leitura</span>
       <div class="a11y-toggles">
         <label class="a11y-toggle">
           <input type="checkbox" data-opt="dyslexia" />
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:book-open" width="16" height="16" />
-            Fonte para dislexia
+            <span data-i18n="a11y.opt.dyslexia">Fonte para dislexia</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -124,7 +136,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:align-justify" width="16" height="16" />
-            Espaçamento ampliado
+            <span data-i18n="a11y.opt.spacing">Espaçamento ampliado</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -132,7 +144,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:link" width="16" height="16" />
-            Sublinhar links
+            <span data-i18n="a11y.opt.links">Sublinhar links</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -140,7 +152,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:minus" width="16" height="16" />
-            Guia de leitura
+            <span data-i18n="a11y.opt.guide">Guia de leitura</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -148,21 +160,21 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:image-off" width="16" height="16" />
-            Ocultar imagens
+            <span data-i18n="a11y.opt.hideImages">Ocultar imagens</span>
           </span>
         </label>
       </div>
     </div>
 
     <div class="a11y-group">
-      <span class="a11y-label">Interação</span>
+      <span class="a11y-label" data-i18n="a11y.section.interaction">Interação</span>
       <div class="a11y-toggles">
         <label class="a11y-toggle">
           <input type="checkbox" data-opt="motion" />
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:pause" width="16" height="16" />
-            Reduzir animações
+            <span data-i18n="a11y.opt.motion">Reduzir animações</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -170,7 +182,7 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:mouse-pointer-2" width="16" height="16" />
-            Cursor grande
+            <span data-i18n="a11y.opt.cursor">Cursor grande</span>
           </span>
         </label>
         <label class="a11y-toggle">
@@ -178,7 +190,15 @@ import { Icon } from 'astro-icon/components';
           <span class="a11y-switch"></span>
           <span class="a11y-text">
             <Icon name="lucide:focus" width="16" height="16" />
-            Destaque no foco
+            <span data-i18n="a11y.opt.focus">Destaque no foco</span>
+          </span>
+        </label>
+        <label class="a11y-toggle">
+          <input type="checkbox" data-opt="lefty" />
+          <span class="a11y-switch"></span>
+          <span class="a11y-text">
+            <Icon name="lucide:hand" width="16" height="16" />
+            <span data-i18n="a11y.opt.lefty">Modo canhoto</span>
           </span>
         </label>
       </div>
@@ -186,16 +206,17 @@ import { Icon } from 'astro-icon/components';
 
     <div class="a11y-group">
       <div class="a11y-label-row">
-        <span class="a11y-label">Leitor de tela (áudio)</span>
+        <span class="a11y-label" data-i18n="a11y.section.tts">Leitor de tela (áudio)</span>
         <button
           type="button"
           class="a11y-tracks-toggle"
           data-tracks-toggle
           aria-pressed="false"
+          data-i18n-aria="a11y.tracks.aria"
           aria-label="Mostrar botões de leitura em cada seção"
         >
           <Icon name="lucide:list-music" width="13" height="13" />
-          <span>Trechos</span>
+          <span data-i18n="a11y.tracks">Trechos</span>
         </button>
       </div>
       <div class="a11y-tts" data-a11y-tts>
@@ -204,12 +225,18 @@ import { Icon } from 'astro-icon/components';
             <Icon name="lucide:play" width="16" height="16" />
             <span>Ouvir página</span>
           </button>
-          <button type="button" class="a11y-tts-icon" data-tts-stop aria-label="Parar leitura">
+          <button
+            type="button"
+            class="a11y-tts-icon"
+            data-tts-stop
+            data-i18n-aria="a11y.tts.stop"
+            aria-label="Parar leitura"
+          >
             <Icon name="lucide:square" width="14" height="14" />
           </button>
         </div>
         <div class="a11y-tts-speed">
-          <span class="a11y-tts-speed-label">Velocidade</span>
+          <span class="a11y-tts-speed-label" data-i18n="a11y.tts.speed">Velocidade</span>
           <input type="range" min="0.7" max="1.6" step="0.1" value="1" data-tts-rate />
           <span class="a11y-tts-speed-value" data-tts-rate-value>1.0x</span>
         </div>
@@ -219,10 +246,10 @@ import { Icon } from 'astro-icon/components';
 
     <button type="button" class="a11y-reset" data-a11y-reset>
       <Icon name="lucide:rotate-ccw" width="14" height="14" />
-      Resetar tudo
+      <span data-i18n="a11y.reset">Resetar tudo</span>
     </button>
 
-    <p class="a11y-note">
+    <p class="a11y-note" data-i18n="a11y.note">
       Suas preferências ficam salvas neste dispositivo.
     </p>
   </div>
@@ -912,6 +939,7 @@ import { Icon } from 'astro-icon/components';
     | 'motion'
     | 'cursor'
     | 'focus'
+    | 'lefty'
     | 'tracks';
 
   type FontSize = 'sm' | 'md' | 'lg' | 'xl';
@@ -923,6 +951,27 @@ import { Icon } from 'astro-icon/components';
 
   const KEY = 'a11y-prefs';
   const html = document.documentElement;
+
+  // ---------- i18n helpers ----------
+  type Lang = 'pt' | 'en' | 'es';
+  const I18N = (window as any).__I18N__ as Record<Lang, Record<string, string>> | undefined;
+  const getLang = (): Lang => {
+    const l = localStorage.getItem('lang');
+    if (l === 'en' || l === 'es') return l;
+    return 'pt';
+  };
+  const t = (key: string, vars?: Record<string, string | number>): string => {
+    const lang = getLang();
+    let s = (I18N?.[lang]?.[key] ?? I18N?.pt?.[key] ?? key) as string;
+    if (vars) {
+      for (const k of Object.keys(vars)) {
+        s = s.replace(`{${k}}`, String(vars[k]));
+      }
+    }
+    return s;
+  };
+  const bcp47 = (lang: Lang): string =>
+    lang === 'en' ? 'en-US' : lang === 'es' ? 'es-ES' : 'pt-BR';
 
   const load = (): A11yState => {
     try {
@@ -989,7 +1038,7 @@ import { Icon } from 'astro-icon/components';
     [
       'dark', 'contrast', 'grayscale', 'invert', 'saturate',
       'dyslexia', 'spacing', 'links', 'guide', 'hideImages',
-      'motion', 'cursor', 'focus',
+      'motion', 'cursor', 'focus', 'lefty',
     ].forEach((o) => html.classList.remove(`a11y-${o}`));
     document.querySelectorAll<HTMLInputElement>('input[data-opt]').forEach((i) => (i.checked = false));
     disableTracks();
@@ -1050,8 +1099,14 @@ import { Icon } from 'astro-icon/components';
   let ttsState: 'idle' | 'playing' | 'paused' = 'idle';
   let keepAliveInterval: number | null = null;
 
-  const setStatus = (text: string) => {
-    if (statusEl) statusEl.textContent = text;
+  // Track current status message in an i18n-aware way so langchange can re-render it.
+  let currentStatusKey: { key: string; vars?: Record<string, string | number> } = {
+    key: 'a11y.tts.status.ready',
+  };
+
+  const setStatus = (key: string, vars?: Record<string, string | number>) => {
+    currentStatusKey = { key, vars };
+    if (statusEl) statusEl.textContent = t(key, vars);
   };
 
   const setPlayUi = (state: 'idle' | 'playing' | 'paused') => {
@@ -1059,43 +1114,49 @@ import { Icon } from 'astro-icon/components';
     if (!playBtn || !playLabel) return;
     if (state === 'playing') {
       playBtn.dataset.state = 'playing';
-      playLabel.textContent = 'Pausar';
-      playBtn.setAttribute('aria-label', 'Pausar leitura');
+      playLabel.textContent = t('a11y.tts.pause');
+      playBtn.setAttribute('aria-label', t('a11y.tts.pause.aria'));
     } else if (state === 'paused') {
       playBtn.dataset.state = 'paused';
-      playLabel.textContent = 'Continuar';
-      playBtn.setAttribute('aria-label', 'Continuar leitura');
+      playLabel.textContent = t('a11y.tts.resume');
+      playBtn.setAttribute('aria-label', t('a11y.tts.resume.aria'));
     } else {
       delete playBtn.dataset.state;
-      playLabel.textContent = 'Ouvir página';
-      playBtn.setAttribute('aria-label', 'Ouvir a página');
+      playLabel.textContent = t('a11y.tts.play');
+      playBtn.setAttribute('aria-label', t('a11y.tts.play.aria'));
     }
   };
 
-  const pickVoice = (): SpeechSynthesisVoice | null => {
+  const pickVoice = (lang: Lang): SpeechSynthesisVoice | null => {
     if (!synth) return null;
     const voices = synth.getVoices();
-    const pt = voices.filter((v) => v.lang === 'pt-BR' || v.lang?.startsWith('pt'));
+    const prefix = lang === 'pt' ? 'pt' : lang === 'en' ? 'en' : 'es';
+    const filtered = voices.filter((v) =>
+      v.lang?.toLowerCase().startsWith(prefix)
+    );
     return (
-      pt.find((v) => /google/i.test(v.name)) ||
-      pt.find((v) => /natural|neural|online|wavenet/i.test(v.name)) ||
-      pt.find((v) => /francisca|antonio|thalita|maria|helo[íi]sa|daniel/i.test(v.name)) ||
-      pt.find((v) => /microsoft/i.test(v.name)) ||
-      pt[0] ||
+      filtered.find((v) => /google/i.test(v.name)) ||
+      filtered.find((v) => /natural|neural|online|wavenet/i.test(v.name)) ||
+      filtered.find((v) => /microsoft/i.test(v.name)) ||
+      filtered[0] ||
       voices[0] ||
       null
     );
   };
 
-  const normalizeForSpeech = (raw: string): string =>
-    raw
+  const normalizeForSpeech = (raw: string): string => {
+    const arrow = t('a11y.speech.arrow');
+    const slash = t('a11y.speech.slash');
+    const and = t('a11y.speech.and');
+    const plus = t('a11y.speech.plus');
+    return raw
       .replace(/\s+/g, ' ')
       .replace(/[—–]/g, ', ')        // em/en dash → pause
-      .replace(/→/g, ', para ')      // arrow
+      .replace(/→/g, arrow)          // arrow
       .replace(/·/g, ', ')           // middle dot (Cloud · IA · Mobile)
-      .replace(/\//g, ' ou ')        // "frontend/backend" → "frontend ou backend"
-      .replace(/&/g, ' e ')
-      .replace(/\+/g, ' mais ')
+      .replace(/\//g, slash)         // "frontend/backend" → "frontend or backend"
+      .replace(/&/g, and)
+      .replace(/\+/g, plus)
       .replace(/[{}[\]<>«»"'`]/g, ' ')
       .replace(/\.{2,}/g, '.')       // collapse "..." → "."
       .replace(/\s+([.,;:!?])/g, '$1')
@@ -1103,6 +1164,7 @@ import { Icon } from 'astro-icon/components';
       .replace(/,\s*,+/g, ',')
       .replace(/\s{2,}/g, ' ')
       .trim();
+  };
 
   const extractText = (root: HTMLElement | null): string[] => {
     if (!root) return [];
@@ -1157,13 +1219,14 @@ import { Icon } from 'astro-icon/components';
       setPlayUi('idle');
       stopKeepAlive();
       clearActiveTrackBtn();
-      setStatus('Leitura concluída.');
+      setStatus('a11y.tts.status.done');
       return;
     }
     const utter = new SpeechSynthesisUtterance(chunks[chunkIndex]);
-    const voice = pickVoice();
+    const lang = getLang();
+    const voice = pickVoice(lang);
     if (voice) utter.voice = voice;
-    utter.lang = voice?.lang || 'pt-BR';
+    utter.lang = voice?.lang || bcp47(lang);
     utter.rate = parseFloat(rateInput?.value || '1');
     utter.pitch = 1;
     utter.volume = 1;
@@ -1176,31 +1239,34 @@ import { Icon } from 'astro-icon/components';
       }, gap);
     };
     utter.onerror = () => {
-      setStatus('Erro na síntese de voz.');
+      setStatus('a11y.tts.status.error');
       setPlayUi('idle');
       stopKeepAlive();
       clearActiveTrackBtn();
     };
     synth.speak(utter);
-    setStatus(`Lendo ${chunkIndex + 1} de ${chunks.length} trechos…`);
+    setStatus('a11y.tts.status.reading', {
+      current: chunkIndex + 1,
+      total: chunks.length,
+    });
   };
 
   const startReadingFrom = (root: HTMLElement | null, label?: string) => {
     if (!synth) {
-      setStatus('Seu navegador não suporta síntese de voz.');
+      setStatus('a11y.tts.status.unsupported');
       return;
     }
     synth.cancel();
     clearActiveTrackBtn();
     chunks = extractText(root);
     if (chunks.length === 0) {
-      setStatus('Não há texto para ler neste trecho.');
+      setStatus('a11y.tts.status.empty');
       return;
     }
     chunkIndex = 0;
     setPlayUi('playing');
     startKeepAlive();
-    if (label) setStatus(`Lendo trecho: ${label}…`);
+    if (label) setStatus('a11y.tts.status.readingSection', { label });
     speakNext();
   };
 
@@ -1210,14 +1276,17 @@ import { Icon } from 'astro-icon/components';
     if (!synth) return;
     synth.pause();
     setPlayUi('paused');
-    setStatus('Leitura pausada.');
+    setStatus('a11y.tts.status.paused');
   };
 
   const resumeReading = () => {
     if (!synth) return;
     synth.resume();
     setPlayUi('playing');
-    setStatus(`Lendo ${chunkIndex + 1} de ${chunks.length} trechos…`);
+    setStatus('a11y.tts.status.reading', {
+      current: chunkIndex + 1,
+      total: chunks.length,
+    });
   };
 
   const stopReading = () => {
@@ -1228,21 +1297,18 @@ import { Icon } from 'astro-icon/components';
     setPlayUi('idle');
     stopKeepAlive();
     clearActiveTrackBtn();
-    setStatus('Leitura interrompida.');
+    setStatus('a11y.tts.status.stopped');
   };
 
   // ---------- Per-section (track) buttons ----------
-  const SECTION_LABELS: Record<string, string> = {
-    top: 'Início',
-    sobre: 'Sobre',
-    skills: 'Skills',
-    projetos: 'Projetos',
-    github: 'GitHub',
-    contato: 'Contato',
+  const sectionLabel = (id: string): string => {
+    const key = `a11y.section.${id}`;
+    const val = t(key);
+    return val === key ? id : val;
   };
 
   const readSection = (section: HTMLElement, btn: HTMLButtonElement) => {
-    const label = SECTION_LABELS[section.id] || section.id;
+    const label = sectionLabel(section.id);
     startReadingFrom(section, label);
     activeTrackBtn = btn;
     btn.dataset.state = 'playing';
@@ -1254,8 +1320,9 @@ import { Icon } from 'astro-icon/components';
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'a11y-track-btn';
-    const label = SECTION_LABELS[section.id] || section.id;
-    btn.setAttribute('aria-label', `Ouvir seção ${label}`);
+    btn.dataset.sectionId = section.id;
+    const label = sectionLabel(section.id);
+    btn.setAttribute('aria-label', t('a11y.track.aria', { label }));
 
     const svg = document.createElementNS(SVG_NS, 'svg');
     svg.setAttribute('xmlns', SVG_NS);
@@ -1269,7 +1336,7 @@ import { Icon } from 'astro-icon/components';
     svg.appendChild(path);
 
     const span = document.createElement('span');
-    span.textContent = `Ouvir ${label}`;
+    span.textContent = t('a11y.track.listen', { label });
 
     btn.appendChild(svg);
     btn.appendChild(span);
@@ -1340,8 +1407,34 @@ import { Icon } from 'astro-icon/components';
     synth.onvoiceschanged = () => { /* voices ready */ };
   } else if (playBtn) {
     playBtn.disabled = true;
-    setStatus('Seu navegador não suporta síntese de voz.');
+    setStatus('a11y.tts.status.unsupported');
   }
+
+  // Initial idle UI so play button and status text reflect the active language
+  // on first render (also re-applied on every langchange below).
+  setPlayUi('idle');
+  setStatus(currentStatusKey.key, currentStatusKey.vars);
+
+  // ---------- React to language changes ----------
+  // BaseLayout.applyLang re-translates [data-i18n] / [data-i18n-aria] nodes for us.
+  // Here we only re-render the dynamic TTS bits that the script itself owns.
+  const syncDynamicI18n = () => {
+    // Re-apply play-button label + aria for the current ttsState.
+    setPlayUi(ttsState);
+    // Re-apply last status message (with its vars, so counters stay correct).
+    setStatus(currentStatusKey.key, currentStatusKey.vars);
+    // Re-render per-section track buttons (span + aria-label) without
+    // recreating the nodes, so their click handlers stay attached.
+    document.querySelectorAll<HTMLButtonElement>('.a11y-track-btn').forEach((btn) => {
+      const id = btn.dataset.sectionId || '';
+      const label = sectionLabel(id);
+      btn.setAttribute('aria-label', t('a11y.track.aria', { label }));
+      const span = btn.querySelector('span');
+      if (span) span.textContent = t('a11y.track.listen', { label });
+    });
+  };
+
+  document.addEventListener('langchange', syncDynamicI18n);
 
   // Stop reading when user navigates away
   window.addEventListener('beforeunload', () => {

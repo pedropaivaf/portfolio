@@ -132,5 +132,12 @@ const num = String(index + 1).padStart(2, '0');
     flex-wrap: wrap;
     padding-top: 0.75rem;
     border-top: 1px dashed var(--border);
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+
+  :global(html.a11y-lefty) .project-actions {
+    flex-direction: row;
+    justify-content: flex-start;
   }
 </style>
