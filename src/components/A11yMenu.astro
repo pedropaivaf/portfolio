@@ -484,6 +484,7 @@ import { Icon } from 'astro-icon/components';
   }
 
   .a11y-toggle {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -502,6 +503,7 @@ import { Icon } from 'astro-icon/components';
 
   .a11y-toggle input {
     position: absolute;
+    inset: 0;
     opacity: 0;
     pointer-events: none;
   }
