@@ -31,7 +31,7 @@ const pt: Dict = {
   // Hero
   'hero.eyebrow': '// Bem-Vindo(a) ao meu perfil.',
   'hero.role': '"Full-Stack Developer"',
-  'hero.comment': '// commit · push · ship · repeat',
+  'hero.comment': '// role.scope = "end-to-end"',
   'hero.bio':
     'Construo produtos web <strong>reais Em Produção</strong> — de sistemas de gestão a plataformas de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.',
   'hero.cta.projects': 'Ver projetos',
@@ -207,7 +207,7 @@ const en: Dict = {
 
   'hero.eyebrow': '// Welcome to my profile.',
   'hero.role': '"Full-Stack Developer"',
-  'hero.comment': '// commit · push · ship · repeat',
+  'hero.comment': '// role.scope = "end-to-end"',
   'hero.bio':
     'I build <strong>real, production-grade</strong> web products — from management systems to booking platforms. Focused on fast UIs, clean code and results that actually work.',
   'hero.cta.projects': 'See projects',
@@ -374,7 +374,7 @@ const es: Dict = {
 
   'hero.eyebrow': '// Bienvenido(a) a mi perfil.',
   'hero.role': '"Full-Stack Developer"',
-  'hero.comment': '// commit · push · ship · repeat',
+  'hero.comment': '// role.scope = "end-to-end"',
   'hero.bio':
     'Construyo productos web <strong>reales en producción</strong> — desde sistemas de gestión hasta plataformas de reservas. Enfocado en interfaces rápidas, código limpio y resultados que funcionan.',
   'hero.cta.projects': 'Ver proyectos',
