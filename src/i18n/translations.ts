@@ -33,7 +33,7 @@ const pt: Dict = {
   'hero.role': '"Full-Stack Developer"',
   'hero.comment': '// role.scope = "end-to-end"',
   'hero.bio':
-    'Construo produtos web <strong>reais Em Produção</strong> — de sistemas de gestão a plataformas de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.',
+    'Construo produtos web — de sistemas de gestão a plataformas de reserva. Foco em interfaces rápidas, código limpo e resultados que funcionam.',
   'hero.cta.projects': 'Ver projetos',
   'hero.cta.github': 'GitHub',
   'hero.meta.location': 'Juiz de Fora, MG',
@@ -57,7 +57,7 @@ const pt: Dict = {
   'about.p2':
     'Hoje atuo na <strong>MB Contabilidade</strong> como Suporte de TI e Desenvolvedor de Soluções, onde criei o <strong>MBChat</strong> (chat LAN em Python) e o <strong>CentralMB</strong> (webapp React + Supabase + Electron) para uso interno do escritório. Em paralelo cuido de produtos próprios Em Produção como SmartParkJF, ReservaQuadra e a API NFSe.',
   'about.p3':
-    'Curso <strong>Sistemas de Informação na UniAcademia</strong> (previsão 2027) e me formei em Desenvolvimento Web Full-Stack pela Codi Academy. Adaptabilidade, comunicação assertiva e proatividade em resolver problemas são o que levo pra dentro de cada projeto.',
+    'Curso <strong>Sistemas de Informação na UniAcademia</strong> (previsão de término: 2027) e me formei em Desenvolvimento Web Full-Stack pela Codi Academy. Adaptabilidade, comunicação assertiva e proatividade em resolver problemas são o que levo pra dentro de cada projeto.',
   'about.return': '"disponível para novos desafios"',
   'about.h1.title': 'Produtos Em Produção',
   'about.h1.text': 'SmartParkJF e ReservaQuadra rodando com usuários reais.',
@@ -82,20 +82,25 @@ const pt: Dict = {
   'projects.eyebrow': '// 03 — projetos',
   'projects.title': 'Trabalhos selecionados',
   'projects.lead':
-    'Produtos reais que construí — de sistemas Em Produção para negócios locais a aplicações pessoais de código aberto.',
+    'Produtos que construí — desde sistemas em produção para negócios locais até aplicações pessoais de código aberto.',
   'project.badge.live': 'Em Produção',
   'project.cta.site': 'Ver site',
   'project.cta.code': 'Código',
+  'project.gallery.prev': 'Imagem anterior',
+  'project.gallery.next': 'Próxima imagem',
+  'project.gallery.open': 'Abrir em tela cheia',
+  'project.gallery.close': 'Fechar galeria',
+  'project.gallery.lightbox': 'Galeria de imagens',
   // Per-project
   'project.api-nfse.tagline': 'Baixador automático de Notas Fiscais de Serviço',
   'project.api-nfse.description':
-    'Aplicação desktop que autentica via Certificado Digital A1 (mTLS) ou usuário/senha no Portal Nacional Gov.br e baixa XMLs de NFS-e em lote usando web scraping dos portais municipais. Gerencia múltiplas empresas, sincronização automática por cron e histórico completo. Em uso por escritório de contabilidade.',
+    'Aplicação desktop que autentica via Certificado Digital A1 (mTLS) ou usuário/senha no Portal Nacional Gov.br e baixa XMLs de NFS-e em lote usando web scraping dos portais municipais. Gerencia múltiplas empresas, sincronizando automaticamente via expressão cron configurável e exibe histórico completo categorizando por competência. Utilizado por escritórios de contabilidade.',
   'project.smartparkjf.tagline': 'Estacionamento inteligente em operação real',
   'project.smartparkjf.description':
-    'Plataforma SaaS de gestão de estacionamento em operação em Juiz de Fora. Monorepo com app desktop (Electron), site comercial e portal de download. Controla entrada, saída, fechamento e financeiro em tempo real, multi-empresa. Build e releases automatizados via GitHub Actions.',
+    'SaaS de gestão para estacionamentos, o sistema está operando atualmente em Juiz de Fora. Monorepo contendo app desktop (Electron), site comercial, painel web de gestão e portal de download. Funcionalidades: Controle de entrada e saída de veículos, fechamento de caixa (financeiro) em tempo real, multi-empresa. Build e releases automatizados via GitHub Actions.',
   'project.reservaquadra.tagline': 'Reserva de quadras esportivas multi-centro',
   'project.reservaquadra.description':
-    'Plataforma de agendamento de quadras com arquitetura multi-centro. Fluxo completo de reserva, pagamento integrado via Webhook do Mercado Pago (PIX), comunidade, campeonatos e gestão para proprietários. Roda em clubes reais como AABB Juiz de Fora e PQ Tennis Club.',
+    'Plataforma de agendamento de quadras com arquitetura multi-centro. Fluxo completo de reserva, pagamento integrado via Webhook do Mercado Pago (PIX), comunidade, campeonatos e gestão para proprietários.',
   'project.fitai.tagline': 'Treinos personalizados gerados por IA',
   'project.fitai.description':
     'App mobile que gera fichas de treino personalizadas com IA. Interface nativa Flutter, geração contextual via modelo de linguagem e sincronização de histórico. PWA disponível na web.',
@@ -108,7 +113,7 @@ const pt: Dict = {
   'gh.title.pre': 'Sempre',
   'gh.title.accent': 'commitando',
   'gh.lead':
-    'Desde repositórios experimentais a produtos Em Produção — código aberto no GitHub como prova viva do que construo.',
+    'Desde repositórios experimentais a sistemas em produção, visando sempre boas práticas e arquitetura — código aberto no GitHub como prova viva do que construo.',
   'gh.stat.repos.label': 'repositórios',
   'gh.stat.prod.label': 'Em Produção',
   'gh.stat.clients.label': 'clientes reais',
@@ -122,7 +127,7 @@ const pt: Dict = {
   'contact.eyebrow': '// 05 — contato',
   'contact.title': 'Vamos construir algo juntos?',
   'contact.lead':
-    'Estou disponível para novos projetos freelance e oportunidades full-stack. Me chama no canal que preferir — respondo rápido.',
+    'Estou disponível para novos projetos e oportunidades. Vamos conversar.',
 
   // Footer
   'footer.eyebrow': '// fim de arquivo',
@@ -209,7 +214,7 @@ const en: Dict = {
   'hero.role': '"Full-Stack Developer"',
   'hero.comment': '// role.scope = "end-to-end"',
   'hero.bio':
-    'I build <strong>real, production-grade</strong> web products — from management systems to booking platforms. Focused on fast UIs, clean code and results that actually work.',
+    'I build web products — from management systems to booking platforms. Focused on fast UIs, clean code and results that actually work.',
   'hero.cta.projects': 'See projects',
   'hero.cta.github': 'GitHub',
   'hero.meta.location': 'Juiz de Fora, Brazil',
@@ -231,7 +236,7 @@ const en: Dict = {
   'about.p2':
     'Today I work at <strong>MB Contabilidade</strong> as IT Support and Solutions Developer, where I built <strong>MBChat</strong> (a Python LAN chat) and <strong>CentralMB</strong> (a React + Supabase + Electron webapp) for internal use. In parallel I run my own products in production like SmartParkJF, ReservaQuadra and the NFSe API.',
   'about.p3':
-    "I'm pursuing a <strong>Bachelor's in Information Systems at UniAcademia</strong> (graduating 2027) and completed a Full-Stack Web Development program at Codi Academy. Adaptability, clear communication and proactive problem-solving are what I bring to every project.",
+    "I'm pursuing a <strong>Bachelor's in Information Systems at UniAcademia</strong> (expected graduation: 2027) and completed a Full-Stack Web Development program at Codi Academy. Adaptability, clear communication and proactive problem-solving are what I bring to every project.",
   'about.return': '"available for new challenges"',
   'about.h1.title': 'Products in production',
   'about.h1.text': 'SmartParkJF and ReservaQuadra running with real users.',
@@ -254,19 +259,24 @@ const en: Dict = {
   'projects.eyebrow': '// 03 — projects',
   'projects.title': 'Selected work',
   'projects.lead':
-    'Real products I built — from systems running live for local businesses to personal open-source apps.',
+    'Products I built — from production systems running for local businesses to personal open-source apps.',
   'project.badge.live': 'in production',
   'project.cta.site': 'Visit site',
   'project.cta.code': 'Code',
+  'project.gallery.prev': 'Previous image',
+  'project.gallery.next': 'Next image',
+  'project.gallery.open': 'Open fullscreen',
+  'project.gallery.close': 'Close gallery',
+  'project.gallery.lightbox': 'Image gallery',
   'project.api-nfse.tagline': 'Automatic Brazilian service invoice downloader',
   'project.api-nfse.description':
-    "Desktop app that authenticates via A1 digital certificate (mTLS) or user/password on Brazil's Gov.br National Portal and batch-downloads NFS-e XMLs by web scraping the municipal portals. Manages multiple companies, cron-based auto-sync and full history. In use by an accounting firm.",
+    "Desktop app that authenticates via A1 digital certificate (mTLS) or user/password on Brazil's Gov.br National Portal and batch-downloads NFS-e XMLs by web scraping the municipal portals. Manages multiple companies, auto-syncing through a configurable cron expression and displaying full history categorized by accounting period. Used by accounting firms.",
   'project.smartparkjf.tagline': 'Smart parking, live in production',
   'project.smartparkjf.description':
-    'SaaS parking-management platform in live operation in Juiz de Fora. Monorepo with desktop app (Electron), marketing site and download portal. Real-time entry, exit, closing and finance control, multi-tenant. Builds and releases are automated via GitHub Actions.',
+    'Parking-management SaaS currently in live operation in Juiz de Fora. Monorepo holding a desktop app (Electron), marketing site, web management panel and download portal. Features: vehicle entry and exit control, real-time cash closing (finance), multi-tenant. Builds and releases automated via GitHub Actions.',
   'project.reservaquadra.tagline': 'Multi-club sports court booking',
   'project.reservaquadra.description':
-    'Court booking platform with multi-club architecture. Full booking flow, integrated payment via a Mercado Pago webhook (PIX), community, tournaments and owner management. Runs at real clubs like AABB Juiz de Fora and PQ Tennis Club.',
+    'Court booking platform with multi-club architecture. Full booking flow, integrated payment via a Mercado Pago webhook (PIX), community, tournaments and owner management.',
   'project.fitai.tagline': 'AI-generated personalized workouts',
   'project.fitai.description':
     'Mobile app that generates personalized workout plans with AI. Native Flutter UI, contextual generation via LLM and history sync. Also available as a PWA.',
@@ -278,7 +288,7 @@ const en: Dict = {
   'gh.title.pre': 'Always',
   'gh.title.accent': 'shipping',
   'gh.lead':
-    'From experimental repos to production products — open source on GitHub as living proof of what I build.',
+    'From experimental repos to production systems, always aiming for best practices and solid architecture — open source on GitHub as living proof of what I build.',
   'gh.stat.repos.label': 'repositories',
   'gh.stat.prod.label': 'in production',
   'gh.stat.clients.label': 'real clients',
@@ -291,7 +301,7 @@ const en: Dict = {
   'contact.eyebrow': '// 05 — contact',
   'contact.title': "Let's build something together?",
   'contact.lead':
-    'Available for new freelance projects and full-stack opportunities. Ping me on whichever channel you prefer — I reply fast.',
+    'Open to new projects and opportunities. Let\u2019s talk.',
 
   'footer.eyebrow': '// end of file',
   'footer.sub': 'Full-Stack Web Developer — Juiz de Fora, Brazil',
@@ -376,7 +386,7 @@ const es: Dict = {
   'hero.role': '"Full-Stack Developer"',
   'hero.comment': '// role.scope = "end-to-end"',
   'hero.bio':
-    'Construyo productos web <strong>reales en producción</strong> — desde sistemas de gestión hasta plataformas de reservas. Enfocado en interfaces rápidas, código limpio y resultados que funcionan.',
+    'Construyo productos web — desde sistemas de gestión hasta plataformas de reservas. Enfocado en interfaces rápidas, código limpio y resultados que funcionan.',
   'hero.cta.projects': 'Ver proyectos',
   'hero.cta.github': 'GitHub',
   'hero.meta.location': 'Juiz de Fora, Brasil',
@@ -398,7 +408,7 @@ const es: Dict = {
   'about.p2':
     'Hoy trabajo en <strong>MB Contabilidade</strong> como Soporte TI y Desarrollador de Soluciones, donde creé <strong>MBChat</strong> (chat LAN en Python) y <strong>CentralMB</strong> (webapp React + Supabase + Electron) para uso interno. En paralelo mantengo mis propios productos en producción como SmartParkJF, ReservaQuadra y la API NFSe.',
   'about.p3':
-    'Estudio <strong>Sistemas de Información en UniAcademia</strong> (previsto 2027) y me formé en Desarrollo Web Full-Stack en Codi Academy. Adaptabilidad, comunicación clara y proactividad para resolver problemas son lo que llevo a cada proyecto.',
+    'Estudio <strong>Sistemas de Información en UniAcademia</strong> (finalización prevista: 2027) y me formé en Desarrollo Web Full-Stack en Codi Academy. Adaptabilidad, comunicación clara y proactividad para resolver problemas son lo que llevo a cada proyecto.',
   'about.return': '"disponible para nuevos desafíos"',
   'about.h1.title': 'Productos en producción',
   'about.h1.text': 'SmartParkJF y ReservaQuadra funcionando con usuarios reales.',
@@ -421,19 +431,24 @@ const es: Dict = {
   'projects.eyebrow': '// 03 — proyectos',
   'projects.title': 'Trabajos seleccionados',
   'projects.lead':
-    'Productos reales que construí — desde sistemas en producción para negocios locales hasta aplicaciones personales de código abierto.',
+    'Productos que construí — desde sistemas en producción para negocios locales hasta aplicaciones personales de código abierto.',
   'project.badge.live': 'en producción',
   'project.cta.site': 'Ver sitio',
   'project.cta.code': 'Código',
+  'project.gallery.prev': 'Imagen anterior',
+  'project.gallery.next': 'Siguiente imagen',
+  'project.gallery.open': 'Abrir en pantalla completa',
+  'project.gallery.close': 'Cerrar galería',
+  'project.gallery.lightbox': 'Galería de imágenes',
   'project.api-nfse.tagline': 'Descargador automático de facturas de servicio',
   'project.api-nfse.description':
-    'App de escritorio que autentica vía Certificado Digital A1 (mTLS) o usuario/contraseña en el Portal Nacional Gov.br y descarga XMLs de NFS-e en lote mediante web scraping de los portales municipales. Gestiona múltiples empresas, sincronización por cron e historial completo. En uso por un despacho contable.',
+    'App de escritorio que autentica vía Certificado Digital A1 (mTLS) o usuario/contraseña en el Portal Nacional Gov.br y descarga XMLs de NFS-e en lote mediante web scraping de los portales municipales. Gestiona múltiples empresas, sincronizando automáticamente mediante una expresión cron configurable y muestra historial completo categorizado por período contable. Utilizado por despachos contables.',
   'project.smartparkjf.tagline': 'Estacionamiento inteligente en operación real',
   'project.smartparkjf.description':
-    'Plataforma SaaS de gestión de estacionamientos operando en Juiz de Fora. Monorepo con app de escritorio (Electron), sitio comercial y portal de descarga. Control en tiempo real de entrada, salida, cierre y finanzas, multiempresa. Builds y releases automatizados vía GitHub Actions.',
+    'SaaS de gestión para estacionamientos, actualmente en operación en Juiz de Fora. Monorepo con app de escritorio (Electron), sitio comercial, panel web de gestión y portal de descarga. Funcionalidades: control de entrada y salida de vehículos, cierre de caja (financiero) en tiempo real, multiempresa. Builds y releases automatizados vía GitHub Actions.',
   'project.reservaquadra.tagline': 'Reserva de canchas deportivas multi-club',
   'project.reservaquadra.description':
-    'Plataforma de reservas con arquitectura multi-club. Flujo completo de reserva, pago integrado vía Webhook de Mercado Pago (PIX), comunidad, torneos y gestión para propietarios. Funciona en clubes reales como AABB Juiz de Fora y PQ Tennis Club.',
+    'Plataforma de reservas con arquitectura multi-club. Flujo completo de reserva, pago integrado vía Webhook de Mercado Pago (PIX), comunidad, torneos y gestión para propietarios.',
   'project.fitai.tagline': 'Entrenamientos personalizados generados por IA',
   'project.fitai.description':
     'App móvil que genera planes de entrenamiento personalizados con IA. Interfaz nativa en Flutter, generación contextual vía LLM y sincronización de historial. También disponible como PWA.',
@@ -445,7 +460,7 @@ const es: Dict = {
   'gh.title.pre': 'Siempre',
   'gh.title.accent': 'commiteando',
   'gh.lead':
-    'Desde repos experimentales a productos en producción — código abierto en GitHub como prueba viva de lo que construyo.',
+    'Desde repos experimentales a sistemas en producción, siempre buscando buenas prácticas y arquitectura — código abierto en GitHub como prueba viva de lo que construyo.',
   'gh.stat.repos.label': 'repositorios',
   'gh.stat.prod.label': 'en producción',
   'gh.stat.clients.label': 'clientes reales',
@@ -458,7 +473,7 @@ const es: Dict = {
   'contact.eyebrow': '// 05 — contacto',
   'contact.title': '¿Construimos algo juntos?',
   'contact.lead':
-    'Disponible para nuevos proyectos freelance y oportunidades full-stack. Escríbeme por el canal que prefieras — respondo rápido.',
+    'Disponible para nuevos proyectos y oportunidades. Hablemos.',
 
   'footer.eyebrow': '// fin de archivo',
   'footer.sub': 'Desarrollador Web Full-Stack — Juiz de Fora, Brasil',
