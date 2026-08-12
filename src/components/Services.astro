@@ -1,0 +1,228 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { Icon } from 'astro-icon/components';
+
+const services = [
+  {
+    icon: 'lucide:layout-template',
+    titleKey: 'services.web.title',
+    title: 'Sistemas Web & SaaS Sob Medida',
+    descKey: 'services.web.desc',
+    desc: 'Desenvolvimento de plataformas web completas, painéis administrativos e sistemas SaaS personalizados para a necessidade exata do seu negócio.',
+    features: [
+      'Painéis de gestão em tempo real',
+      'Autenticação e controle de acessos',
+      'Arquitetura rápida com React/Node',
+      'Layout 100% responsivo e moderno'
+    ]
+  },
+  {
+    icon: 'lucide:cpu',
+    titleKey: 'services.desktop.title',
+    title: 'Softwares Desktop & Automação',
+    descKey: 'services.desktop.desc',
+    desc: 'Aplicações para Windows/Mac e scripts inteligentes para automatizar tarefas operacionais repetitivas, emissão de documentos e extração de dados.',
+    features: [
+      'Aplicações nativas com Electron & Python',
+      'Automação de processos (Web Scraping)',
+      'Integração com Certificados Digitais A1',
+      'Execução offline e armazenamento local'
+    ]
+  },
+  {
+    icon: 'lucide:sparkles',
+    titleKey: 'services.landing.title',
+    title: 'Landing Pages & Sites de Alta Conversão',
+    descKey: 'services.landing.desc',
+    desc: 'Páginas comerciais estrategicamente desenhadas para transmitir autoridade instantânea e converter visitantes em clientes pagantes.',
+    features: [
+      'Design exclusivo (sem templates prontos)',
+      'Carregamento ultra-rápido (SEO Nota 100)',
+      'Botões diretos para WhatsApp e Lead Form',
+      'Adaptação perfeita para celulares'
+    ]
+  },
+  {
+    icon: 'lucide:webhook',
+    titleKey: 'services.api.title',
+    title: 'APIs & Integrações de Pagamento',
+    descKey: 'services.api.desc',
+    desc: 'Conexão entre sistemas, emissão de notas fiscais automatizadas e integração de gateways de pagamento instantâneo via PIX.',
+    features: [
+      'Pagamentos PIX automáticos (Mercado Pago)',
+      'Integração com portais de NFS-e e bancos',
+      'Webhooks de sincronização em tempo real',
+      'Bancos de dados Supabase e PostgreSQL'
+    ]
+  }
+];
+---
+
+<section id="servicos" class="section">
+  <div class="container-page">
+    <SectionTitle
+      eyebrow="Como posso te ajudar"
+      title="Soluções de software desenvolvidas para gerar resultados"
+      lead="Do site de apresentação ao sistema de gestão interno: projetos construídos sob medida para economizar tempo e alavancar o seu negócio."
+      eyebrowKey="services.eyebrow"
+      titleKey="services.title"
+      leadKey="services.lead"
+    />
+
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <div class="service-card reveal" style={`--reveal-delay: ${i * 100}ms`}>
+          <div class="service-header">
+            <span class="service-icon">
+              <Icon name={s.icon} width="24" height="24" />
+            </span>
+            <h3 class="service-title" data-i18n={s.titleKey}>{s.title}</h3>
+          </div>
+          
+          <p class="service-desc" data-i18n={s.descKey}>{s.desc}</p>
+          
+          <ul class="service-features">
+            {s.features.map((feat) => (
+              <li>
+                <Icon name="lucide:check-circle-2" width="16" height="16" class="feat-check" />
+                <span>{feat}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a href="#contato" class="service-cta">
+            <span data-i18n="services.cta">Solicitar orçamento para este serviço</span>
+            <Icon name="lucide:arrow-right" width="16" height="16" />
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
+    position: relative;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .service-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 1.15rem;
+    padding: 1.85rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.1);
+  }
+
+  .service-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 0.75rem;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent);
+    flex-shrink: 0;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .service-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .service-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .service-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .feat-check {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .service-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.1rem;
+    border-radius: 0.75rem;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    text-decoration: none;
+  }
+
+  .service-cta :global(svg) {
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .service-card:hover .service-cta,
+  .service-cta:hover {
+    background: #10b981;
+    color: #ffffff !important;
+    border-color: #34d399;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .service-card:hover .service-cta :global(svg),
+  .service-cta:hover :global(svg) {
+    color: #ffffff !important;
+    transform: translateX(4px);
+  }
+</style>

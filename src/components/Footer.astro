@@ -2,10 +2,11 @@
 import { Icon } from 'astro-icon/components';
 
 const socials = [
+  { href: 'https://wa.me/5532984019757?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento', label: 'WhatsApp', icon: 'simple-icons:whatsapp' },
+  { href: 'mailto:contato.pedropaivaf@outlook.com', label: 'Email', icon: 'lucide:mail' },
+  { href: 'https://www.linkedin.com/in/pedropaivaf/', label: 'LinkedIn', icon: 'lucide:linkedin' },
   { href: 'https://github.com/pedropaivaf', label: 'GitHub', icon: 'lucide:github' },
-  { href: 'https://www.linkedin.com/in/pedro-paiva-19187b26a/', label: 'LinkedIn', icon: 'lucide:linkedin' },
   { href: 'https://www.instagram.com/pedro_paiva_ferreira/', label: 'Instagram', icon: 'lucide:instagram' },
-  { href: 'https://wa.me/5532984019757?text=Tenho%20interesse%20em%20te%20contratar!', label: 'WhatsApp', icon: 'lucide:message-circle' },
 ];
 
 const year = new Date().getFullYear();
@@ -14,9 +15,9 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="container-page footer-inner">
     <div class="footer-brand">
-      <span class="font-mono text-xs eyebrow" data-i18n="footer.eyebrow">// fim de arquivo</span>
-      <p class="footer-name">Pedro Paiva Ferreira</p>
-      <p class="footer-sub" data-i18n="footer.sub">Desenvolvedor Web Full-Stack — Juiz de Fora, MG</p>
+      <span class="eyebrow" data-i18n="footer.eyebrow">Pedro Paiva Ferreira</span>
+      <p class="footer-name">Engenharia de Software & Soluções Web</p>
+      <p class="footer-sub" data-i18n="footer.sub">Desenvolvedor Web & Soluções Full-Stack — Juiz de Fora, MG</p>
     </div>
 
     <div class="footer-socials">
@@ -29,21 +30,18 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="container-page footer-bottom">
-    <span>© {year} Pedro Paiva Ferreira</span>
-    <span class="footer-built">
-      <span class="opacity-60" data-i18n="footer.built">construído com</span>
-      <code>Astro</code> <span class="opacity-60">+</span> <code>Tailwind</code>
-    </span>
+    <span>© {year} Pedro Paiva Ferreira. Todos os direitos reservados.</span>
   </div>
 </footer>
 
 <style>
   .footer {
-    margin-top: 6rem;
+    margin-top: 4rem;
     padding: 3.5rem 0 2rem;
     border-top: 1px solid var(--border);
-    background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--text) 3%, var(--bg)));
+    background: var(--bg-elev);
     position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
 
   .footer-inner {
@@ -62,15 +60,17 @@ const year = new Date().getFullYear();
   }
 
   .footer-name {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: -0.01em;
     margin-top: 0.4rem;
+    color: var(--text);
   }
 
   .footer-sub {
     color: var(--text-muted);
     font-size: 0.9rem;
+    margin-top: 0.2rem;
   }
 
   .footer-socials {
@@ -82,20 +82,20 @@ const year = new Date().getFullYear();
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 0.6rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 0.65rem;
     border: 1px solid var(--border);
-    background: var(--bg-elev);
+    background: var(--bg);
     color: var(--text-muted);
-    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    transition: all 0.2s ease;
   }
 
   .social-link:hover {
     transform: translateY(-2px);
-    color: var(--text);
+    color: var(--accent);
     border-color: var(--accent);
-    background: color-mix(in oklab, var(--accent) 10%, var(--bg-elev));
+    background: var(--bg-elev-hover);
   }
 
   .footer-bottom {
@@ -106,15 +106,7 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
-  }
-
-  .footer-built code {
-    color: var(--text);
-    background: color-mix(in oklab, var(--text) 6%, transparent);
-    padding: 0.1rem 0.4rem;
-    border-radius: 0.3rem;
   }
 </style>

@@ -9,22 +9,22 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
     title: 'Linguagens',
     key: 'skills.group.languages',
     items: [
-      { name: 'JavaScript', icon: 'simple-icons:javascript', color: '#f7df1e', href: 'https://developer.mozilla.org/docs/Web/JavaScript' },
       { name: 'TypeScript', icon: 'simple-icons:typescript', color: '#3178c6', href: 'https://www.typescriptlang.org' },
+      { name: 'JavaScript', icon: 'simple-icons:javascript', color: '#f7df1e', href: 'https://developer.mozilla.org/docs/Web/JavaScript' },
       { name: 'Python', icon: 'simple-icons:python', color: '#3776ab', href: 'https://www.python.org' },
-      { name: 'SQL', icon: 'lucide:database', color: '#6366f1', href: 'https://www.postgresql.org/docs/current/sql.html' },
+      { name: 'SQL', icon: 'lucide:database', color: '#10b981', href: 'https://www.postgresql.org/docs/current/sql.html' },
       { name: 'HTML5', icon: 'simple-icons:html5', color: '#e34f26', href: 'https://developer.mozilla.org/docs/Web/HTML' },
       { name: 'CSS3', icon: 'simple-icons:css3', color: '#1572b6', href: 'https://developer.mozilla.org/docs/Web/CSS' },
     ],
   },
   {
-    title: 'Frontend',
+    title: 'Frontend & UI',
     key: 'skills.group.frontend',
     items: [
       { name: 'React', icon: 'simple-icons:react', color: '#61dafb', href: 'https://react.dev' },
-      { name: 'Vue.js', icon: 'simple-icons:vuedotjs', color: '#4fc08d', href: 'https://vuejs.org' },
-      { name: 'Astro', icon: 'simple-icons:astro', color: '#ff5d01', href: 'https://astro.build' },
       { name: 'Tailwind CSS', icon: 'simple-icons:tailwindcss', color: '#06b6d4', href: 'https://tailwindcss.com' },
+      { name: 'Astro', icon: 'simple-icons:astro', color: '#ff5d01', href: 'https://astro.build' },
+      { name: 'Vue.js', icon: 'simple-icons:vuedotjs', color: '#4fc08d', href: 'https://vuejs.org' },
       { name: 'Vite', icon: 'simple-icons:vite', color: '#646cff', href: 'https://vite.dev' },
     ],
   },
@@ -33,31 +33,31 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
     key: 'skills.group.backend',
     items: [
       { name: 'Node.js', icon: 'simple-icons:nodedotjs', color: '#339933', href: 'https://nodejs.org' },
-      { name: 'Express', icon: 'simple-icons:express', color: '#000000', href: 'https://expressjs.com' },
-      { name: 'Django', icon: 'simple-icons:django', color: '#092e20', href: 'https://www.djangoproject.com' },
       { name: 'Electron', icon: 'simple-icons:electron', color: '#47848f', href: 'https://www.electronjs.org' },
+      { name: 'Express', icon: 'simple-icons:express', color: '#ffffff', href: 'https://expressjs.com' },
+      { name: 'Django', icon: 'simple-icons:django', color: '#10b981', href: 'https://www.djangoproject.com' },
     ],
   },
   {
-    title: 'Dados & Ferramentas',
+    title: 'Banco de Dados & Ferramentas',
     key: 'skills.group.data',
     items: [
-      { name: 'PostgreSQL', icon: 'simple-icons:postgresql', color: '#4169e1', href: 'https://www.postgresql.org' },
       { name: 'Supabase', icon: 'simple-icons:supabase', color: '#3ecf8e', href: 'https://supabase.com' },
+      { name: 'PostgreSQL', icon: 'simple-icons:postgresql', color: '#4169e1', href: 'https://www.postgresql.org' },
       { name: 'SQLite', icon: 'simple-icons:sqlite', color: '#003b57', href: 'https://www.sqlite.org' },
       { name: 'Git & GitHub', icon: 'simple-icons:git', color: '#f05032', href: 'https://github.com' },
-      { name: 'IA / LLMs', icon: 'lucide:sparkles', color: '#a855f7', href: 'https://www.anthropic.com' },
+      { name: 'IA & LLMs', icon: 'lucide:sparkles', color: '#a855f7', href: 'https://www.anthropic.com' },
     ],
   },
 ];
 ---
 
-<section id="skills" class="section section-alt">
+<section id="skills" class="section">
   <div class="container-page">
     <SectionTitle
-      eyebrow="// 02 — skills"
-      title="Tecnologias que uso no dia a dia"
-      lead="Stack full-stack moderna, com foco em produtividade e código de qualidade."
+      eyebrow="Tecnologias & Ferramentas"
+      title="Stack moderna para máxima performance e confiabilidade"
+      lead="Ferramentas consolidadas no mercado para entregar aplicações ágeis, seguras e fáceis de manter."
       eyebrowKey="skills.eyebrow"
       titleKey="skills.title"
       leadKey="skills.lead"
@@ -65,9 +65,8 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
 
     <div class="skills-grid">
       {groups.map((group, i) => (
-        <div class="skills-group reveal" style={`--reveal-delay: ${i * 110}ms`}>
+        <div class="skills-group reveal" style={`--reveal-delay: ${i * 100}ms`}>
           <h3 class="skills-group-title">
-            <span class="skills-group-num">//</span>
             <span data-i18n={group.key}>{group.title}</span>
           </h3>
           <div class="skills-items">
@@ -78,7 +77,7 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${s.name} — site oficial`}
-                style={`--icon-color: ${s.color ?? '#0b1220'}`}
+                style={`--icon-color: ${s.color ?? '#10b981'}`}
               >
                 <Icon name={s.icon} width="18" height="18" />
                 <span>{s.name}</span>
@@ -93,12 +92,7 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
 
 <style>
   .section {
-    padding: clamp(3.5rem, 9vw, 6rem) 0;
-  }
-
-  .section-alt {
-    background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--text) 2%, transparent), transparent);
-    position: relative;
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
   }
 
   .skills-grid {
@@ -107,30 +101,25 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
     gap: 2rem;
   }
 
-  @media (min-width: 720px) {
+  @media (min-width: 640px) {
     .skills-grid {
       grid-template-columns: 1fr 1fr;
     }
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1024px) {
     .skills-grid {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 
   .skills-group-title {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--text);
     margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .skills-group-num {
-    color: var(--accent);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
   }
 
   .skills-items {
@@ -146,8 +135,8 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
     padding: 0.55rem 0.85rem;
     background: var(--bg-elev);
     border: 1px solid var(--border);
-    border-radius: 0.55rem;
-    font-size: 0.82rem;
+    border-radius: 0.6rem;
+    font-size: 0.84rem;
     font-weight: 500;
     color: var(--text);
     text-decoration: none;
@@ -161,8 +150,8 @@ const groups: { title: string; key: string; items: Skill[] }[] = [
   }
 
   .skill-chip:hover {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px);
     border-color: var(--icon-color);
-    box-shadow: 0 4px 14px color-mix(in oklab, var(--icon-color) 20%, transparent);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
   }
 </style>

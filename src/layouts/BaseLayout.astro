@@ -2,9 +2,9 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import A11yMenu from '../components/A11yMenu.astro';
 import Lightbox from '../components/Lightbox.astro';
 import { translations } from '../i18n/translations';
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   title?: string;
@@ -12,20 +12,20 @@ interface Props {
 }
 
 const {
-  title = 'Pedro Paiva Ferreira — Desenvolvedor Web Full-Stack',
-  description = 'Portfólio de Pedro Paiva Ferreira — desenvolvedor web full-stack construindo produtos reais em React, Node.js e TypeScript.',
+  title = 'Pedro Paiva Ferreira — Desenvolvedor Web & Soluções Full-Stack',
+  description = 'Portfólio de Pedro Paiva Ferreira — desenvolvimento de sistemas web sob medida, automações desktop, SaaS e landing pages de alta conversão.',
 } = Astro.props;
 
 const i18nJson = JSON.stringify(translations);
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#f8fafc" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -39,6 +39,18 @@ const i18nJson = JSON.stringify(translations);
     <meta property="og:description" content={description} />
     <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
+
+    <!-- Theme restore script before render to avoid FOUC -->
+    <script is:inline>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.dataset.theme = saved;
+        } else {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <script is:inline set:html={`window.__I18N__ = ${i18nJson};`}></script>
   </head>
   <body>
@@ -49,19 +61,20 @@ const i18nJson = JSON.stringify(translations);
     </main>
     <Footer />
 
-    <A11yMenu />
     <Lightbox />
 
-    <aside
-      class="section-indicator"
-      data-section-indicator
-      aria-hidden="true"
+    <!-- Persistent Floating WhatsApp Button for Instant Lead Conversion -->
+    <a
+      href="https://wa.me/5532984019757?text=Ol%C3%A1%20Pedro%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento"
+      target="_blank"
+      rel="noopener"
+      class="floating-wa-btn"
+      aria-label="Falar no WhatsApp"
+      title="Falar no WhatsApp"
     >
-      <span class="si-dot"></span>
-      <span class="si-num">01</span>
-      <span class="si-sep">/</span>
-      <span class="si-name">início</span>
-    </aside>
+      <Icon name="simple-icons:whatsapp" width="26" height="26" />
+      <span class="wa-tooltip">Solicitar Orçamento</span>
+    </a>
 
     <script>
       // --- i18n: runtime language switching ---
@@ -80,7 +93,7 @@ const i18nJson = JSON.stringify(translations);
         return 'pt';
       };
 
-      // Safe HTML renderer: only allows <strong> and <em>. No innerHTML.
+      // Safe HTML renderer: only allows <strong> and <em>.
       const applySafeHtml = (el: Element, html: string) => {
         while (el.firstChild) el.removeChild(el.firstChild);
         const re = /<(strong|em)>([\s\S]*?)<\/\1>/g;
@@ -120,11 +133,6 @@ const i18nJson = JSON.stringify(translations);
           if (key && dict[key] !== undefined) el.setAttribute('aria-label', dict[key]);
         });
 
-        document.querySelectorAll<HTMLElement>('[data-i18n-title]').forEach((el) => {
-          const key = el.dataset.i18nTitle;
-          if (key && dict[key] !== undefined) el.setAttribute('title', dict[key]);
-        });
-
         const t = dict['doc.title'];
         if (t) document.title = t;
         const meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
@@ -149,7 +157,7 @@ const i18nJson = JSON.stringify(translations);
           });
         });
 
-      // --- Reveal on scroll (works for .reveal, .rise, .mask-rise) ---
+      // --- Reveal on scroll ---
       const revealObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -159,11 +167,11 @@ const i18nJson = JSON.stringify(translations);
             }
           });
         },
-        { threshold: 0, rootMargin: '0px 0px -90px 0px' }
+        { threshold: 0, rootMargin: '0px 0px -80px 0px' }
       );
 
       document
-        .querySelectorAll('.reveal, .rise, .mask-rise')
+        .querySelectorAll('.reveal, .rise')
         .forEach((el) => revealObserver.observe(el));
 
       // --- Nav compaction on scroll ---
@@ -176,78 +184,55 @@ const i18nJson = JSON.stringify(translations);
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
       }
-
-      // --- Count-up animation (runs when stat enters viewport) ---
-      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-      const animateCount = (el: HTMLElement) => {
-        const target = parseFloat(el.dataset.count || '0');
-        const suffix = el.dataset.suffix || '';
-        const duration = 1800;
-        const start = performance.now();
-        const step = (now: number) => {
-          const t = Math.min((now - start) / duration, 1);
-          const value = Math.round(target * easeOutCubic(t));
-          el.textContent = value + suffix;
-          if (t < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      };
-
-      const countObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              animateCount(entry.target as HTMLElement);
-              countObserver.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-
-      document
-        .querySelectorAll<HTMLElement>('[data-count]')
-        .forEach((el) => countObserver.observe(el));
-
-      // --- Section indicator (fixed bottom-right) ---
-      const indicator = document.querySelector('[data-section-indicator]');
-      if (indicator) {
-        const numEl = indicator.querySelector('.si-num') as HTMLElement;
-        const nameEl = indicator.querySelector('.si-name') as HTMLElement;
-
-        const sections: { el: HTMLElement; num: string; name: string }[] = [
-          { num: '01', name: 'início' },
-          { num: '02', name: 'sobre' },
-          { num: '03', name: 'skills' },
-          { num: '04', name: 'projetos' },
-          { num: '05', name: 'github' },
-          { num: '06', name: 'contato' },
-        ]
-          .map((s, i) => {
-            const ids = ['top', 'sobre', 'skills', 'projetos', 'github', 'contato'];
-            const el = document.getElementById(ids[i]);
-            return el ? { el, ...s } : null;
-          })
-          .filter(Boolean) as any;
-
-        let current = '';
-        const updateIndicator = () => {
-          const y = window.scrollY + window.innerHeight * 0.35;
-          let active = sections[0];
-          for (const s of sections) {
-            if (s.el.offsetTop <= y) active = s;
-          }
-          if (active && active.num !== current) {
-            current = active.num;
-            numEl.textContent = active.num;
-            nameEl.textContent = active.name;
-          }
-          if (window.scrollY > 120) indicator.classList.add('is-on');
-          else indicator.classList.remove('is-on');
-        };
-        window.addEventListener('scroll', updateIndicator, { passive: true });
-        updateIndicator();
-      }
     </script>
   </body>
 </html>
+
+<style is:global>
+  .floating-wa-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 55;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #031e0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-decoration: none;
+  }
+
+  .floating-wa-btn:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
+  }
+
+  .wa-tooltip {
+    position: absolute;
+    right: 62px;
+    background: var(--bg-elev);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateX(6px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .floating-wa-btn:hover .wa-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>

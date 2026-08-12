@@ -1,0 +1,161 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { Icon } from 'astro-icon/components';
+
+const steps = [
+  {
+    num: '01',
+    titleKey: 'process.step1.title',
+    title: 'Briefing & Alinhamento',
+    descKey: 'process.step1.desc',
+    desc: 'Entendo o seu negócio, os objetivos da empresa e mapeio todas as funcionalidades necessárias para garantir o melhor ROI.',
+    icon: 'lucide:message-square-code'
+  },
+  {
+    num: '02',
+    titleKey: 'process.step2.title',
+    title: 'Arquitetura & Design',
+    descKey: 'process.step2.desc',
+    desc: 'Definição da estrutura visual e técnica da aplicação antes de escrever o código. Zero surpresas durante o projeto.',
+    icon: 'lucide:pen-tool'
+  },
+  {
+    num: '03',
+    titleKey: 'process.step3.title',
+    title: 'Desenvolvimento Ágil',
+    descKey: 'process.step3.desc',
+    desc: 'Construção com stack moderna (React, Node, Supabase, Electron), código limpo, testes contínuos e prévias para acompanhamento.',
+    icon: 'lucide:code-2'
+  },
+  {
+    num: '04',
+    titleKey: 'process.step4.title',
+    title: 'Publicação & Suporte',
+    descKey: 'process.step4.desc',
+    desc: 'Deploy em produção (domínio, servidor, loja/download), treinamento de uso e assistência técnica contínua pós-entrega.',
+    icon: 'lucide:rocket'
+  }
+];
+---
+
+<section id="processo" class="section section-alt">
+  <div class="container-page">
+    <SectionTitle
+      eyebrow="Como funciona"
+      title="Um processo claro e sem surpresas do início ao fim"
+      lead="Transparência total em cada etapa do desenvolvimento para você focar no crescimento da sua empresa."
+      eyebrowKey="process.eyebrow"
+      titleKey="process.title"
+      leadKey="process.lead"
+    />
+
+    <div class="process-grid">
+      {steps.map((s, i) => (
+        <div class="process-step reveal" style={`--reveal-delay: ${i * 90}ms`}>
+          <div class="step-num-wrap">
+            <span class="step-num">{s.num}</span>
+            <span class="step-icon">
+              <Icon name={s.icon} width="20" height="20" />
+            </span>
+          </div>
+
+          <h3 class="step-title" data-i18n={s.titleKey}>{s.title}</h3>
+          <p class="step-desc" data-i18n={s.descKey}>{s.desc}</p>
+
+          {i < steps.length - 1 && (
+            <div class="step-connector" aria-hidden="true"></div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
+  }
+
+  .section-alt {
+    background: rgba(255, 255, 255, 0.015);
+    border-y: 1px solid var(--border);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    position: relative;
+  }
+
+  @media (min-width: 640px) {
+    .process-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .process-step {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 1.1rem;
+    padding: 1.6rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .process-step:hover {
+    transform: translateY(-4px);
+    border-color: rgba(16, 185, 129, 0.4);
+  }
+
+  .step-num-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+
+  .step-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 0.55rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-light);
+  }
+
+  .step-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .step-connector {
+    display: none;
+  }
+</style>

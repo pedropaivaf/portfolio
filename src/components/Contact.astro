@@ -1,18 +1,51 @@
 ---
 import { Icon } from 'astro-icon/components';
 
-const methods = [
+const options = [
   {
-    icon: 'lucide:mail',
-    label: 'Email',
-    value: 'contato.pedropaivaf@outlook.com',
-    href: 'mailto:contato.pedropaivaf@outlook.com',
+    id: 'site',
+    icon: 'lucide:globe',
+    title: 'Site ou Landing Page',
+    sub: 'Para apresentar minha empresa e atrair mais clientes',
+    msg: 'Ol%C3%A1%20Pedro%2C%20tenho%20interesse%20em%20criar%20um%20Site%20ou%20Landing%20Page',
+    active: true,
   },
   {
-    icon: 'lucide:message-circle',
-    label: 'WhatsApp',
+    id: 'automacao',
+    icon: 'lucide:bot',
+    title: 'Automação & Robôs',
+    sub: 'Para eliminar tarefas repetitivas e economizar tempo',
+    msg: 'Ol%C3%A1%20Pedro%2C%20tenho%20interesse%20em%20Automatizar%20processos%20na%20minha%20empresa',
+  },
+  {
+    id: 'gestao',
+    icon: 'lucide:layout-dashboard',
+    title: 'Sistema de Gestão Interno',
+    sub: 'Para controlar clientes, estoque, caixa e operações',
+    msg: 'Ol%C3%A1%20Pedro%2C%20tenho%20interesse%20em%20desenvolver%20um%20Sistema%20de%20Gesta%C3%A7%C3%A3o',
+  },
+  {
+    id: 'ideia',
+    icon: 'lucide:lightbulb',
+    title: 'Ideia Nova / Do Zero',
+    sub: 'Para criar um aplicativo ou plataforma sob medida',
+    msg: 'Ol%C3%A1%20Pedro%2C%20tenho%20uma%20ideia%20nova%20e%20quero%20desenvolver%20um%20projeto%20sob%20medida',
+  },
+];
+
+const methods = [
+  {
+    icon: 'simple-icons:whatsapp',
+    label: 'WhatsApp (Resposta Rápida)',
     value: '+55 32 98401-9757',
-    href: 'https://wa.me/5532984019757?text=Ol%C3%A1%20Pedro%2C%20quero%20conversar%20sobre%20um%20projeto',
+    href: 'https://wa.me/5532984019757?text=Ol%C3%A1%20Pedro%2C%20tenho%20interesse%20em%20criar%20um%20Site%20ou%20Landing%20Page',
+    isPrimary: true,
+  },
+  {
+    icon: 'lucide:mail',
+    label: 'Email Profissional',
+    value: 'contato.pedropaivaf@outlook.com',
+    href: 'mailto:contato.pedropaivaf@outlook.com',
   },
   {
     icon: 'lucide:linkedin',
@@ -33,30 +66,57 @@ const methods = [
   <div class="container-page">
     <div class="contact-card reveal">
       <div class="contact-head">
-        <span class="eyebrow" data-i18n="contact.eyebrow">// 05 — contato</span>
-        <h2 class="h-section" data-i18n="contact.title">Vamos construir algo juntos?</h2>
+        <span class="eyebrow" data-i18n="contact.eyebrow">Vamos conversar?</span>
+        <h2 class="h-section" data-i18n="contact.title">Pronto para tirar o seu projeto do papel?</h2>
         <p class="contact-lead" data-i18n="contact.lead">
-          Estou disponível para novos projetos e oportunidades. Vamos conversar.
+          Seja para desenvolver um sistema novo do zero, automatizar processos na sua empresa ou criar uma landing page de alta conversão, estou pronto para te atender.
         </p>
       </div>
 
+      <!-- Human-Centered Objective Cards Selector -->
+      <div class="project-selector-wrap">
+        <p class="selector-label">Qual o seu objetivo principal no momento?</p>
+        <div class="selector-grid" id="project-options">
+          {options.map((opt) => (
+            <button
+              type="button"
+              class:list={['target-card', opt.active && 'active']}
+              data-msg={opt.msg}
+            >
+              <div class="tc-header">
+                <span class="tc-icon">
+                  <Icon name={opt.icon} width="22" height="22" />
+                </span>
+                <span class="tc-radio" aria-hidden="true">
+                  <Icon name="lucide:check" width="14" height="14" class="tc-check" />
+                </span>
+              </div>
+              <div class="tc-body">
+                <strong class="tc-title">{opt.title}</strong>
+                <span class="tc-sub">{opt.sub}</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div class="contact-grid">
-        {methods.map((m, i) => (
+        {methods.map((m) => (
           <a
             href={m.href}
             target={m.href.startsWith('http') ? '_blank' : undefined}
             rel="noopener"
-            class="contact-item reveal"
-            style={`--reveal-delay: ${150 + i * 90}ms`}
+            class:list={['contact-item', m.isPrimary && 'is-primary']}
+            id={m.isPrimary ? 'primary-wa-link' : undefined}
           >
             <span class="contact-icon">
-              <Icon name={m.icon} width="18" height="18" />
+              <Icon name={m.icon} width="20" height="20" />
             </span>
             <div class="contact-text">
               <span class="contact-label">{m.label}</span>
               <span class="contact-value">{m.value}</span>
             </div>
-            <Icon name="lucide:arrow-up-right" width="16" height="16" class="contact-arrow" />
+            <Icon name="lucide:arrow-up-right" width="18" height="18" class="contact-arrow" />
           </a>
         ))}
       </div>
@@ -64,79 +124,178 @@ const methods = [
   </div>
 </section>
 
+<script>
+  const cards = document.querySelectorAll<HTMLButtonElement>('#project-options .target-card');
+  const waLink = document.querySelector<HTMLAnchorElement>('#primary-wa-link');
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      cards.forEach((c) => c.classList.remove('active'));
+      card.classList.add('active');
+      const msg = card.dataset.msg;
+      if (waLink && msg) {
+        waLink.href = `https://wa.me/5532984019757?text=${msg}`;
+      }
+    });
+  });
+</script>
+
 <style>
-  .section { padding: clamp(3.5rem, 9vw, 6rem) 0; }
+  .section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
 
   .contact-card {
-    background: var(--bg-code);
-    color: var(--text-inverse);
-    border-radius: 1.1rem;
-    padding: 1.5rem 1.25rem;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: clamp(1.5rem, 5vw, 3.25rem);
     position: relative;
     overflow: hidden;
-    border: 1px solid color-mix(in oklab, white 8%, transparent);
     box-shadow: var(--shadow-lg);
-  }
-
-  @media (min-width: 560px) {
-    .contact-card {
-      padding: 2rem 1.75rem;
-      border-radius: 1.25rem;
-    }
-  }
-
-  @media (min-width: 900px) {
-    .contact-card {
-      padding: 3.25rem;
-    }
   }
 
   .contact-card::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 42px 42px;
-    mask-image: radial-gradient(ellipse 70% 60% at 30% 30%, black 30%, transparent 100%);
-    pointer-events: none;
-  }
-
-  .contact-card::after {
-    content: '';
-    position: absolute;
     top: -100px;
     right: -100px;
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle, #22c55e, transparent 70%);
-    opacity: 0.25;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
     pointer-events: none;
-    filter: blur(20px);
+    filter: blur(40px);
   }
 
   .contact-head {
     position: relative;
     z-index: 1;
-    margin-bottom: 2.25rem;
-    max-width: 36rem;
-  }
-
-  .contact-head .eyebrow {
-    color: #94a3b8;
+    margin-bottom: 2rem;
+    max-width: 38rem;
   }
 
   .contact-head .h-section {
-    color: #ffffff;
+    color: var(--text);
     margin-top: 0.5rem;
   }
 
   .contact-lead {
-    color: #cbd5e1;
+    color: var(--text-muted);
     margin-top: 0.85rem;
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .project-selector-wrap {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 2.25rem;
+  }
+
+  .selector-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .selector-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 640px) {
+    .selector-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .target-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.15rem 1.25rem;
+    border-radius: 0.9rem;
+    background: var(--bg-elev-hover);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.25s ease;
+  }
+
+  .tc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 0.55rem;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent);
+    transition: all 0.2s ease;
+  }
+
+  .tc-radio {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .tc-check {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+    color: #ffffff;
+  }
+
+  .tc-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .tc-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .tc-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .target-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .target-card.active {
+    background: var(--option-active-bg);
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+  }
+
+  .target-card.active .tc-radio {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .target-card.active .tc-check {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .contact-grid {
@@ -144,7 +303,7 @@ const methods = [
     z-index: 1;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 
   @media (min-width: 640px) {
@@ -156,38 +315,46 @@ const methods = [
   .contact-item {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    padding: 0.9rem 1rem;
-    border-radius: 0.7rem;
-    border: 1px solid color-mix(in oklab, white 10%, transparent);
-    background: color-mix(in oklab, white 4%, transparent);
-    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    min-width: 0;
-  }
-
-  @media (min-width: 560px) {
-    .contact-item {
-      gap: 1rem;
-      padding: 1.05rem 1.2rem;
-    }
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: 0.85rem;
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+    transition: all 0.2s ease;
+    text-decoration: none;
   }
 
   .contact-item:hover {
     transform: translateY(-2px);
     border-color: var(--accent);
-    background: color-mix(in oklab, var(--accent) 12%, transparent);
+    background: var(--bg-elev-hover);
+  }
+
+  .contact-item.is-primary {
+    background: rgba(37, 211, 102, 0.1);
+    border-color: rgba(37, 211, 102, 0.35);
+  }
+
+  .contact-item.is-primary:hover {
+    background: rgba(37, 211, 102, 0.18);
+    border-color: #25d366;
   }
 
   .contact-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 0.5rem;
-    background: color-mix(in oklab, white 8%, transparent);
+    width: 42px;
+    height: 42px;
+    border-radius: 0.6rem;
+    background: rgba(16, 185, 129, 0.1);
     color: var(--accent);
     flex-shrink: 0;
+  }
+
+  .contact-item.is-primary .contact-icon {
+    background: rgba(37, 211, 102, 0.18);
+    color: #25d366;
   }
 
   .contact-text {
@@ -198,34 +365,24 @@ const methods = [
   }
 
   .contact-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #94a3b8;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
   }
 
   .contact-value {
-    color: #f8fafc;
-    font-size: 0.85rem;
-    font-weight: 500;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    line-height: 1.35;
-  }
-
-  @media (min-width: 560px) {
-    .contact-value {
-      font-size: 0.9rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      word-break: normal;
-    }
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .contact-arrow {
-    color: #94a3b8;
+    color: var(--text-muted);
     transition: transform 0.2s ease, color 0.2s ease;
     flex-shrink: 0;
   }
